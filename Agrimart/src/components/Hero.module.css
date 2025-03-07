@@ -1,0 +1,76 @@
+/* Hero.module.css */
+
+.heroContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  margin-top: 82px;
+
+}
+
+.mainContent {
+  width: 90%;
+  max-width: 1400px;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.productCard {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+}
+
+.productImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.productInfo h3 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.productInfo p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #27ae60;
+  margin-bottom: 10px;
+}
+
+.buyBtn {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition:  0.3s;
+}
+
+.buyBtn:hover {
+  background-color: #218c54;
+}
