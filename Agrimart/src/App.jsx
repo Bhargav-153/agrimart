@@ -1,24 +1,17 @@
-import React from 'react'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import Footer from './components/Footer'
-import SubNav from './components/SubNav'
-
-
+import { Route, Routes } from "react-router-dom";
+import Layout from "./layout/Layout";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup"; // ✅ Import Signup
+import { RouteIndex, RouteSignIn, RouteSignUp } from "./helpers/RouteName.js";
 
 const App = () => {
   return (
-    <div>
-   
-      <Header/>
-      <SubNav/>
-      <Hero/>
-      <Footer/>
-     
+    <Routes>
+      <Route path={RouteIndex} element={<Layout />} />
+      <Route path={RouteSignIn} element={<Login />} /> {/* ✅ Login Route */}
+      <Route path={RouteSignUp} element={<Signup />} /> {/* ✅ Sign Up Route */}
+    </Routes>
+  );
+};
 
-
-    </div>
-  )
-}
-
-export default App
+export default App;
