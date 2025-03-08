@@ -1,108 +1,85 @@
 .loginContainer {
-    min-height: calc(100vh - 120px);
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 4rem;
-    background-color: #f5f7fa;
-}
-
-.loginBox {
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .loginBox {
+    width: 400px;
+    padding: 2rem;
     background: white;
-    padding: 2.5rem;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 400px;
-    margin-top: 30px;
-}
-
-.loginBox h2 {
-    color: #1a2a3a;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
-}
-
-.formGroup {
-    position: relative;
-    margin-bottom: 1.5rem;
-}
-
-.formGroup i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #666;
-}
-
-.formGroup input {
-    width: 100%;
-    padding: 12px 45px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-.formGroup input:focus {
-    outline: none;
-    border-color: #4CAF50;
-}
-
-.formOptions {
+  }
+  
+  .heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .googleLogin {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .separator {
+    margin: 0.3rem 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    color: #888;
+  }
+  
+  .separator::before,
+  .separator::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+    margin: 0 5px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
+  .inputField {
+    text-align: left;
+  }
+  
+  .submitButton {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .submitButton button {
+    width: 100%;
+  }
+  
+  .signUpText {
+    margin-top: 1rem;
     font-size: 0.9rem;
-}
-
-.formOptions label {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #666;
-}
-
-.forgotPassword {
-    color: #4CAF50;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .signUpLink {
+    color: #007bff;
     text-decoration: none;
-}
-
-.forgotPassword:hover {
+    font-weight: bold;
+  }
+  
+  .signUpLink:hover {
     text-decoration: underline;
-}
-
-.loginSubmit {
-    width: 100%;
-    padding: 12px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.loginSubmit:hover {
-    background-color: #45a049;
-}
-
-.signupText {
-    margin-top: 1.5rem;
-    text-align: center;
-    color: #666;
-}
-
-.signupText a {
-    color: #4CAF50;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.signupText a:hover {
-    text-decoration: underline;
-}
+  }
