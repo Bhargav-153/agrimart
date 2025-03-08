@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 
 
 
-const GoogleLogin = () => {
+const GoggleLogin = () => {
     
   return (
     <Button variant="outline" className="w-full" >
@@ -14,4 +14,4 @@ const GoogleLogin = () => {
   )
 }
 
-export default GoogleLogin
+export default GoggleLogin
