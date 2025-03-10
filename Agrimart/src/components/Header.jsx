@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
 import { FaUser, FaLeaf } from "react-icons/fa";
-import { RouteSignIn } from "../helpers/RouteName.js";
+import { RouteAboutUs, RouteSignIn } from "@/helpers/RouteName.js";
+import { RouteContactUs } from "@/helpers/RouteName";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,12 +32,12 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/about" className={({ isActive }) => (isActive ? styles.active : "")}>
+              <NavLink to={RouteAboutUs} className={({ isActive }) => (isActive ? styles.active : "")}>
                 About Us
               </NavLink>
             </li>
             <li>
-              <NavLink to="/contact" className={({ isActive }) => (isActive ? styles.active : "")}>
+              <NavLink to={RouteContactUs} className={({ isActive }) => (isActive ? styles.active : "")}>
                 Contact Us
               </NavLink>
             </li>

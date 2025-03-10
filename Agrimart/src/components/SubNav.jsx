@@ -5,7 +5,9 @@ import {
   FaTractor, FaAppleAlt, FaCloudSun, FaLandmark, FaPlusCircle, FaUserCircle
 } from "react-icons/fa";
 import styles from "./SubNav.module.css";
-import { FaSearch } from "react-icons/fa";
+import { RouteProfile } from "@/helpers/RouteName";
+import { RouteRegistration } from "@/helpers/RouteName";
+import { RouteSchemes } from "@/helpers/RouteName";
 
 
 const SubNav = () => {
@@ -99,13 +101,13 @@ const SubNav = () => {
             </Link>
           </li>
           <li>
-            <Link to="/schemes" className={styles.navLink}>
+            <Link to={RouteSchemes} className={styles.navLink}>
               <FaLandmark />
               Gov. Schemes
             </Link>
           </li>
           <li>
-            <Link to="/add-product" className={styles.navLink}>
+            <Link to={RouteRegistration} className={styles.navLink}>
               <FaPlusCircle />
               Add Product
             </Link>
@@ -120,7 +122,7 @@ const SubNav = () => {
 
 
           <li>
-            <Link to="/profile" className={styles.navLink}>
+            <Link to={RouteProfile} className={styles.navLink}>
               <FaUserCircle />
               Profile
             </Link>

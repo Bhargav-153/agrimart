@@ -1,0 +1,149 @@
+.mainContent {
+    display: flex;
+    justify-content: center;
+    padding: 7rem;
+    background-color: #f8f9fa;
+}
+
+.formContainer {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.formTitle {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.formSection {
+    margin-bottom: 1.5rem;
+}
+
+.formSection h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    border-bottom: 2px solid #27ae60;
+    padding-bottom: 0.5rem;
+}
+
+.formGroup {
+    margin-bottom: 1rem;
+}
+
+.formGroup label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #34495e;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #27ae60;
+    outline: none;
+}
+
+.formRow {
+    display: flex;
+    gap: 1rem;
+}
+
+.formRow .formGroup {
+    flex: 1;
+}
+
+.imageUploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    border: 2px dashed #27ae60;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    transition: border 0.3s;
+}
+
+.imageUploadContainer:hover {
+    border-color: #2ecc71;
+}
+
+.imagePreview {
+    width: 100%;
+    max-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.imagePreview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 5px;
+}
+
+.uploadPlaceholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #7f8c8d;
+}
+
+.uploadPlaceholder p {
+    margin-top: 0.5rem;
+}
+
+.formActions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.submitBtn, .resetBtn {
+    flex: 1;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submitBtn {
+    background-color: #27ae60;
+    color: white;
+    margin-right: 0.5rem;
+}
+
+.submitBtn:hover {
+    background-color: #219150;
+}
+
+.resetBtn {
+    background-color: #e74c3c;
+    color: white;
+    margin-left: 0.5rem;
+}
+
+.resetBtn:hover {
+    background-color: #c0392b;
+}

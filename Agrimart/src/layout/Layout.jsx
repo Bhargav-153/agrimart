@@ -11,12 +11,8 @@ const Layout = () => {
       <Header />
       <SubNav />
       <Hero />
-      <main className=" w-full">
-        <div className="w-full min-h-[calc(100vh-50px)] py-28 px-10">
-        </div>
-
-        <Footer />
-      </main>
+      <Footer />
+      
     </>
   );
 };
