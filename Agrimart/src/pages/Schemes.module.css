@@ -1,0 +1,77 @@
+.schemesContainer {
+    margin-top: 6rem;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.pageTitle {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.schemesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.schemeCard {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.schemeCard:hover {
+    transform: translateY(-5px);
+}
+
+.schemeIcon {
+    font-size: 2em;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.schemeInfo h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.schemeInfo p {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.schemeDetails {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.schemeDetails li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.schemeDetails li .faCheck {
+    margin-right: 5px;
+    color: #4CAF50;
+}
+
+.applyBtn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.applyBtn:hover {
+    background-color: #45a049;
+}

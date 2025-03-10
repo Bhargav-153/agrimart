@@ -1,0 +1,191 @@
+.mainContent {
+    margin-top: 5rem;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.profileContainer {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.profileSidebar {
+    width: 250px;
+    background: #2c3e50;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userAvatar {
+    margin-bottom: 10px;
+}
+
+.userName {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color:#edf4ff;
+}
+
+.userEmail {
+    font-size: 14px;
+    color: #bdc3c7;
+}
+
+.profileNav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.profileNav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+}
+
+.profileNav a:hover, .profileNav .active {
+    background: #1abc9c;
+}
+
+.profileContent {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+.profileSection {
+    display: none;
+}
+h2{
+    color: #333;
+    font-weight: bold;
+}
+
+.profileSection.active {
+    display: block;
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.infoItem {
+    background: #ecf0f1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.infoItem label {
+    font-weight: bold;
+    display: block;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.ordersList, .wishlistGrid {
+    margin-top: 20px;
+}
+
+.orderCard {
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.orderHeader {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.orderItems {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.orderDetails h3 {
+    margin: 5px 0;
+}
+
+.price {
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.wishlistCard {
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.wishlistInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.addToCart {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.addToCart:hover {
+    background: #27ae60;
+}
+
+.removeWishlist {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #e74c3c;
+}
+
+.removeWishlist:hover {
+    color: #c0392b;
+}
+
+@media (max-width: 768px) {
+    .profileContainer {
+        flex-direction: column;
+    }
+
+    .profileSidebar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .infoGrid {
+        grid-template-columns: 1fr;
+    }
+}

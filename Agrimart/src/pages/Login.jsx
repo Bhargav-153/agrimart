@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import SubNav from "@/components/SubNav";
 import { Button } from "@/components/ui/button";
@@ -19,8 +19,15 @@ import { Card } from "@/components/ui/card";
 import GoogleLogin from "@/components/GoggleLogin";
 import styles from "./Login.module.css";
 import { RouteSignUp } from "@/helpers/RouteName";
+import { RouteIndex } from "@/helpers/RouteName";
+import { getEnv } from "@/helpers/getEnv";
+import { showToast } from "@/helpers/showToast";
+import Footer from "@/components/Footer";
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
   const formSchema = z.object({
     email: z.string().email(),
     password: z.string().min(3, "Password field required"),
@@ -34,10 +41,33 @@ const Login = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("Login Data:", data);
-  };
+  async function onSubmit(values) {
+    try {
+      const response = await fetch(
+        `${getEnv("VITE_API_BASE_URL")}/auth/login`, // Ensure backend is correctly set
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: 'include',
+          body: JSON.stringify({
+            name: values.name,
+            email: values.email,
+            password: values.password,
+          }),
+        }
+      );
 
+      const data = await response.json();
+      if (!response.ok) {
+        return showToast("error", data.message);
+      }
+
+      navigate(RouteIndex);
+      showToast("success", data.message);
+    } catch (error) {
+      showToast("error", error.message);
+    }
+  }
   return (
     <>
       <Header />
@@ -52,7 +82,10 @@ const Login = () => {
             </div>
           </div>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className={styles.formGroup}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className={styles.formGroup}
+            >
               <div className={styles.inputField}>
                 <FormField
                   control={form.control}
@@ -76,7 +109,11 @@ const Login = () => {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="Enter your password" {...field} />
+                        <Input
+                          type="password"
+                          placeholder="Enter your password"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -96,6 +133,7 @@ const Login = () => {
           </Form>
         </Card>
       </div>
+      <Footer />
     </>
   );
 };

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,23 +19,29 @@ import GoggleLogin from "@/components/GoggleLogin";
 import { RouteSignIn } from "@/helpers/RouteName.js"; // Import RouteSignIn
 import Header from "@/components/Header";
 import SubNav from "@/components/SubNav";
+import { getEnv } from "@/helpers/getEnv";
+import { showToast } from "@/helpers/showToast";
+import Footer from "@/components/Footer";
 
 // Validation Schema
-const formSchema = z
-  .object({
-    name: z.string().min(3, "Name must be at least 3 characters long"),
-    email: z.string().email("Invalid email format"),
-    password: z.string().min(8, "Password must be at least 8 characters long"),
-    confirmPassword: z
-      .string()
-      .min(8, "Password must be at least 8 characters long"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
-
 const Signup = () => {
+  const navigate = useNavigate();
+  const formSchema = z
+    .object({
+      name: z.string().min(3, "Name must be at least 3 characters long"),
+      email: z.string().email("Invalid email format"),
+      password: z
+        .string()
+        .min(8, "Password must be at least 8 characters long"),
+      confirmPassword: z
+        .string()
+        .min(8, "Password must be at least 8 characters long"),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+    });
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,6 +51,33 @@ const Signup = () => {
       confirmPassword: "",
     },
   });
+
+  async function onSubmit(values) {
+    try {
+      const response = await fetch(
+        `${getEnv("VITE_API_BASE_URL")}/auth/register`, // Ensure backend is correctly set
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: values.name,
+            email: values.email,
+            password: values.password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      if (!response.ok) {
+        return showToast("error", data.message);
+      }
+
+      navigate(RouteSignIn);
+      showToast("success", data.message);
+    } catch (error) {
+      showToast("error", error.message);
+    }
+  }
 
   return (
     <>
@@ -59,7 +92,7 @@ const Signup = () => {
           </div>
 
           <Form {...form}>
-            <form>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className={styles.formGroup}>
                 <FormField
                   control={form.control}
@@ -151,6 +184,7 @@ const Signup = () => {
           </Form>
         </Card>
       </div>
+      <Footer />
     </>
   );
 };
