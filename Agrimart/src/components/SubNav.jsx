@@ -8,6 +8,7 @@ import styles from "./SubNav.module.css";
 import { RouteProfile } from "@/helpers/RouteName";
 import { RouteRegistration } from "@/helpers/RouteName";
 import { RouteSchemes } from "@/helpers/RouteName";
+import { RouteWeather } from "@/helpers/RouteName";
 
 
 const SubNav = () => {
@@ -89,7 +90,7 @@ const SubNav = () => {
 
           {/* Other Nav Links */}
           <li>
-            <Link to="/weather" className={styles.navLink}>
+            <Link to={RouteWeather} className={styles.navLink}>
               <FaCloudSun />
               Weather
             </Link>
