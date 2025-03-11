@@ -7,3 +7,5 @@ export const RouteProfile = "/profile";
 export const RouteRegistration = "/farmer-registration";
 export const RouteAddProduct = "/add-product";
 export const RouteSchemes = "/gov-schemes";
+export const RouteWeather = "/weather";
+
