@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import styles from "./SubNav.module.css";
 import { RouteProfile, RouteRegistration, RouteSchemes } from "@/helpers/RouteName";
+import { RouteWeather } from "@/helpers/RouteName";
 
 const SubNav = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -58,12 +59,42 @@ const SubNav = () => {
           </li>
 
           {/* Other Nav Links */}
-          <li><Link to="/weather" className={styles.navLink}><FaCloudSun /> Weather</Link></li>
-          <li><Link to="/nursery" className={styles.navLink}><FaSeedling /> Nursery</Link></li>
-          <li><Link to={RouteSchemes} className={styles.navLink}><FaLandmark /> Gov. Schemes</Link></li>
-          <li><Link to={RouteRegistration} className={styles.navLink}><FaPlusCircle /> Add Product</Link></li>
-          <li><Link to="farm-products" className={styles.navLink}><FaPlusCircle /> Farm Products</Link></li>
-          <li><Link to={RouteProfile} className={styles.navLink}><FaUserCircle /> Profile</Link></li>
+          <li>
+            <Link to={RouteWeather} className={styles.navLink}>
+              <FaCloudSun />
+              Weather
+            </Link>
+          </li>
+          <li>
+            <Link to="/nursey" className={styles.navLink}>
+              <FaSeedling />
+              Nursery
+            </Link>
+          </li>
+          <li>
+            <Link to={RouteSchemes} className={styles.navLink}>
+              <FaLandmark />
+              Gov. Schemes
+            </Link>
+          </li>
+          <li>
+            <Link to={RouteRegistration} className={styles.navLink}>
+              <FaPlusCircle />
+              Add Product
+            </Link>
+          </li>
+          <li>
+            <Link to="/farm-product" className={styles.navLink}>
+              <FaPlusCircle />
+              Farm Product
+            </Link>
+          </li>
+          <li>
+            <Link to={RouteProfile} className={styles.navLink}>
+              <FaUserCircle />
+              Profile
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
