@@ -1,5 +1,5 @@
 .schemesContainer {
-    margin-top: 6rem;
+    
     padding: 20px;
     background-color: #f9f9f9;
 }
@@ -8,6 +8,8 @@
     text-align: center;
     font-size: 2em;
     margin-bottom: 20px;
+    background-color: #1f2937;
+    color: white;
 }
 
 .schemesGrid {
