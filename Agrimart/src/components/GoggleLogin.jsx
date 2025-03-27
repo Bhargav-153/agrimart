@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { getEnv } from "@/helpers/getEnv";
 import { showToast } from "@/helpers/showToast.js";
-import { RouteIndex } from "@/helpers/RouteName.js"; // Import RouteIndex
-import { auth, provider } from "@/helpers/firebase.js"; // Ensure you have these imports
+import { RouteIndex } from "@/helpers/RouteName.js"; 
+import { auth, provider } from "@/helpers/firebase.js"; 
 
 const GoggleLogin = () => {
   const navigate = useNavigate();

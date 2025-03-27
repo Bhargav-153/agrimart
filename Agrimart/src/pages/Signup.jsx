@@ -55,7 +55,7 @@ const Signup = () => {
   async function onSubmit(values) {
     try {
       const response = await fetch(
-        `${getEnv("VITE_API_BASE_URL")}/auth/register`, // Ensure backend is correctly set
+        `${getEnv("VITE_API_BASE_URL")}/auth/register`, 
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -8,7 +8,7 @@ const AboutUs = () => {
   return (
     <>
       <Header />
-      <SubNav />
+      <SubNav/>
       <div className={styles.aboutContainer}>
         
         <h1>About Agrimart</h1>
