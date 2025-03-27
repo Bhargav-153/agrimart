@@ -5,6 +5,7 @@ import { FaSearchLocation, FaMapMarkerAlt } from "react-icons/fa";
 import { WiThermometer, WiCloud, WiStrongWind, WiHumidity } from "react-icons/wi";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SubNav from "@/components/SubNav";
 
 const Weather = () => {
   const [weather, setWeather] = useState(null);
@@ -64,7 +65,7 @@ const Weather = () => {
   return (
     <>
     <Header/>
-     
+     <SubNav />
   
     <div className={styles.weatherContainer}>
       <h2 className={styles.title}>🌤 Weather Info</h2>

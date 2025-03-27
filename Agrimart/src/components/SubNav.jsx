@@ -8,6 +8,11 @@ import {
 import styles from "./SubNav.module.css";
 import { RouteProfile, RouteRegistration, RouteSchemes } from "@/helpers/RouteName";
 import { RouteWeather } from "@/helpers/RouteName";
+import { RouteSeeds } from "@/helpers/RouteName";
+import { RouteNursery } from "@/helpers/RouteName";
+import { RouteProduct } from "@/helpers/RouteName";
+import { RouteCropProtection } from "@/helpers/RouteName";
+import { RouteCropNutrition } from "@/helpers/RouteName";
 
 const SubNav = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -50,9 +55,9 @@ const SubNav = () => {
             </button>
 
             <ul className={`${styles.dropdownMenu} ${isDropdownOpen ? styles.show : ""}`}>
-              <li><Link to="/shop/seeds"><FaSeedling /> Seeds</Link></li>
-              <li><Link to="/shop/protection"><FaShieldAlt /> Crop Protection</Link></li>
-              <li><Link to="/shop/nutrition"><FaLeaf /> Crop Nutrition</Link></li>
+              <li><Link to={RouteSeeds}><FaSeedling /> Seeds</Link></li>
+              <li><Link to={RouteCropProtection}><FaShieldAlt /> Crop Protection</Link></li>
+              <li><Link to={RouteCropNutrition}><FaLeaf /> Crop Nutrition</Link></li>
               <li><Link to="/shop/equipment"><FaTractor /> Equipment</Link></li>
               <li><Link to="/shop/organic"><FaAppleAlt /> Organic</Link></li>
             </ul> 
@@ -66,7 +71,7 @@ const SubNav = () => {
             </Link>
           </li>
           <li>
-            <Link to="/nursey" className={styles.navLink}>
+            <Link to={RouteNursery}className={styles.navLink}>
               <FaSeedling />
               Nursery
             </Link>
@@ -84,7 +89,7 @@ const SubNav = () => {
             </Link>
           </li>
           <li>
-            <Link to="/farm-product" className={styles.navLink}>
+            <Link to={RouteProduct} className={styles.navLink}>
               <FaPlusCircle />
               Farm Product
             </Link>

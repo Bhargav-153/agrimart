@@ -1,6 +1,5 @@
 import React from 'react';
-import styles from './Hero.module.css'; // Import styles correctly
-
+import styles from './Hero.module.css'; 
 import wheatSeeds from '../assets/wheat_seeds.jpg';
 import rice from '../assets/rice_seeds.jpg';
 import organic from '../assets/organic_fertilizer.jpg';

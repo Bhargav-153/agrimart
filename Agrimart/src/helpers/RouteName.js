@@ -8,4 +8,10 @@ export const RouteRegistration = "/farmer-registration";
 export const RouteAddProduct = "/add-product";
 export const RouteSchemes = "/gov-schemes";
 export const RouteWeather = "/weather";
+export const RouteSeeds = "/shop/seeds";
+export const RouteCropProtection = "/shop/crop-protection";
+export const RouteCropNutrition = "/shop/crop-nutrition";
+export const RouteNursery = "/nursery";
+export const RouteProduct = "/farm-product";
+
 

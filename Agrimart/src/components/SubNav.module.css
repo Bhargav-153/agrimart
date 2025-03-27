@@ -1,8 +1,15 @@
 .subNav {
+  
   background: rgba(224, 224, 224);
-  padding: 15px 30px; /* Increased padding for a larger nav bar */
+  padding: 15px 30px; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 70px; /* Increase height */
+  height: 70px; 
+  position: fixed;
+  top: 65px;           
+  left: 0;
+  width: 100%;      
+  z-index: 1000;
+  
 }
 
 .navContainer {
@@ -10,6 +17,7 @@
   align-items: center;
   justify-content: center; 
   position: relative;
+  
 }
 
 .navItems {
@@ -19,6 +27,7 @@
   margin: 0;
   justify-content: center; 
   align-items: center;
+
 }
 
 .navItems li {
@@ -34,6 +43,10 @@
   color: #333;
   padding: 12px 16px; /* Larger padding for better touch area */
   transition: 0.3s;
+}
+.navLink:hover{
+  border:2px;
+  background-color: #c1cac1;
 }
 
 
@@ -60,7 +73,7 @@
 
 .dropdownMenu li:hover{
   border:2px;
-  background-color: #e0f1e0;
+  background-color: #d9e1d9;
 
 }
 
@@ -119,7 +132,8 @@
 
   .navLink {
     padding: 14px;
-    font-size: 20px; /* Larger text for better readability */
+    font-size: 18px; 
     width: 100%;
+    
   }
 }
