@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup"; 
+import Home from "./components/Home";
 import { RouteAboutUs, RouteAddProduct, RouteContactUs, RouteCropNutrition, RouteCropProtection, RouteIndex,  RouteNursery,  RouteProduct,  RouteProfile, RouteRegistration, RouteSchemes, RouteSeeds, RouteSignIn, RouteSignUp, RouteWeather } from "./helpers/RouteName.js";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
@@ -20,21 +21,26 @@ import CropNutrition from "./pages/CropNutrition";
 const App = () => {
   return (
     <Routes>
-      <Route path={RouteIndex} element={<Layout />} />
-      <Route path={RouteSignIn} element={<Login />} /> 
-      <Route path={RouteSignUp} element={<Signup />} /> 
-      <Route path={RouteAboutUs} element={<AboutUs />} />
-      <Route path={RouteContactUs} element={<ContactUs />} />
-      <Route path={RouteProfile} element={<Profile />} />
-      <Route path={RouteRegistration} element={<FarmerRegistration />} />
-      <Route path={RouteAddProduct} element={<AddProduct />} />
-      <Route path={RouteSchemes} element={<Schemes />} />
-      <Route path={RouteWeather} element={<Weather/>}/>
-      <Route path={RouteSeeds} element={<Seeds/>}/>
-      <Route path={RouteCropProtection} element={<CropProtection/>}/>
-      <Route path={RouteCropNutrition} element={<CropNutrition/>}/>
-      <Route path={RouteNursery} element={<Nursery/>}/>
-      <Route path={RouteProduct} element={<FarmProduct/>}/>
+
+      <Route path={RouteIndex} element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path={RouteIndex} element={<Layout />} />
+        <Route path={RouteSignIn} element={<Login />} /> 
+        <Route path={RouteSignUp} element={<Signup />} /> 
+        <Route path={RouteAboutUs} element={<AboutUs />} />
+        <Route path={RouteContactUs} element={<ContactUs />} />
+        <Route path={RouteProfile} element={<Profile />} />
+        <Route path={RouteRegistration} element={<FarmerRegistration />} />
+        <Route path={RouteAddProduct} element={<AddProduct />} />
+        <Route path={RouteSchemes} element={<Schemes />} />
+        <Route path={RouteWeather} element={<Weather/>}/>
+        <Route path={RouteSeeds} element={<Seeds/>}/>
+        <Route path={RouteCropProtection} element={<CropProtection/>}/>
+        <Route path={RouteCropNutrition} element={<CropNutrition/>}/>
+        <Route path={RouteNursery} element={<Nursery/>}/>
+        <Route path={RouteProduct} element={<FarmProduct/>}/>
+
+      </Route>
     </Routes>
     
   );
