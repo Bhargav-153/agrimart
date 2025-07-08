@@ -8,11 +8,9 @@ const AboutUs = () => {
   return (
     <>
       <Header />
-      <SubNav/>
+      <SubNav />
       <div className={styles.aboutContainer}>
-        
         <h1>About Agrimart</h1>
-        
 
         <section className={styles.content}>
           <p>
@@ -42,9 +40,9 @@ const AboutUs = () => {
           <h2>Contact Us</h2>
           <p>If you have any inquiries, feel free to reach out to us:</p>
           <ul>
-            <li>Email: info@agrimart.com</li>
-            <li>Phone: +91 98765 43210</li>
-            <li>Address: 123 Farming Street, Agri City</li>
+            <li>Email: agrimart4321@gmail.com</li>
+            <li>Phone: +91 9537276545</li>
+            <li>Address: Vadodara,Gujarat</li>
           </ul>
         </section>
       </div>
