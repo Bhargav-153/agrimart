@@ -7,8 +7,11 @@ import { getEnv } from "@/helpers/getEnv";
 import { showToast } from "@/helpers/showToast.js";
 import { RouteIndex } from "@/helpers/RouteName.js"; 
 import { auth, provider } from "@/helpers/firebase.js"; 
+import { setUser } from "@/redux/user/user.slice.js";
+import { useDispatch } from "react-redux";
 
 const GoggleLogin = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -38,6 +41,8 @@ const GoggleLogin = () => {
       }
 
       const data = await response.json();
+
+      dispatch(setUser(data.user))
       navigate(RouteIndex);
       showToast("success", data.message);
     } catch (error) {

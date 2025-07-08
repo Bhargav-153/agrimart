@@ -9,7 +9,7 @@ body {
   padding-top: 60px;
 }
 
-.mainHeader {
+.mainHeader { 
   background-color:rgb(11, 150, 11);
   padding: 10px 20px;
   display: flex;
@@ -19,6 +19,7 @@ body {
   position: fixed;
   z-index: 1000;
   justify-content: center;
+  
 }
 
 .headerContainer {
@@ -72,7 +73,26 @@ body {
 .mainNav {
   display: flex;
   align-items: center;
+  z-index: 1000;
 }
+.dropdownMenu {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  z-index: 9999;
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.2rem 1.5rem;
+  width: 220px; /* ✅ wider menu */
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  font-size: 1.5rem; /* ✅ larger text */
+  line-height: 1.6;
+  display: block;
+  gap: 2rem;
+  
+}
+
 
 
 .navList {

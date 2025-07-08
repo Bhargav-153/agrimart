@@ -5,9 +5,25 @@ import styles from "./Header.module.css";
 import { FaUser, FaLeaf } from "react-icons/fa";
 import { RouteAboutUs, RouteSignIn } from "@/helpers/RouteName.js";
 import { RouteContactUs } from "@/helpers/RouteName";
+import { useSelector } from "react-redux";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import usericon from "@/assets/user.jpg"
+import { FaRegUser } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
+
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const user = useSelector((state) => state.user)
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -42,9 +58,41 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={RouteSignIn} className={({ isActive }) => (isActive ? `${styles.loginBtn} ${styles.active}` : styles.loginBtn)}>
+              {!user.isLoggedIn ? 
+               <NavLink to={RouteSignIn} className={({ isActive }) => (isActive ? `${styles.loginBtn} ${styles.active}` : styles.loginBtn)}>
                 <FaUser className={styles.icon} /> Login
-              </NavLink>
+              </NavLink>  
+              :
+              <DropdownMenu >
+                <DropdownMenuTrigger>
+                  <Avatar>
+                    <AvatarImage src={user.user.avatar || usericon} />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className={styles.dropdownMenu}>
+                  <DropdownMenuLabel>
+                    <p>{user.user.name}</p>
+                    <p className="text-sm">{user.user.email}</p>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="">
+                      <FaRegUser />
+                      Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem asChild>
+                    <Link to="">
+                      <IoIosLogOut />
+                      Logout
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              }
+             
             </li>
           </ul>
         </nav>

@@ -23,8 +23,12 @@ import { RouteIndex } from "@/helpers/RouteName";
 import { getEnv } from "@/helpers/getEnv";
 import { showToast } from "@/helpers/showToast";
 import Footer from "@/components/Footer";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/user/user.slice.js";
 
 const Login = () => {
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -62,6 +66,7 @@ const Login = () => {
         return showToast("error", data.message);
       }
 
+      dispatch(setUser(data.user))
       navigate(RouteIndex);
       showToast("success", data.message);
     } catch (error) {
