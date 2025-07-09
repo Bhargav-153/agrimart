@@ -1,9 +1,9 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Header from '@/components/Header';
-import SubNav from '@/components/SubNav';
-import Footer from '@/components/Footer';
-import styles from './Layout.module.css'; 
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Header from "@/components/Header";
+import SubNav from "@/components/SubNav";
+import Footer from "@/components/Footer";
+import styles from "./Layout.module.css";
 
 const Layout = () => {
   return (
