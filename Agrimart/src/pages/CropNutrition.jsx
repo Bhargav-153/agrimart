@@ -155,7 +155,6 @@ const products = [
     rating: 4.3,
     reviews: 95,
   },
-  
 ];
 
 const CropNutrition = () => {
@@ -168,16 +167,24 @@ const CropNutrition = () => {
         <div className={styles.grid}>
           {products.map((product) => (
             <div key={product.id} className={styles.card}>
-              <img src={product.image} alt={product.name} className={styles.image} />
+              <img
+                src={product.image}
+                alt={product.name}
+                className={styles.image}
+              />
               <h3 className={styles.name}>{product.name}</h3>
               <p className={styles.description}>{product.description}</p>
               <p className={styles.price}>{product.price}</p>
               <div className={styles.tags}>
                 {product.tags.map((tag, index) => (
-                  <span key={index} className={styles.tag}>{tag}</span>
+                  <span key={index} className={styles.tag}>
+                    {tag}
+                  </span>
                 ))}
               </div>
-              <p className={styles.rating}>⭐ {product.rating} ({product.reviews} reviews)</p>
+              <p className={styles.rating}>
+                ⭐ {product.rating} ({product.reviews} reviews)
+              </p>
               <button className={styles.button}>Add to Cart</button>
             </div>
           ))}
