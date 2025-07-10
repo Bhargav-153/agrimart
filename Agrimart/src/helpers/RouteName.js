@@ -13,5 +13,4 @@ export const RouteCropProtection = "/shop/crop-protection";
 export const RouteCropNutrition = "/shop/crop-nutrition";
 export const RouteNursery = "/nursery";
 export const RouteProduct = "/farm-product";
-
-
+export const RouteSettings = "/settings";

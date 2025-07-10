@@ -1,0 +1,37 @@
+.section {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 32px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.heading {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: #22223b;
+}
+
+.options {
+  display: flex;
+  gap: 32px;
+  margin-top: 12px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  color: #444;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  accent-color: #15803d;
+  width: 18px;
+  height: 18px;
+}

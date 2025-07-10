@@ -10,8 +10,10 @@ const Layout = () => {
     <>
       <Header />
       <SubNav />
-      <main className="w-full min-h-[calc(100vh-200px)] py-10 px-4">
-        <Outlet /> {/* This renders the current route's component */}
+      <main className="w-full">
+        <div className="w-full min-h-[calc(100vh-200px)] py-10 px-4">
+          <Outlet /> {/* This renders the current route's component */}
+        </div>
       </main>
       <Footer />
     </>

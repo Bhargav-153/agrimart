@@ -19,7 +19,7 @@ import usericon from "@/assets/user.jpg";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { removeUser } from "../redux/user/user.slice";
-import { RouteIndex } from "../helpers/RouteName";
+import { RouteIndex, RouteProfile } from "../helpers/RouteName";
 import { showToast } from "../helpers/showToast";
 import { getEnv } from "../helpers/getEnv";
 
@@ -147,7 +147,7 @@ const Header = () => {
                     </div>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild className={styles.dropdownItem}>
-                      <Link to="/profile">
+                      <Link to={RouteProfile}>
                         <FaRegUser className={styles.dropdownIcon} />
                         <span>Profile</span>
                       </Link>

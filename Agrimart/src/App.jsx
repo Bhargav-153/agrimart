@@ -16,6 +16,7 @@ import {
   RouteRegistration,
   RouteSchemes,
   RouteSeeds,
+  RouteSettings,
   RouteSignIn,
   RouteSignUp,
   RouteWeather,
@@ -32,6 +33,7 @@ import Nursery from "./pages/Nursery";
 import FarmProduct from "./pages/FramProduct";
 import CropProtection from "./pages/CropProtection";
 import CropNutrition from "./pages/CropNutrition";
+import Settings from "./pages/settings";
 
 const App = () => {
   return (
@@ -53,6 +55,7 @@ const App = () => {
         <Route path={RouteCropNutrition} element={<CropNutrition />} />
         <Route path={RouteNursery} element={<Nursery />} />
         <Route path={RouteProduct} element={<FarmProduct />} />
+        <Route path={RouteSettings} element={<Settings />} />
       </Route>
     </Routes>
   );
