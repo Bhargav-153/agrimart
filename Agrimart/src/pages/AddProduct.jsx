@@ -10,9 +10,7 @@ import {
   FaUserCircle,
   FaCloudUploadAlt,
 } from "react-icons/fa";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import SubNav from "@/components/SubNav";
+
 
 const AddProduct = () => {
   const [imagePreview, setImagePreview] = useState(null);
@@ -28,8 +26,7 @@ const AddProduct = () => {
 
   return (
     <>
-      <Header />
-      <SubNav />
+
       <main className={styles.mainContent}>
         <div className={styles.formContainer}>
           <h1 className={styles.formTitle}>Add New Product</h1>
@@ -121,7 +118,6 @@ const AddProduct = () => {
           </form>
         </div>
       </main>
-      <Footer />
     </>
   );
 };

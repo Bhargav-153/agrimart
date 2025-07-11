@@ -1,14 +1,11 @@
-import Header from "@/components/Header";
 import styles from "./AboutUs.module.css";
 import React from "react";
-import SubNav from "@/components/SubNav";
-import Footer from "@/components/Footer";
+
 
 const AboutUs = () => {
   return (
     <>
-      <Header />
-      <SubNav />
+     
       <div className={styles.aboutContainer}>
         <h1>About Agrimart</h1>
 
@@ -46,7 +43,6 @@ const AboutUs = () => {
           </ul>
         </section>
       </div>
-      <Footer />
     </>
   );
 };

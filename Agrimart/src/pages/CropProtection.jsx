@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./CropProtection.module.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import SubNav from "@/components/SubNav";
+
 
 const cropProtectionProducts = [
   {
@@ -174,8 +172,7 @@ const cropProtectionProducts = [
 const CropProtection = () => {
   return (
     <>
-      <Header />
-      <SubNav />
+
       <div className={styles.container}>
         <h2 className={styles.title}>Crop Protection Products</h2>
         <div className={styles.productsGrid}>
@@ -205,7 +202,7 @@ const CropProtection = () => {
           ))}
         </div>
       </div>
-      <Footer />
+
     </>
   );
 };

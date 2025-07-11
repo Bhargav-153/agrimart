@@ -16,9 +16,7 @@ import {
   faStore,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-import Header from "@/components/Header";
-import SubNav from "@/components/SubNav";
-import Footer from "@/components/Footer";
+
 
 const schemesData = [
   {
@@ -146,8 +144,7 @@ const schemesData = [
 const Schemes = () => {
   return (
     <>
-      <Header />
-      <SubNav />
+
       <div className={styles.schemesContainer}>
         <h1 className={styles.pageTitle}>Government Agricultural Schemes</h1>
         <div className={styles.schemesGrid}>
@@ -178,7 +175,7 @@ const Schemes = () => {
           ))}
         </div>
       </div>
-      <Footer />
+
     </>
   );
 };

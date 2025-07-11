@@ -17,11 +17,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import GoggleLogin from "@/components/GoggleLogin";
 import { RouteSignIn } from "@/helpers/RouteName.js"; // Import RouteSignIn
-import Header from "@/components/Header";
-import SubNav from "@/components/SubNav";
+
 import { getEnv } from "@/helpers/getEnv";
 import { showToast } from "@/helpers/showToast";
-import Footer from "@/components/Footer";
+
 
 // Validation Schema
 const Signup = () => {
@@ -81,8 +80,7 @@ const Signup = () => {
 
   return (
     <>
-      <Header />
-      <SubNav />
+  
       <div className={styles.container}>
         <Card className={styles.card}>
           <h1 className={styles.title}>Create your Account</h1>
@@ -184,7 +182,7 @@ const Signup = () => {
           </Form>
         </Card>
       </div>
-      <Footer />
+
     </>
   );
 };

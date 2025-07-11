@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./Seeds.module.css";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import SubNav from "@/components/SubNav";
+
 
 const seedsData = {
   grains: [
@@ -266,8 +264,7 @@ const ProductCategory = ({ title, products }) => (
 const SeedsShop = () => {
   return (
     <>
-      <Header />
-      <SubNav />
+
       <main className={styles.mainContent}>
         <div className={styles.shopContainer}>
           <h1>Seeds</h1>
@@ -277,7 +274,7 @@ const SeedsShop = () => {
           <ProductCategory title="spice Seeds" products={seedsData. spiceSeeds} />
         </div>
       </main>
-      <Footer />
+
     </>
   );
 };

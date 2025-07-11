@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./Profile.module.css";
-import Header from "@/components/Header";
-import SubNav from "@/components/SubNav";
-import Footer from "@/components/Footer";
+
 import {
   FaUserCircle,
   FaShoppingBag,
@@ -83,8 +81,7 @@ const Profile = () => {
 
   return (
     <>
-      <Header />
-      <SubNav />
+
       <main className={styles.mainContent}>
         <div className={styles.profileContainer}>
           <div className={styles.profileSidebar}>
@@ -241,7 +238,7 @@ const Profile = () => {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   );
 };
