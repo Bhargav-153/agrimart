@@ -1,15 +1,12 @@
 import styles from "./ContactUs.module.css";
 import React from "react";
-import Header from "@/components/Header";
-import SubNav from "@/components/SubNav";
-import Footer from "@/components/Footer";
+
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const ContactUs = () => {
   return (
     <>
-      <Header />
-      <SubNav />
+      
       <div className={styles.contactContainer}>
         <header className={styles.header}>
           <h1>Contact Us</h1>
@@ -51,7 +48,6 @@ const ContactUs = () => {
           </form>
         </section>
       </div>
-      <Footer />
     </>
   );
 };

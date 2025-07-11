@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
+  address: {
+    type: String,
+    trim: true,
+  },
 });
 
 const User = mongoose.model("User", userSchema, "users");

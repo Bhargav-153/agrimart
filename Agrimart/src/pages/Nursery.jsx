@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./Nursery.module.css";
-import Header from "@/components/Header";
-import SubNav from "@/components/SubNav";
-import Footer from "@/components/Footer";
+
 
 const nurseries = [
   { id: 1, name: "Green Leaf Nursery", address: "123 Garden Street, Bangalore, India", contact: "+91 9876543210" },
@@ -37,8 +35,7 @@ const nurseryPlants = [
 const Nursery = () => {
   return (
     <>
-      <Header />
-      <SubNav />
+      
       <div className={styles.nurseryContainer}>
         <h2 className={styles.title}>Nursery Plants</h2>
 
@@ -71,7 +68,7 @@ const Nursery = () => {
           ))}
         </div>
       </div>
-      <Footer />
+      
     </>
   );
 };

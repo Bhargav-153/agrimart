@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "@/components/Header";
-import SubNav from "@/components/SubNav";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,7 +21,6 @@ import { RouteSignUp } from "@/helpers/RouteName";
 import { RouteIndex } from "@/helpers/RouteName";
 import { getEnv } from "@/helpers/getEnv";
 import { showToast } from "@/helpers/showToast";
-import Footer from "@/components/Footer";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/redux/user/user.slice.js";
 
@@ -75,8 +73,7 @@ const Login = () => {
   }
   return (
     <>
-      <Header />
-      <SubNav />
+ 
       <div className={styles.loginContainer}>
         <Card className={styles.loginBox}>
           <h2 className={styles.heading}>Login Into Account</h2>
@@ -138,7 +135,7 @@ const Login = () => {
           </Form>
         </Card>
       </div>
-      <Footer />
+
     </>
   );
 };

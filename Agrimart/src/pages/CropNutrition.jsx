@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./CropNutrition.module.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import SubNav from "@/components/SubNav";
+
 
 const products = [
   {
@@ -160,8 +158,7 @@ const products = [
 const CropNutrition = () => {
   return (
     <>
-      <Header />
-      <SubNav />
+
       <div className={styles.container}>
         <h2 className={styles.title}>Crop Nutrition Products</h2>
         <div className={styles.grid}>
@@ -190,7 +187,6 @@ const CropNutrition = () => {
           ))}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

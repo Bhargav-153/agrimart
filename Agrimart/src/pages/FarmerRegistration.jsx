@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./FarmerRegistration.module.css";
-import Header from "@/components/Header";
-import SubNav from "@/components/SubNav";
-import Footer from "@/components/Footer";
+
 
 const FarmerRegistration = () => {
   const [isRegistered, setIsRegistered] = useState(
@@ -35,8 +33,7 @@ const FarmerRegistration = () => {
 
   return (
     <>
-      <Header />
-      <SubNav />
+    
       <div className={styles.formContainer}>
         <h1 className={styles.formTitle}>Farmer Registration</h1>
         <form onSubmit={handleFarmerSubmit} className={styles.registrationForm}>
@@ -85,7 +82,6 @@ const FarmerRegistration = () => {
           </div>
         </form>
       </div>
-      <Footer />
     </>
   );
 };

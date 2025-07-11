@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./FarmProduct.module.css";
-import Header from "@/components/Header";
-import SubNav from "@/components/SubNav";
-import Footer from "@/components/Footer";
+
 
 const farmProducts = [
   {
@@ -154,9 +152,7 @@ const farmProducts = [
 const FarmProducts = () => {
   return (
     <>
-    <Header />
-    <SubNav />
-    
+
     <div className={styles.farmContainer}>
       <h2 className={styles.title}>Farm Fresh Products</h2>
       <div className={styles.productsGrid}>
@@ -176,7 +172,7 @@ const FarmProducts = () => {
         ))}
       </div>
     </div>
-    <Footer />
+
     </>
   );
 };
