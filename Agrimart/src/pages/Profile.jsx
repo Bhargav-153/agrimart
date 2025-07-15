@@ -179,7 +179,7 @@ const Profile = () => {
                 </div>
                 <div className={styles.infoItem}>
                   <label>Phone</label>
-                  <p>+91 9876543210</p>
+                  <p>{user.user?.phone || 4579725799}</p>
                 </div>
                 <div className={styles.infoItem}>
                   <label>Email</label>
