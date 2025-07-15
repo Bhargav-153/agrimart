@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AccountSettings.module.css";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserIcon } from "lucide-react";
 import { useFetch } from "@/hooks/useFetch";
 import { getEnv } from "@/helpers/getEnv";
 import { IoCameraOutline } from "react-icons/io5";
+import Dropzone from "react-dropzone";
+import { showToast } from "@/helpers/showToast";
+import { setUser } from "@/redux/user/user.slice";
 
 
 const AccountSettings = () => {
+
+  const [filePreview, setPreview] = useState()
+  const [file, setFile] = useState()
+
+  const dispatch = useDispatch()
 
   const user = useSelector((state) => state.user)
 
@@ -41,25 +49,65 @@ const AccountSettings = () => {
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match!");
+      showToast("error", "Passwords do not match!");
       return;
     }
 
-    setSuccess(true);
-    setTimeout(() => setSuccess(false), 2000);
-  };
+    try {
+      const formData = new FormData()
+      formData.append("file" , file)
+      formData.append("data", JSON.stringify(form));
+
+      const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/user/update-user/${userData.user._id}`, {
+        method: 'put',
+        credentials: 'include',
+        body: formData
+      });
+
+      const data = await response.json()
+      if (!response.ok) {
+        return showToast('error', data.message)
+
+      }
+      
+      dispatch(setUser(data.user))
+      showToast('success', data.message)
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 2000);
+
+
+    } catch (error) {
+      showToast('error', error.message)
+
+    }
+
+  }
+
+
+  const handleFileSelection = (files) =>{
+    const file = files[0]
+    const preview = URL.createObjectURL(file)
+    setFile(file)
+    setPreview(preview)
+  }
 
   return (
     <section className={styles.accountSettings}>
       <h3 className={styles.heading}>Account Settings</h3>
       <div className={`${styles.avatarWrapper} relative group`}>
-        <Avatar className={styles.profileAvatar}>
+        <Dropzone onDrop={acceptedFiles => handleFileSelection(acceptedFiles)}>
+          {({getRootProps, getInputProps}) => (
+          
+          <div {...getRootProps()}>
+            <input {...getInputProps()} />
+            <Avatar className={styles.profileAvatar}>
           <AvatarImage
-            src={userData?.user?.avatar || ""}
+            src={filePreview? filePreview: userData?.user?.avatar || ""}
             className="border-2 border-gray-300 rounded-full w-[120px] h-[120px] object-cover"
           />
           <AvatarFallback className="flex items-center justify-center text-xl font-semibold">
@@ -71,12 +119,19 @@ const AccountSettings = () => {
                 .toUpperCase()
               : <UserIcon className="w-6 h-6" />}
           </AvatarFallback>
+          <div className="absolute inset-0 hidden group-hover:flex items-center justify-center cursor-pointer transition-all rounded-full">
+            <IoCameraOutline className="text-black w-4 h-4" />
+          </div>
         </Avatar>
 
+        
+          </div>
+    
+          )}
+        </Dropzone>
+        
   {/* Camera icon overlay - now works */}
-        <div className="absolute inset-0 hidden group-hover:flex items-center justify-center cursor-pointer transition-all rounded-full">
-          <IoCameraOutline className="text-black w-4 h-4" />
-        </div>
+        
       </div>
 
 
