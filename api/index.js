@@ -5,12 +5,30 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import AuthRoute from './routes/Auth.route.js'
 import UserRoute from './routes/User.route.js'
+import NurseryRoute from './routes/Nursery.route.js'
+import FarmerRoute from './routes/Farmer.route.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
+
+const dir = './uploads';
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir);
+}
+
 
 dotenv.config()
 
 const PORT = process.env.PORT
 
 const app = express()
+
+// These lines are needed to serve uploads from relative paths
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ✅ Make /uploads folder publicly accessible
+app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
 
 app.use(cookieParser())
 app.use(express.json())
@@ -22,6 +40,10 @@ app.use(cors({
 //route setup
 app.use('/api/auth',AuthRoute)
 app.use('/api/user',UserRoute)
+app.use('/api/nursery',NurseryRoute)
+app.use('/api/farmers', FarmerRoute);
+
+app.use(express.json())
 
 mongoose.connect(process.env.MONGODB_CONN, { dbName: 'agrimart' })
     .then(() => console.log('Database connected'))
@@ -40,3 +62,5 @@ app.use((err, req, res, next) => {
       message
     })
   })
+
+

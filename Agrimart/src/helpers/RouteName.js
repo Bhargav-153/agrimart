@@ -12,5 +12,14 @@ export const RouteSeeds = "/shop/seeds";
 export const RouteCropProtection = "/shop/crop-protection";
 export const RouteCropNutrition = "/shop/crop-nutrition";
 export const RouteNursery = "/nursery";
+export const RouteNurseryAdd = "/nursery/add";
+export const RouteNurseryEdit = (nursery_id) => {
+    if(nursery_id){
+        return `/nursery/edit/${nursery_id}`
+    }
+    else{
+        return `/nursery/edit/nursery_id`
+    }
+};
 export const RouteProduct = "/farm-product";
 export const RouteSettings = "/settings";
