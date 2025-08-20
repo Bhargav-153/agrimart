@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -11,6 +11,8 @@ import {
   RouteCropProtection,
   RouteIndex,
   RouteNursery,
+  RouteNurseryAdd,
+  RouteNurseryEdit,
   RouteProduct,
   RouteProfile,
   RouteRegistration,
@@ -34,6 +36,8 @@ import FarmProduct from "./pages/FramProduct";
 import CropProtection from "./pages/CropProtection";
 import CropNutrition from "./pages/CropNutrition";
 import Settings from "./pages/settings";
+import AddNursery from "./pages/AddNursery";
+import EditNursery from "./pages/EditNursery";
 
 const App = () => {
   return (
@@ -53,7 +57,16 @@ const App = () => {
         <Route path={RouteSeeds} element={<Seeds />} />
         <Route path={RouteCropProtection} element={<CropProtection />} />
         <Route path={RouteCropNutrition} element={<CropNutrition />} />
+
         <Route path={RouteNursery} element={<Nursery />} />
+        <Route path={RouteNurseryAdd} element={<AddNursery />} />
+        <Route path="/nursery/edit/:nurseryid" element={<EditNursery />} />
+
+        <Route path="/" element={<Navigate to="/farmer/register" />} />
+        <Route path="/farmer/register" element={<FarmerRegistration />} />
+        <Route path="/add-product" element={<AddProduct />} />
+
+
         <Route path={RouteProduct} element={<FarmProduct />} />
         <Route path={RouteSettings} element={<Settings />} />
       </Route>

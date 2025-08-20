@@ -1,8 +1,11 @@
 .nurseryContainer {
-    padding: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
     background-color: #f9f9f9;
     text-align: center;
     margin-top: 5rem;
+    padding-bottom: 60px;
+    
   }
   
   .title {
@@ -24,7 +27,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 300px;
+    width: 100px;
   }
   
   .sectionTitle {
@@ -77,6 +80,55 @@
     cursor: pointer;
     border-radius: 4px;
   }
+
+ .productPrice {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  .productName {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  .farmerInfo {
+    background: #eef7e1;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .farmerInfo p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  .addToCart {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .buy {
+    background: #ecc155;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+  }
+  .addToCart:hover {
+  background-color: rgb(56, 123, 74);
+}
+.buy:hover {
+  background-color: #b7943d;
+}
   
   @media (max-width: 768px) {
     .plantsGrid {
