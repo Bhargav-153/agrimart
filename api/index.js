@@ -7,6 +7,8 @@ import AuthRoute from './routes/Auth.route.js'
 import UserRoute from './routes/User.route.js'
 import NurseryRoute from './routes/Nursery.route.js'
 import FarmerRoute from './routes/Farmer.route.js';
+import FarmProductRoute from './routes/FarmProduct.route.js'; // ✅ CORRECT IMPORT
+import farmerProductRoutes from './routes/FarmerProduct.route.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
@@ -42,6 +44,9 @@ app.use('/api/auth',AuthRoute)
 app.use('/api/user',UserRoute)
 app.use('/api/nursery',NurseryRoute)
 app.use('/api/farmers', FarmerRoute);
+// app.use('/api/farmProducts', FarmProductRoute);
+app.use("/api/farmerProducts", farmerProductRoutes);
+
 
 app.use(express.json())
 

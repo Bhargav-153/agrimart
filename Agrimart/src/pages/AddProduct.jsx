@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./AddProduct.module.css";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { showToast } from "@/helpers/showToast";
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -39,14 +40,19 @@ const AddProduct = () => {
         data.append(key, formData[key]);
       });
 
-      const res = await fetch("http://localhost:5000/api/products", {
+      const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+
+      const res = await fetch(`${API_BASE}/api/farmProducts/products`, {
         method: "POST",
         body: data,
       });
 
+
+
+
       if (!res.ok) throw new Error("Failed to add product");
 
-      alert("Product added successfully!");
+      showToast("success", "Product added successfully");
       setFormData({
         productName: "",
         category: "",
@@ -91,11 +97,10 @@ const AddProduct = () => {
                   required
                 >
                   <option value="">Select Category</option>
-                  <option value="seeds">Seeds</option>
-                  <option value="fertilizers">Crop Protection</option>
-                  <option value="pesticides">Crop Nutrition</option>
-                  <option value="equipment">Equipment</option>
-                  <option value="organic">Organic</option>
+                  <option value="Vegetable">Vegetable</option>
+                  <option value="Fruit">Fruit</option>
+                  <option value="Flower">Flower</option>
+                  
                 </select>
               </div>
               <div className={styles.formGroup}>
