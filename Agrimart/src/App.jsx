@@ -8,16 +8,23 @@ import {
   RouteAddProduct,
   RouteContactUs,
   RouteCropNutrition,
+  RouteCropNutritionAdd,
   RouteCropProtection,
+  RouteCropProtectionAdd,
+  RouteEquipment,
+  RouteEquipmentAdd,
   RouteIndex,
   RouteNursery,
   RouteNurseryAdd,
   RouteNurseryEdit,
+  RouteOrganic,
+  RouteOrganicAdd,
   RouteProduct,
   RouteProfile,
   RouteRegistration,
   RouteSchemes,
   RouteSeeds,
+  RouteSeedsAdd,
   RouteSettings,
   RouteSignIn,
   RouteSignUp,
@@ -38,6 +45,18 @@ import CropNutrition from "./pages/CropNutrition";
 import Settings from "./pages/settings";
 import AddNursery from "./pages/AddNursery";
 import EditNursery from "./pages/EditNursery";
+import AddSeeds from "./pages/AddSeeds";
+import EditSeeds from "./pages/EditSeeds";
+import AddCropProtection from "./pages/AddCropProtection";
+import AddCropNutrition from "./pages/AddCropNutrition";
+import Equipment from "./pages/Equipment";
+import AddEquipment from "./pages/AddEquipment";
+import Organic from "./pages/Organic";
+import AddOrganic from "./pages/AddOrganic";
+import EditCropProtection from "./pages/EditCropProtection";
+import EditCropNutrition from "./pages/EditCropNutrition";
+import EditEquipment from "./pages/EditEquipment";
+import EditOrganic from "./pages/EditOrganic";
 
 const App = () => {
   return (
@@ -51,12 +70,33 @@ const App = () => {
         <Route path={RouteContactUs} element={<ContactUs />} />
         <Route path={RouteProfile} element={<Profile />} />
         <Route path={RouteRegistration} element={<FarmerRegistration />} />
+
         <Route path={RouteAddProduct} element={<AddProduct />} />
         <Route path={RouteSchemes} element={<Schemes />} />
         <Route path={RouteWeather} element={<Weather />} />
+
         <Route path={RouteSeeds} element={<Seeds />} />
+        <Route path={RouteSeedsAdd} element={<AddSeeds />} />
+        <Route path="/seeds/edit/:seedid" element={<EditSeeds />} />
+
         <Route path={RouteCropProtection} element={<CropProtection />} />
+        <Route path={RouteCropProtectionAdd} element={<AddCropProtection />} />
+        <Route path="/crop-protection/edit/:protectionid" element={<EditCropProtection />} />
+
+
+
         <Route path={RouteCropNutrition} element={<CropNutrition />} />
+        <Route path={RouteCropNutritionAdd} element={<AddCropNutrition />} />
+        <Route path="/crop-nutrition/edit/:nutritionid" element={<EditCropNutrition />} />
+
+        <Route path={RouteEquipment} element={<Equipment />} />
+        <Route path={RouteEquipmentAdd} element={<AddEquipment />} />
+        <Route path="/equipment/edit/:equipmentid" element={<EditEquipment />} />
+
+        <Route path={RouteOrganic} element={<Organic />} />
+        <Route path={RouteOrganicAdd} element={<AddOrganic />} />
+        <Route path="/organic/edit/:organicid" element={<EditOrganic />} />
+
 
         <Route path={RouteNursery} element={<Nursery />} />
         <Route path={RouteNurseryAdd} element={<AddNursery />} />

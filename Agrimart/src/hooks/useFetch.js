@@ -1,32 +1,40 @@
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react";
 
-export const useFetch = (url, options = {}, dependencies = []) => {
-    const [data, setData] = useState()
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState()
+export default function useFetch(url, options = {}, dependencies = []) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-   
-    useEffect(() =>{
-        const fetchData = async()=>{
-            setLoading(true)
-            try {
-                const response = await fetch(url, options)
-                const responseData = await response.json()
-                if(!response.ok){
-                    throw new Error(`Error: ${response.statusText}, ${response.status}`)
-                }
-                setData(responseData)
-                setError()
+  useEffect(() => {
+    let ignore = false;
 
-        } catch (error) {
-            setError(error)
-        } finally{
-            setLoading(false)
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(url, options);
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          throw new Error(responseData?.message || `Error: ${response.statusText}`);
         }
-        
-    }
-    fetchData()
-    }, dependencies)
 
-    return {data,loading,error}
+        if (!ignore) {
+          setData(responseData);
+          setError(null);
+        }
+      } catch (err) {
+        if (!ignore) setError(err.message || "Something went wrong");
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      ignore = true;
+    };
+  }, dependencies);
+
+  return { data, loading, error };
 }

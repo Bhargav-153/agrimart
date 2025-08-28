@@ -2,23 +2,22 @@ import mongoose from "mongoose";
 
 const farmerProductSchema = new mongoose.Schema(
   {
-    productName: { type: String, required: true },
-    category: { type: String, required: true },
-    price: { type: Number, required: true },
-    contact: { type: String, required: true },
-    description: { type: String },
-    quantity: { type: Number, required: true },
-    unit: { type: String, required: true },
-    image: { type: String },
-    farmerEmail: { type: String, required: true },
-    farmer: {
-      name: { type: String, required: true },
-      location: { type: String, required: true },
-    },
+    productName: { type: String, required: true, trim: true },
+    category: { type: String, required: true, trim: true },
+    price: { type: String, required: true, trim: true },
+    contact: { type: String, required: true, trim: true },
+    description: { type: String, required: true, trim: true },
+    quantity: { type: String, required: true, trim: true },
+    unit: { type: String, required: true, trim: true },
+    image: { type: String, required: true }, // ✅ always use "image"
   },
   { timestamps: true }
 );
 
-// ✅ Prevent OverwriteModelError
-export default mongoose.models.FarmerProduct ||
-  mongoose.model("FarmerProduct", farmerProductSchema);
+const FarmerProduct = mongoose.model(
+  "FarmerProduct",
+  farmerProductSchema,
+  "farmerProducts"
+);
+
+export default FarmerProduct;

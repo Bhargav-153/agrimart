@@ -72,4 +72,22 @@
   .addToCart:hover {
     background: #218838;
   }
+
+  .buy {
+    background: #ecc155;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+  }
+.addToCart:hover {
+  background-color: rgb(56, 123, 74);
+}
+.buy:hover {
+  background-color: #b7943d;
+}
   

@@ -3,7 +3,7 @@ import styles from "./AccountSettings.module.css";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { UserIcon } from "lucide-react";
-import { useFetch } from "@/hooks/useFetch";
+import useFetch from "@/hooks/useFetch";
 import { getEnv } from "@/helpers/getEnv";
 import { IoCameraOutline } from "react-icons/io5";
 import Dropzone from "react-dropzone";

@@ -26,10 +26,15 @@ const FarmProducts = () => {
         {farmProducts.map((product) => (
           <div key={product._id} className={styles.productCard}>
             <img
-              src={`http://localhost:3000${product.image}`}
+              src={
+                product.image
+                  ? `http://localhost:3000${product.image}`
+                  : "/placeholder.png"
+              }
               alt={product.productName}
               className={styles.productImage}
             />
+
             <h3 className={styles.productName}>{product.productName}</h3>
             <p className={styles.productPrice}>
               ₹{product.price}/{product.unit}
@@ -38,11 +43,10 @@ const FarmProducts = () => {
               Quantity: {product.quantity} {product.unit}
             </p>
             <div className={styles.farmerInfo}>
-              <p><strong>Farmer:</strong> {product.farmer?.name}</p>
-              <p><strong>Location:</strong> {product.farmer?.location}</p>
               <p><strong>Contact:</strong> {product.contact}</p>
             </div>
             <button className={styles.addToCart}>Add to Cart</button>
+            <button className={styles.buy}>Buy Now</button>
           </div>
         ))}
       </div>

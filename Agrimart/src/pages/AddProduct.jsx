@@ -17,42 +17,48 @@ const AddProduct = () => {
 
   const [imagePreview, setImagePreview] = useState(null);
 
+  // Handle text & select inputs
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  // Handle image input
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setFormData({ ...formData, image: file });
+      setFormData({ ...formData, image: file }); // important: backend expects "image"
       const reader = new FileReader();
       reader.onloadend = () => setImagePreview(reader.result);
       reader.readAsDataURL(file);
     }
   };
 
+  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const data = new FormData();
       Object.keys(formData).forEach((key) => {
-        data.append(key, formData[key]);
+        if (formData[key] !== null) {
+          data.append(key, formData[key]);
+        }
       });
 
-      const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+      const API_BASE =
+        import.meta.env.VITE_API_BASE || "http://localhost:3000";
 
-      const res = await fetch(`${API_BASE}/api/farmProducts/products`, {
+      // ✅ Fixed API endpoint (farmerProducts, not farmProducts)
+      const res = await fetch(`${API_BASE}/api/farmerProducts/products`, {
         method: "POST",
         body: data,
       });
 
-
-
-
       if (!res.ok) throw new Error("Failed to add product");
 
       showToast("success", "Product added successfully");
+
+      // Reset form after success
       setFormData({
         productName: "",
         category: "",
@@ -66,7 +72,7 @@ const AddProduct = () => {
       setImagePreview(null);
     } catch (err) {
       console.error(err);
-      alert("Error adding product");
+      showToast("error", "Error adding product");
     }
   };
 
@@ -75,6 +81,7 @@ const AddProduct = () => {
       <div className={styles.formContainer}>
         <h1 className={styles.formTitle}>Add New Product</h1>
         <form className={styles.productForm} onSubmit={handleSubmit}>
+          {/* Product Details */}
           <div className={styles.formSection}>
             <h2>Product Details</h2>
             <div className={styles.formGroup}>
@@ -100,7 +107,7 @@ const AddProduct = () => {
                   <option value="Vegetable">Vegetable</option>
                   <option value="Fruit">Fruit</option>
                   <option value="Flower">Flower</option>
-                  
+                  <option value="Flower">Seeds</option>
                 </select>
               </div>
               <div className={styles.formGroup}>
@@ -117,11 +124,10 @@ const AddProduct = () => {
               <div className={styles.formGroup}>
                 <label htmlFor="contact">Contact</label>
                 <input
-                  type="number"
+                  type="text"
                   id="contact"
                   value={formData.contact}
                   onChange={handleChange}
-                  min="10"
                   required
                 />
               </div>
@@ -138,6 +144,7 @@ const AddProduct = () => {
             </div>
           </div>
 
+          {/* Stock Info */}
           <div className={styles.formSection}>
             <h2>Stock Information</h2>
             <div className={styles.formRow}>
@@ -170,6 +177,7 @@ const AddProduct = () => {
             </div>
           </div>
 
+          {/* Image Upload */}
           <div className={styles.formSection}>
             <h2>Product Image</h2>
             <div className={styles.formGroup}>
@@ -197,11 +205,28 @@ const AddProduct = () => {
             </div>
           </div>
 
+          {/* Form Actions */}
           <div className={styles.formActions}>
             <button type="submit" className={styles.submitBtn}>
               Add Product
             </button>
-            <button type="reset" className={styles.resetBtn}>
+            <button
+              type="reset"
+              className={styles.resetBtn}
+              onClick={() => {
+                setFormData({
+                  productName: "",
+                  category: "",
+                  price: "",
+                  contact: "",
+                  description: "",
+                  quantity: "",
+                  unit: "",
+                  image: null,
+                });
+                setImagePreview(null);
+              }}
+            >
               Reset
             </button>
           </div>
