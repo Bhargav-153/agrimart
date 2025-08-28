@@ -1,6 +1,6 @@
 import FarmerProduct from "../models/farmerProduct.model.js";
-import Farmer from "../models/farmer.model.js";
 
+// ✅ Add product
 export const addProduct = async (req, res) => {
   try {
     const {
@@ -11,13 +11,11 @@ export const addProduct = async (req, res) => {
       description,
       quantity,
       unit,
-      farmerEmail,
     } = req.body;
 
-    const farmer = await Farmer.findOne({ email: farmerEmail });
-    if (!farmer) return res.status(404).json({ message: "Farmer not found" });
-
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+    if (!req.file) {
+      return res.status(400).json({ message: "Image upload failed" });
+    }
 
     const newProduct = new FarmerProduct({
       productName,
@@ -27,22 +25,18 @@ export const addProduct = async (req, res) => {
       description,
       quantity,
       unit,
-      image: imageUrl,
-      farmerEmail,
-      farmer: {
-        name: farmer.fullName,
-        location: `${farmer.city}, ${farmer.state}`,
-      },
+      image: `/uploads/${req.file.filename}`, // ✅ matches schema
     });
 
     await newProduct.save();
-    res.status(201).json(newProduct);
-  } catch (error) {
-    console.error("Error adding product:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(201).json({ message: "Product added successfully" });
+  } catch (err) {
+    console.error("Error adding product:", err);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
+// ✅ Get all products
 export const getAllProducts = async (req, res) => {
   try {
     const products = await FarmerProduct.find().sort({ createdAt: -1 });
@@ -53,6 +47,7 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
+// ✅ Get single product
 export const getProductById = async (req, res) => {
   try {
     const product = await FarmerProduct.findById(req.params.id);

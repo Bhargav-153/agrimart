@@ -24,7 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useFetch } from "@/hooks/useFetch";
+import useFetch from "@/hooks/useFetch";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";

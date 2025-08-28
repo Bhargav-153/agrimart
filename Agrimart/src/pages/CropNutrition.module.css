@@ -16,6 +16,11 @@
     gap: 20px;
   }
   
+  .addSeedsWrapper {
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  margin: 20px 0; /* space above & below */
+  }
   .card {
     background: white;
     padding: 15px;
@@ -71,5 +76,8 @@
     margin-top: 10px;
     cursor: pointer;
     border-radius: 5px;
+  }
+  .button:hover{
+    background: #1f7d35;
   }
   

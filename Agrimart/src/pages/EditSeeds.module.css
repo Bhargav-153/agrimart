@@ -1,0 +1,76 @@
+/* EditSeeds.module.css */
+
+.container {
+  
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 7rem;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+.card {
+  width: 100%;
+  max-width: 700px;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1f2937; /* dark gray */
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dropzoneWrapper {
+  border: 2px dashed #9ca3af;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f3f4f6;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.dropzoneWrapper:hover {
+  border-color: #2563eb; /* blue-600 */
+  background-color: #e0f2fe; /* light blue */
+}
+
+.previewImage {
+  margin-top: 0.75rem;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submitButton {
+  background-color: #0aa13f !important; /* blue-600 */
+  color: white !important;
+  font-weight: 500;
+  border-radius: 12px;
+  padding: 0.75rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submitButton:hover {
+  background-color: #067a2f !important; /* blue-700 */
+}

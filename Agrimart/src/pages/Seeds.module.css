@@ -5,6 +5,41 @@
     width: 100%;
     margin-top: 5rem;
   }
+
+  .addSeedsWrapper {
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  margin: 20px 0; /* space above & below */
+}
+
+.addToCart {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .buy {
+    background: #ecc155;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+  }
+.addToCart:hover {
+  background-color: rgb(56, 123, 74);
+}
+.buy:hover {
+  background-color: #b7943d;
+}
   
   .shopContainer {
     width: 100%;  /* Make it full width */
@@ -125,15 +160,3 @@
     color: #333;
   }
   
-  .addToCart {
-    background: #4CAF50;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .addToCart:hover {
-    background: #0056b3;
-  }

@@ -43,6 +43,11 @@
     border-radius: 10px;
   }
   
+  .addSeedsWrapper {
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  margin: 20px 0; /* space above & below */
+  }
   .productName {
     font-size: 1.2rem;
     font-weight: bold;
@@ -97,5 +102,5 @@
   }
   
   .addToCart:hover {
-    background: #c0392b;
+    background: #1b6e2e;
   }
