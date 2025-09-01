@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import AuthRoute from "./routes/Auth.route.js";
 import UserRoute from "./routes/User.route.js";
 import NurseryRoute from "./routes/Nursery.route.js";
+
 import FarmerRoute from "./routes/Farmer.route.js";
 import farmerProductRoutes from "./routes/FarmerProduct.route.js";
 import seedRoutes from "./routes/Seed.route.js";
@@ -13,14 +14,12 @@ import cropProtectionRoutes from "./routes/CropProtection.route.js";
 import cropNutritionRoutes from "./routes/CropNutrition.route.js";
 import equipmentRoutes from "./routes/Equipment.route.js";
 
-import organicRoutes from "./routes/Organic.route.js"; 
-
-
-
+import organicRoutes from "./routes/Organic.route.js";
 
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import SchemaRoute from "./routes/Schema.route.js";
 
 dotenv.config();
 
@@ -51,6 +50,8 @@ app.use(
 app.use("/api/auth", AuthRoute);
 app.use("/api/user", UserRoute);
 app.use("/api/nursery", NurseryRoute);
+app.use("/api/schemes", SchemaRoute);
+
 app.use("/api/farmers", FarmerRoute);
 app.use("/api/farmerProducts", farmerProductRoutes);
 app.use("/api/seeds", seedRoutes);

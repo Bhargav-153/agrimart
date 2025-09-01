@@ -29,6 +29,7 @@ import {
   RouteSignIn,
   RouteSignUp,
   RouteWeather,
+  SchemaRoute,
 } from "./helpers/RouteName.js";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
@@ -57,6 +58,7 @@ import EditCropProtection from "./pages/EditCropProtection";
 import EditCropNutrition from "./pages/EditCropNutrition";
 import EditEquipment from "./pages/EditEquipment";
 import EditOrganic from "./pages/EditOrganic";
+import AddSchema from "./pages/AddSchema";
 
 const App = () => {
   return (
@@ -72,7 +74,10 @@ const App = () => {
         <Route path={RouteRegistration} element={<FarmerRegistration />} />
 
         <Route path={RouteAddProduct} element={<AddProduct />} />
+
         <Route path={RouteSchemes} element={<Schemes />} />
+        <Route path={SchemaRoute} element={<AddSchema />} />
+
         <Route path={RouteWeather} element={<Weather />} />
 
         <Route path={RouteSeeds} element={<Seeds />} />
@@ -81,22 +86,28 @@ const App = () => {
 
         <Route path={RouteCropProtection} element={<CropProtection />} />
         <Route path={RouteCropProtectionAdd} element={<AddCropProtection />} />
-        <Route path="/crop-protection/edit/:protectionid" element={<EditCropProtection />} />
-
-
+        <Route
+          path="/crop-protection/edit/:protectionid"
+          element={<EditCropProtection />}
+        />
 
         <Route path={RouteCropNutrition} element={<CropNutrition />} />
         <Route path={RouteCropNutritionAdd} element={<AddCropNutrition />} />
-        <Route path="/crop-nutrition/edit/:nutritionid" element={<EditCropNutrition />} />
+        <Route
+          path="/crop-nutrition/edit/:nutritionid"
+          element={<EditCropNutrition />}
+        />
 
         <Route path={RouteEquipment} element={<Equipment />} />
         <Route path={RouteEquipmentAdd} element={<AddEquipment />} />
-        <Route path="/equipment/edit/:equipmentid" element={<EditEquipment />} />
+        <Route
+          path="/equipment/edit/:equipmentid"
+          element={<EditEquipment />}
+        />
 
         <Route path={RouteOrganic} element={<Organic />} />
         <Route path={RouteOrganicAdd} element={<AddOrganic />} />
         <Route path="/organic/edit/:organicid" element={<EditOrganic />} />
-
 
         <Route path={RouteNursery} element={<Nursery />} />
         <Route path={RouteNurseryAdd} element={<AddNursery />} />
@@ -105,7 +116,6 @@ const App = () => {
         <Route path="/" element={<Navigate to="/farmer/register" />} />
         <Route path="/farmer/register" element={<FarmerRegistration />} />
         <Route path="/add-product" element={<AddProduct />} />
-
 
         <Route path={RouteProduct} element={<FarmProduct />} />
         <Route path={RouteSettings} element={<Settings />} />
