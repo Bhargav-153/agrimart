@@ -298,9 +298,6 @@ const AddSchema = () => {
           <TableHeader>
             <TableRow className={styles.tableHeaderRow}>
               <TableHead>Title</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Details</TableHead>
-              <TableHead>Icon</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
@@ -309,15 +306,7 @@ const AddSchema = () => {
             {schemaList.map((s, i) => (
               <TableRow key={i}>
                 <TableCell>{s.title}</TableCell>
-                <TableCell>{s.description}</TableCell>
-                <TableCell>
-                  <ul>
-                    {s.details.map((d, idx) => (
-                      <li key={idx}>- {d}</li>
-                    ))}
-                  </ul>
-                </TableCell>
-                <TableCell>{s.icon}</TableCell>
+                
                 <TableCell>
                   {moment(s?.createdAt).format("DD-MM-YYYY")}
                 </TableCell>
