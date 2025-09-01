@@ -14,22 +14,20 @@ export const RouteCropProtection = "/shop/crop-protection";
 export const RouteCropNutrition = "/shop/crop-nutrition";
 export const RouteNursery = "/nursery";
 export const RouteNurseryAdd = "/nursery/add";
-export const RouteCropProtectionAdd = "/shop/crop-protection/add"; 
+export const SchemaRoute = "/add-schema";
+export const RouteCropProtectionAdd = "/shop/crop-protection/add";
 export const RouteCropNutritionAdd = "/shop/crop-nutrition/add";
 export const RouteEquipmentAdd = "/shop/equipment/add";
 export const RouteEquipment = "/shop/equipment";
 export const RouteOrganic = "/shop/organic";
 export const RouteOrganicAdd = "/shop/organic/add";
 
-
-
 export const RouteNurseryEdit = (nursery_id) => {
-    if(nursery_id){
-        return `/nursery/edit/${nursery_id}`
-    }
-    else{
-        return `/nursery/edit/nursery_id`
-    }
+  if (nursery_id) {
+    return `/nursery/edit/${nursery_id}`;
+  } else {
+    return `/nursery/edit/nursery_id`;
+  }
 };
 export const RouteSeedsEdit = (seed_id) => {
   if (seed_id) {
