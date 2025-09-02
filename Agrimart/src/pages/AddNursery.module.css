@@ -1,17 +1,14 @@
 /* Center the form container */
 .container {
-  padding-top: 5rem;
+  /* padding-top: 5rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f4f4f4;
   margin-top: 2rem;
-  padding-bottom: 10rem;
-  /* REMOVE THIS LINE */
+  padding-bottom: 3rem;
   /* height: 100vh; */
 }
-
-
 
 /* Add this class */
 .formTableWrapper {
@@ -21,11 +18,21 @@
   width: 100%;
 }
 
-
 /* Card styling */
-.card {
-  width: 650px;
-  padding: 2rem;
+.card1 {
+  width: 760px;
+  padding-top: 5rem;
+  margin-top: 4rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 5px;
+}
+.card2 {
+  width: 800px;
+  padding: 1rem;
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -34,11 +41,10 @@
 
 /* Title styles */
 .title {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  font-size: 25px;
+  font-weight: 600;
+  color: #090808ff;
+  text-decoration: underline;
 }
 
 /* Google login button container */
@@ -60,7 +66,7 @@
 
 .submitButton {
   width: 100%;
-  background: #4CAF50;
+  background: #4caf50;
   color: white;
   padding: 10px;
   border-radius: 5px;

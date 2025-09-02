@@ -111,10 +111,14 @@ const AddNursery = () => {
     setPreview(preview);
   };
 
-  const { data: nurseyData, error } = useFetch(`${API_BASE_URL}/nursery/all-nursery`, {
-    method: "GET",
-    credentials: "include",
-  }, [refreshData]);
+  const { data: nurseyData, error } = useFetch(
+    `${API_BASE_URL}/nursery/all-nursery`,
+    {
+      method: "GET",
+      credentials: "include",
+    },
+    [refreshData]
+  );
 
   const handleDelete = async (id) => {
     try {
@@ -136,36 +140,46 @@ const AddNursery = () => {
 
   return (
     <div className={styles.container}>
-      <Card className={styles.card}>
+      <Card className={styles.card1}>
         <h1 className={styles.title}>Add Nursery & Plant Details</h1>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            {["plantName", "plantPrice", "nurseryName", "address", "phone"].map((field) => (
-              <div className={styles.formGroup} key={field}>
-                <FormField
-                  control={form.control}
-                  name={field}
-                  render={({ field: f }) => (
-                    <FormItem>
-                      <FormLabel>{field.replace(/([A-Z])/g, " $1")}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type={field === "plantPrice" || field === "phone" ? "number" : "text"}
-                          placeholder={`Enter ${field}`}
-                          {...f}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            ))}
+            {["plantName", "plantPrice", "nurseryName", "address", "phone"].map(
+              (field) => (
+                <div className={styles.formGroup} key={field}>
+                  <FormField
+                    control={form.control}
+                    name={field}
+                    render={({ field: f }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {field.replace(/([A-Z])/g, " $1")}
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            type={
+                              field === "plantPrice" || field === "phone"
+                                ? "number"
+                                : "text"
+                            }
+                            placeholder={`Enter ${field}`}
+                            {...f}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              )
+            )}
 
             <div className="mb-3">
               <span className="mb-2 block">Plant Image</span>
-              <Dropzone onDrop={(acceptedFiles) => handleFileSelection(acceptedFiles)}>
+              <Dropzone
+                onDrop={(acceptedFiles) => handleFileSelection(acceptedFiles)}
+              >
                 {({ getRootProps, getInputProps }) => (
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
@@ -191,47 +205,57 @@ const AddNursery = () => {
       </Card>
 
       <div className={styles.container}>
-        <Card className={styles.card}>
+        <Card className={styles.card2}>
           <h1 className={styles.title}>All Nursery Plants</h1>
-        </Card>
 
-        <div className="mt-10 w-full max-w-6xl">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Plant</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Nursery</TableHead>
-                <TableHead>Address</TableHead>
-                <TableHead>Phone</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Action</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {nurseryList.map((n, i) => (
-                <TableRow key={i}>
-                  <TableCell>{n.plantName}</TableCell>
-                  <TableCell>₹{n.plantPrice}</TableCell>
-                  <TableCell>{n.nurseryName}</TableCell>
-                  <TableCell>{n.address}</TableCell>
-                  <TableCell>{n.phone}</TableCell>
-                  <TableCell>{moment(n?.createdAt).format("DD-MM-YYYY")}</TableCell>
-                  <TableCell className="flex gap-3">
-                    <Button variant="outline" className="hover:bg-rose-500 hover:text-white" asChild>
-                      <Link to={RouteNurseryEdit(n._id)}>
-                        <FaEdit />
-                      </Link>
-                    </Button>
-                    <Button onClick={() => handleDelete(n._id)} variant="outline" className="hover:bg-rose-500 hover:text-white">
-                      <FaRegTrashAlt />
-                    </Button>
-                  </TableCell>
+          <div className="mt-10 w-full max-w-6xl">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Plant</TableHead>
+                  <TableHead>Price</TableHead>
+                  <TableHead>Nursery</TableHead>
+                  <TableHead>Address</TableHead>
+                  <TableHead>Phone</TableHead>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Action</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+              </TableHeader>
+              <TableBody>
+                {nurseryList.map((n, i) => (
+                  <TableRow key={i}>
+                    <TableCell>{n.plantName}</TableCell>
+                    <TableCell>₹{n.plantPrice}</TableCell>
+                    <TableCell>{n.nurseryName}</TableCell>
+                    <TableCell>{n.address}</TableCell>
+                    <TableCell>{n.phone}</TableCell>
+                    <TableCell>
+                      {moment(n?.createdAt).format("DD-MM-YYYY")}
+                    </TableCell>
+                    <TableCell className="flex gap-3">
+                      <Button
+                        variant="outline"
+                        className="w-full hover:bg-rose-500 hover:text-white"
+                        asChild
+                      >
+                        <Link to={RouteNurseryEdit(n._id)}>
+                          <FaEdit />
+                        </Link>
+                      </Button>
+                      <Button
+                        onClick={() => handleDelete(n._id)}
+                        variant="outline"
+                        className="w-full hover:bg-rose-500 hover:text-white"
+                      >
+                        <FaRegTrashAlt />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </Card>
       </div>
     </div>
   );
