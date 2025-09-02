@@ -136,61 +136,23 @@ const AddSchema = () => {
   };
 
   return (
-    <div className={styles.container}>
-      {/* Form Section */}
-
-      <h1 className={styles.title}>Add Government Scheme</h1>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          {/* Title */}
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem className={styles.formGroup}>
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input
-                    className={styles.input}
-                    placeholder="Enter scheme title"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Description */}
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem className={styles.formGroup}>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <textarea
-                    className={styles.textarea}
-                    placeholder="Enter scheme description"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div>
-            {/* link Google */}
+    <div>
+      {/* add section */}
+      <div className={styles.container}>
+        <h1 className={styles.title}>Add Government Scheme</h1>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            {/* Title */}
             <FormField
               control={form.control}
-              name="linkApply"
+              name="title"
               render={({ field }) => (
                 <FormItem className={styles.formGroup}>
-                  <FormLabel>Apply Link</FormLabel>
+                  <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input
                       className={styles.input}
-                      placeholder="Enter Google link"
+                      placeholder="Enter scheme title"
                       {...field}
                     />
                   </FormControl>
@@ -198,20 +160,18 @@ const AddSchema = () => {
                 </FormItem>
               )}
             />
-          </div>
 
-          <div>
-            {/* link youtube */}
+            {/* Description */}
             <FormField
               control={form.control}
-              name="linkYoutube"
+              name="description"
               render={({ field }) => (
                 <FormItem className={styles.formGroup}>
-                  <FormLabel>Video Link</FormLabel>
+                  <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input
-                      className={styles.input}
-                      placeholder="Enter Youtube link"
+                    <textarea
+                      className={styles.textarea}
+                      placeholder="Enter scheme description"
                       {...field}
                     />
                   </FormControl>
@@ -219,113 +179,153 @@ const AddSchema = () => {
                 </FormItem>
               )}
             />
-          </div>
-
-          {/* Details */}
-          <div className={styles.formGroup}>
-            <FormLabel>Details</FormLabel>
-            {details.map((detail, idx) => (
-              <div key={idx} className={styles.detailsRow}>
-                <FormField
-                  control={form.control}
-                  name={`details.${idx}`}
-                  render={({ field }) => (
-                    <FormItem style={{ width: "100%" }}>
-                      <FormControl>
-                        <Input
-                          className={styles.input}
-                          placeholder={`Detail ${idx + 1}`}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                {details.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => removeDetailField(idx)}
-                    className={styles.removeBtn}
-                  >
-                    &times;
-                  </button>
+            <div>
+              {/* link Google */}
+              <FormField
+                control={form.control}
+                name="linkApply"
+                render={({ field }) => (
+                  <FormItem className={styles.formGroup}>
+                    <FormLabel>Apply Link</FormLabel>
+                    <FormControl>
+                      <Input
+                        className={styles.input}
+                        placeholder="Enter Google link"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={addDetailField}
-              className={styles.addDetailBtn}
-            >
-              + Add Detail
-            </button>
-          </div>
+              />
+            </div>
 
-          {/* Icon */}
-          <FormField
-            control={form.control}
-            name="icon"
-            render={({ field }) => (
-              <FormItem className={styles.formGroup}>
-                <FormLabel>Icon</FormLabel>
-                <FormControl>
-                  <select {...field} className={styles.input}>
-                    <option value="">Select Icon</option>
-                    {iconOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <div>
+              {/* link youtube */}
+              <FormField
+                control={form.control}
+                name="linkYoutube"
+                render={({ field }) => (
+                  <FormItem className={styles.formGroup}>
+                    <FormLabel>Video Link</FormLabel>
+                    <FormControl>
+                      <Input
+                        className={styles.input}
+                        placeholder="Enter Youtube link"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <Button type="submit" className={styles.submitBtn}>
-            Add Scheme
-          </Button>
-        </form>
-      </Form>
+            {/* Details */}
+            <div className={styles.formGroup}>
+              <FormLabel>Details</FormLabel>
+              {details.map((detail, idx) => (
+                <div key={idx} className={styles.detailsRow}>
+                  <FormField
+                    control={form.control}
+                    name={`details.${idx}`}
+                    render={({ field }) => (
+                      <FormItem style={{ width: "100%" }}>
+                        <FormControl>
+                          <Input
+                            className={styles.input}
+                            placeholder={`Detail ${idx + 1}`}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {details.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeDetailField(idx)}
+                      className={styles.removeBtn}
+                    >
+                      &times;
+                    </button>
+                  )}
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={addDetailField}
+                className={styles.addDetailBtn}
+              >
+                + Add Detail
+              </button>
+            </div>
 
-      {/* Table Section */}
+            {/* Icon */}
+            <FormField
+              control={form.control}
+              name="icon"
+              render={({ field }) => (
+                <FormItem className={styles.formGroup}>
+                  <FormLabel>Icon</FormLabel>
+                  <FormControl>
+                    <select {...field} className={styles.input}>
+                      <option value="">Select Icon</option>
+                      {iconOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-      <div className="mt-10 w-full max-w-6xl">
-        <h1 className={styles.titleAll}>All Schemes</h1>
-        <Table>
-          <TableHeader>
-            <TableRow className={styles.tableHeaderRow}>
-              <TableHead>Title</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className={styles.tableBody}>
-            {schemaList.map((s, i) => (
-              <TableRow key={i}>
-                <TableCell>{s.title}</TableCell>
-                
-                <TableCell>
-                  {moment(s?.createdAt).format("DD-MM-YYYY")}
-                </TableCell>
-                <TableCell className="flex gap-3">
-                  <Button
-                    onClick={() => handleDelete(s._id)}
-                    variant="outline"
-                    className="w-full hover:bg-rose-500 hover:text-white"
-                  >
-                    <FaRegTrashAlt />
-                  </Button>
-                </TableCell>
+            <Button type="submit" className={styles.submitBtn}>
+              Add Scheme
+            </Button>
+          </form>
+        </Form>
+      </div>
+      {/* table section */}
+      <div className={styles.tableContainer}>
+        <div className="mt-10 w-full max-w-6xl">
+          <h1 className={styles.titleAll}>All Schemes</h1>
+          <Table>
+            <TableHeader>
+              <TableRow className={styles.tableHeaderRow}>
+                <TableHead>Title</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Action</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody className={styles.tableBody}>
+              {schemaList.map((s, i) => (
+                <TableRow key={i}>
+                  <TableCell>{s.title}</TableCell>
+
+                  <TableCell>
+                    {moment(s?.createdAt).format("DD-MM-YYYY")}
+                  </TableCell>
+                  <TableCell className="flex gap-3">
+                    <Button
+                      onClick={() => handleDelete(s._id)}
+                      variant="outline"
+                      className="w-full hover:bg-rose-500 hover:text-white"
+                    >
+                      <FaRegTrashAlt />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   );
 };
-
 export default AddSchema;
