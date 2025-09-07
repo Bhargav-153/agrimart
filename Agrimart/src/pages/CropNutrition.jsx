@@ -20,7 +20,7 @@ const CropNutrition = () => {
       <h2 className={styles.title}>Crop Nutrition Products</h2>
 
       <div className={styles.addSeedsWrapper}>
-        <Button asChild>
+        <Button asChild className={styles.addNutritionBtn}>
           <Link to={RouteCropNutritionAdd}>Add Crop Nutrition</Link>
         </Button>
       </div>
@@ -39,16 +39,22 @@ const CropNutrition = () => {
             />
             <h3 className={styles.name}>{product.name}</h3>
             <p className={styles.description}>{product.description}</p>
-            <p className={styles.price}>₹{product.price}</p>
 
             {product.tag && (
-              <div className={styles.tags}>
+              <div className={styles.productTags}>
                 <span className={styles.tag}>{product.tag}</span>
               </div>
             )}
 
-            <p className={styles.rating}>
-              ⭐ {product.rating || 0} ({product.reviews || 0} reviews)
+            <p className={styles.productMata}>
+              <span className={styles.productRating}>
+                {"★".repeat(Math.floor(product.rating || 0))}
+                {product.rating % 1 !== 0 ? "☆" : ""}
+                <span>({product.reviews})</span>
+              </span>
+              <span className={styles.productPrice}>
+                ₹{product.price}
+              </span>
             </p>
             <button className={styles.button}>Add to Cart</button>
           </div>

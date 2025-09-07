@@ -20,7 +20,7 @@ const Equipment = () => {
       <h2 className={styles.title}>Farm Equipment</h2>
 
       <div className={styles.addSeedsWrapper}>
-        <Button asChild>
+        <Button asChild className={styles.addNutritionBtn}>
           <Link to={RouteEquipmentAdd}>Add Equipment</Link>
         </Button>
       </div>
@@ -39,7 +39,6 @@ const Equipment = () => {
             />
             <h3 className={styles.name}>{equipment.name}</h3>
             <p className={styles.description}>{equipment.description}</p>
-            <p className={styles.price}>₹{equipment.price}</p>
 
             {equipment.tag && (
               <div className={styles.tags}>
@@ -47,9 +46,16 @@ const Equipment = () => {
               </div>
             )}
 
-            <p className={styles.rating}>
-              ⭐ {equipment.rating || 0} ({equipment.reviews || 0} reviews)
-            </p>
+           <p className={styles.productMata}>
+              <span className={styles.productRating}>
+                {"★".repeat(Math.floor(equipment.rating || 0))}
+                {equipment.rating % 1 !== 0 ? "☆" : ""}
+                <span>({equipment.reviews})</span>
+              </span>
+              <span className={styles.productPrice}>
+                ₹{equipment.price}
+              </span>
+            </p> 
             <button className={styles.button}>Add to Cart</button>
           </div>
         ))}

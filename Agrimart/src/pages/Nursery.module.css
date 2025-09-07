@@ -20,6 +20,10 @@
   font-size: 20px;
 }
 
+.addNurseryBtn:hover{
+  background-color: rgb(39, 130, 43);
+}
+
 .title {
   font-size: 24px;
   color: #333;

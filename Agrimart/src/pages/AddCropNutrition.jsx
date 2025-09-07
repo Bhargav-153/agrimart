@@ -42,7 +42,7 @@ const AddCropNutrition = () => {
     name: z.string().min(2, "Product name is required"),
     description: z.string().min(3, "Description is too short"),
     price: z.string().min(1, "Price is required"),
-    tag: z.enum(["Organic", "Mineral", "Liquid", "Premium"]).optional(),
+    tag: z.enum(["Organic", "Mineral", "Liquid", "Premium", "Fertilizer"]).optional(),
     rating: z
       .preprocess((val) => (val ? Number(val) : 0), z.number().min(0).max(5))
       .optional(),
@@ -155,6 +155,7 @@ const AddCropNutrition = () => {
                         <option value="Mineral">Mineral</option>
                         <option value="Liquid">Liquid</option>
                         <option value="Premium">Premium</option>
+                        <option value="Fertilizer">Fertilizer</option>
                       </select>
                     </FormControl>
                     <FormMessage />
@@ -251,12 +252,12 @@ const AddCropNutrition = () => {
 
       {/* ✅ Products Table */}
       <div className={styles.container}>
-        <Card className={styles.card}>
+       
           <h1 className={styles.title}>All Crop Nutrition Products</h1>
-        </Card>
+        
 
         <div className="mt-10 w-full max-w-6xl">
-          <Table>
+          <Table className="border-separate border-spacing-x-6 border-spacing-y-3 w-full">
             <TableHeader>
               <TableRow>
                 <TableHead>Tag</TableHead>
@@ -278,7 +279,7 @@ const AddCropNutrition = () => {
                   <TableCell>{p.reviews}</TableCell>
                   <TableCell>{moment(p?.createdAt).format("DD-MM-YYYY")}</TableCell>
                   <TableCell className="flex gap-3">
-                    <Button variant="outline" className="hover:bg-green-500 hover:text-white">
+                    <Button variant="outline" className="w-10 hover:bg-green-500 hover:text-white">
                       <Link to={RouteCropNutritionEdit(p._id)}>
                         <FaEdit />
                       </Link>
@@ -287,7 +288,7 @@ const AddCropNutrition = () => {
                     <Button
                       onClick={() => handleDelete(p._id)}
                       variant="outline"
-                      className="hover:bg-rose-500 hover:text-white"
+                      className="w-10 hover:bg-green-500 hover:text-white"
                     >
                       <FaRegTrashAlt />
                     </Button>

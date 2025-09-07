@@ -2,9 +2,10 @@ import Seed from "../models/seed.model.js";
 import { handleError } from "../helpers/handleError.js";
 
 // Add a seed
+
 export const addSeed = async (req, res, next) => {
   try {
-    const { type, name, description, price, unit, category, tag } = req.body;
+    const { type, name, description, price, unit, category, tag, rating, reviews } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ message: "Seed image is required" });
@@ -20,6 +21,8 @@ export const addSeed = async (req, res, next) => {
       unit,
       category,
       tag,
+      rating,
+      reviews,
       image: imagePath,
     });
 
@@ -29,6 +32,7 @@ export const addSeed = async (req, res, next) => {
     next(handleError(500, error.message));
   }
 };
+
 
 // Get all seeds
 export const getAllSeeds = async (req, res, next) => {

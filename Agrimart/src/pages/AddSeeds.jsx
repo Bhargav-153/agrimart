@@ -316,60 +316,57 @@ const AddSeeds = () => {
 
       {/* ✅ Seeds Table */}
       <div className={styles.container}>
-        <Card className={styles.card}>
+        
           <h1 className={styles.title}>All Seeds</h1>
-        </Card>
+        
 
         <div className="mt-10 w-full max-w-6xl">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                
-                <TableHead>Category</TableHead>
-                <TableHead>Tag</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Unit</TableHead>
-                <TableHead>Rating</TableHead>
-                <TableHead>Reviews</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Action</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {seedsData?.seeds?.map((s, i) => (
-                <TableRow key={i}>
-                  
-                  <TableCell>{s.category}</TableCell>
-                  <TableCell>{s.tag}</TableCell>
-                  <TableCell>{s.name}</TableCell>
-                  <TableCell>₹{s.price}</TableCell>
-                  <TableCell>{s.unit}</TableCell>
-                  <TableCell>{s.rating}</TableCell>
-                  <TableCell>{s.reviews}</TableCell>
-                  <TableCell>{moment(s?.createdAt).format("DD-MM-YYYY")}</TableCell>
-                  <TableCell className="flex gap-3">
-                    <Button
-                      variant="outline"
-                      className="hover:bg-green-500 hover:text-white"
-                      asChild
-                    >
-                      <Link to={RouteSeedsEdit(s._id)}>
-                        <FaEdit />
-                      </Link>
-                    </Button>
-                    <Button
-                      onClick={() => handleDelete(s._id)}
-                      variant="outline"
-                      className="hover:bg-rose-500 hover:text-white"
-                    >
-                      <FaRegTrashAlt />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <Table className="border-separate border-spacing-x-6 border-spacing-y-3 w-full">
+  <TableHeader>
+    <TableRow>
+      <TableHead>Category</TableHead>
+      <TableHead>Name</TableHead>
+      <TableHead>Price</TableHead>
+      <TableHead>Unit</TableHead>
+      <TableHead>Rating</TableHead>
+      <TableHead>Reviews</TableHead>
+      <TableHead>Date</TableHead>
+      <TableHead>Action</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    {seedsData?.seeds?.map((s, i) => (
+      <TableRow key={i}>
+        <TableCell>{s.category}</TableCell>
+        <TableCell>{s.name}</TableCell>
+        <TableCell>₹{s.price}</TableCell>
+        <TableCell>{s.unit}</TableCell>
+        <TableCell>{s.rating}</TableCell>
+        <TableCell>{s.reviews}</TableCell>
+        <TableCell>{moment(s?.createdAt).format("DD-MM-YYYY")}</TableCell>
+        <TableCell className="flex gap-3">
+          <Button
+            variant="outline"
+            className="w-10 hover:bg-green-500 hover:text-white"
+            asChild
+          >
+            <Link to={RouteSeedsEdit(s._id)}>
+              <FaEdit />
+            </Link>
+          </Button>
+          <Button
+            onClick={() => handleDelete(s._id)}
+            variant="outline"
+            className="w-10 hover:bg-green-500 hover:text-white"
+          >
+            <FaRegTrashAlt />
+          </Button>
+        </TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+
         </div>
       </div>
     </div>

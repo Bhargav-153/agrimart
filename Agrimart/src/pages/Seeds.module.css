@@ -159,4 +159,23 @@
     font-weight: bold;
     color: #333;
   }
+
+
+.addSeedsBtn {
+  display: inline-block;
+  text-align: center;
+  padding: 7px 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  background-color: #31a137ff;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  color: #fff;
+  width: 180px;
+  font-size: 20px;
+}
+
+.addSeedsBtn:hover{
+  background-color: rgb(39, 130, 43);
+}
   

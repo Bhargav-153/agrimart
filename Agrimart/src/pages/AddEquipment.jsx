@@ -251,12 +251,12 @@ const AddEquipment = () => {
 
       {/* ✅ Equipment Table */}
       <div className={styles.container}>
-        <Card className={styles.card}>
+      
           <h1 className={styles.title}>All Equipment</h1>
-        </Card>
+        
 
         <div className="mt-10 w-full max-w-6xl">
-          <Table>
+          <Table className="border-separate border-spacing-x-6 border-spacing-y-3 w-full">
             <TableHeader>
               <TableRow>
                 <TableHead>Tag</TableHead>
@@ -278,7 +278,7 @@ const AddEquipment = () => {
                   <TableCell>{p.reviews}</TableCell>
                   <TableCell>{moment(p?.createdAt).format("DD-MM-YYYY")}</TableCell>
                   <TableCell className="flex gap-3">
-                    <Button variant="outline" className="hover:bg-green-500 hover:text-white">
+                    <Button variant="outline" className="w-10 hover:bg-green-500 hover:text-white">
                       <Link to={RouteEquipmentEdit(p._id)}>
                         <FaEdit />
                       </Link>
@@ -287,7 +287,7 @@ const AddEquipment = () => {
                     <Button
                       onClick={() => handleDelete(p._id)}
                       variant="outline"
-                      className="hover:bg-rose-500 hover:text-white"
+                      className="w-10 hover:bg-green-500 hover:text-white"
                     >
                       <FaRegTrashAlt />
                     </Button>
