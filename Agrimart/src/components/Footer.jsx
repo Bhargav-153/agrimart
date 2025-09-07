@@ -9,6 +9,9 @@ import {
 } from "react-icons/fa";
 import styles from "./Footer.module.css";
 import React from "react";
+import { RouteAboutUs, RouteContactUs } from "../helpers/RouteName";
+
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -31,14 +34,14 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="/about" className={styles.link}>
+              <Link to={RouteAboutUs} className={styles.link}>
                 About Us
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/contact" className={styles.link}>
+              <Link to={RouteContactUs} className={styles.link}>
                 Contact
-              </a>
+              </Link>
             </li>
             <li>
               <a href="/terms" className={styles.link}>
@@ -92,7 +95,7 @@ const Footer = () => {
 
       <div className={styles.footerBottom}>
         <div className={styles.containerBottom}>
-          <p>&copy; 2024 Agrimart. All rights reserved.</p>
+          <p>&copy; 2025 Agrimart. All rights reserved.</p>
           <div className={styles.socialLinks}>
             <a href="#" className={styles.socialIcon}>
               <FaFacebook />

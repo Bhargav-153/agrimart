@@ -56,6 +56,9 @@ const Header = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
 
   return (
     <header className={styles.mainHeader}>
@@ -68,7 +71,10 @@ const Header = () => {
         </div>
 
         {/* Navigation */}
-        <nav className={`${styles.mainNav} ${menuOpen ? styles.active : ""}`}>
+        <nav
+          className={`${styles.mainNav} ${menuOpen ? styles.active : ""}`}
+          onClick={closeMenu}
+        >
           <ul className={styles.navList}>
             <li>
               <NavLink
@@ -98,6 +104,7 @@ const Header = () => {
               {!user.isLoggedIn ? (
                 <NavLink
                   to={RouteSignIn}
+                  onClick={closeMenu}
                   className={({ isActive }) =>
                     isActive
                       ? `${styles.loginBtn} ${styles.active}`
