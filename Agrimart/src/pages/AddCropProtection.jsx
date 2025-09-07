@@ -42,7 +42,7 @@ const AddCropProtection = () => {
     name: z.string().min(2, "Product name is required"),
     description: z.string().min(3, "Description is too short"),
     price: z.string().min(1, "Price is required"),
-    tag: z.enum(["Organic", "Herbal", "Chemical", "Premium"]).optional(),
+    tag: z.enum(["Pesticide", "Biological", "Natural", "Eco-friendly", "Herbal", "Organic","Premium"]).optional(),
     rating: z.preprocess(
       (val) => (val ? Number(val) : 0),
       z.number().min(0).max(5)
@@ -58,8 +58,7 @@ const AddCropProtection = () => {
     defaultValues: {
       name: "",
       description: "",
-      price: "",
-     
+      price: "",  
       tag: "",
       rating: "",
       reviews: "",
@@ -156,9 +155,12 @@ const AddCropProtection = () => {
                     <FormControl>
                       <select {...field} className="w-full border rounded p-2">
                         <option value="">Select Tag</option>
-                        <option value="Organic">Organic</option>
+                        <option value="Pesticide">Pesticide</option>
+                        <option value="Biological">Biological</option>
+                        <option value="Natural">Natural</option>
+                        <option value="Eco-friendly">Eco-friendly</option>
                         <option value="Herbal">Herbal</option>
-                        <option value="Chemical">Chemical</option>
+                        <option value="Organic">Organic</option>
                         <option value="Premium">Premium</option>
                       </select>
                     </FormControl>
@@ -254,12 +256,12 @@ const AddCropProtection = () => {
 
       {/* ✅ Products Table */}
       <div className={styles.container}>
-        <Card className={styles.card}>
+        
           <h1 className={styles.title}>All Crop Protection Products</h1>
-        </Card>
+        
 
         <div className="mt-10 w-full max-w-6xl">
-          <Table>
+          <Table className="border-separate border-spacing-x-6 border-spacing-y-3 w-full">
             <TableHeader>
               <TableRow>
                 
@@ -267,7 +269,7 @@ const AddCropProtection = () => {
                 <TableHead>Name</TableHead>
                 <TableHead>Price</TableHead>
                 <TableHead>Rating</TableHead>
-                <TableHead>Reviews</TableHead>
+                <TableHead>Review</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Action</TableHead>
               </TableRow>
@@ -277,14 +279,14 @@ const AddCropProtection = () => {
     <TableRow key={i}>
       <TableCell>{p.tag}</TableCell>
       <TableCell>{p.name}</TableCell>
-      <TableCell>₹{p.price}</TableCell>
+      <TableCell>₹{p.price}</TableCell> 
       <TableCell>{p.rating}</TableCell>
-      <TableCell>{p.reviews}</TableCell>
+      <TableCell>{p.reviews}</TableCell>  
       <TableCell>{moment(p?.createdAt).format("DD-MM-YYYY")}</TableCell>
       <TableCell className="flex gap-3">
         <Button
           variant="outline"
-          className="hover:bg-green-500 hover:text-white"
+          className="w-10 hover:bg-green-500 hover:text-white"
           asChild
         >
           <Link to={RouteCropProtectionEdit(p._id)}>
@@ -294,7 +296,7 @@ const AddCropProtection = () => {
         <Button
           onClick={() => handleDelete(p._id)}
           variant="outline"
-          className="hover:bg-rose-500 hover:text-white"
+          className="w-10 hover:bg-green-500 hover:text-white"
         >
           <FaRegTrashAlt />
         </Button>

@@ -1,10 +1,10 @@
-import Organic from "../models/Organic.model.js";
+import Organic from "../models/organic.model.js";
 
 // ✅ Create
 
 export const addOrganic = async (req, res, next) => {
   try {
-    const { name, description, price, tag, rating, reviews } = req.body;
+    const { name, description, price,unit, tag, rating, reviews } = req.body;
 
     if (!name || !description || !price) {
       return res.status(400).json({ message: "Name, description & price are required" });
@@ -19,6 +19,7 @@ export const addOrganic = async (req, res, next) => {
       description,
       price: Number(price),
       tag,
+      unit,
       rating: rating ? Number(rating) : 0,
       reviews: reviews ? Number(reviews) : 0,
       image: imagePath,
@@ -54,21 +55,27 @@ export const getOrganicById = async (req, res, next) => {
 };
 
 // ✅ Update
+
 export const updateOrganic = async (req, res, next) => {
   try {
     const updates = { ...req.body };
     if (updates.price) updates.price = Number(updates.price);
     if (updates.rating) updates.rating = Number(updates.rating);
     if (updates.reviews) updates.reviews = Number(updates.reviews);
-    if (req.file) updates.image = `/uploads/${req.file.filename}`;
+
+    if (req.file) {
+      updates.image = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+    }
 
     const organic = await Organic.findByIdAndUpdate(req.params.id, updates, { new: true });
     if (!organic) return res.status(404).json({ message: "Organic product not found" });
+
     res.json({ success: true, organic });
   } catch (err) {
     next(err);
   }
 };
+
 
 // ✅ Delete
 export const deleteOrganic = async (req, res, next) => {

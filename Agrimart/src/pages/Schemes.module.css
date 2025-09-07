@@ -25,6 +25,10 @@
   transition: background-color 0.2s;
 }
 
+.addSchemeBtn:hover{
+  background-color: rgb(39, 130, 43);
+}
+
 .schemesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -89,6 +93,20 @@
   margin-right: 10px;
 }
 
+.videoBtn{
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #d65109;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  margin-left: 10px;
+}
+
+.videoBtn:hover{
+  background-color: #ab430b;
+}
 .applyBtn:hover {
-  background-color: #45a049;
+  background-color: #317b35;
 }

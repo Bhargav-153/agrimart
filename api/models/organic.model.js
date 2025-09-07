@@ -5,6 +5,7 @@ const organicSchema = new mongoose.Schema(
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
+    unit: { type: String, enum: ["kg", "g", "piece", "packet","liter"], default: "kg" },
     tag: { type: String, enum: ["Fertilizer", "Pesticide", "Compost", "Other"] },
     rating: { type: Number, default: 0 },
     reviews: { type: Number, default: 0 },

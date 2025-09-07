@@ -7,7 +7,7 @@ import useFetch from "@/hooks/useFetch";
 
 const ProductCategory = ({ title, products }) => (
   <div className={styles.categorySection}>
-    <h2>{title}</h2>
+    {/* <h2>{title}</h2> */}
     <div className={styles.productsGrid}>
       {products.map((product) => (
         <div key={product._id} className={styles.productCard}>
@@ -48,16 +48,16 @@ const Seeds = () => {
 
   return (
     <main className={styles.mainContent}>
-      <div className={styles.shopContainer}>
-        <h1>Seeds</h1>
+      {/* <div className={styles.shopContainer}> */}
+        <h1 className="text-3xl font-bold text-center mb-6">Seeds</h1>
         <div className={styles.addSeedsWrapper}>
-          <Button asChild>
+          <Button asChild className={styles.addSeedsBtn}>
             <Link to={RouteSeedsAdd}>Add Seeds</Link>
           </Button>
         </div>
         {/* data.seeds because backend sends { seeds: [...] } */}
         <ProductCategory title="All Seeds" products={data.seeds} />
-      </div>
+      {/* </div> */}
     </main>
   );
 };

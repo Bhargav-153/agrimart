@@ -314,7 +314,7 @@ const AddSchema = () => {
                     <Button
                       onClick={() => handleDelete(s._id)}
                       variant="outline"
-                      className="w-full hover:bg-rose-500 hover:text-white"
+                      className="w-full hover:bg-green-500 hover:text-white"
                     >
                       <FaRegTrashAlt />
                     </Button>

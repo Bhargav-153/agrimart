@@ -205,18 +205,17 @@ const AddNursery = () => {
       </Card>
 
       <div className={styles.container}>
-        <Card className={styles.card2}>
+
           <h1 className={styles.title}>All Nursery Plants</h1>
 
           <div className="mt-10 w-full max-w-6xl">
-            <Table>
+            <Table className="border-separate border-spacing-x-6 border-spacing-y-3 w-full">
               <TableHeader>
                 <TableRow>
                   <TableHead>Plant</TableHead>
                   <TableHead>Price</TableHead>
                   <TableHead>Nursery</TableHead>
                   <TableHead>Address</TableHead>
-                  <TableHead>Phone</TableHead>
                   <TableHead>Date</TableHead>
                   <TableHead>Action</TableHead>
                 </TableRow>
@@ -228,14 +227,13 @@ const AddNursery = () => {
                     <TableCell>₹{n.plantPrice}</TableCell>
                     <TableCell>{n.nurseryName}</TableCell>
                     <TableCell>{n.address}</TableCell>
-                    <TableCell>{n.phone}</TableCell>
                     <TableCell>
                       {moment(n?.createdAt).format("DD-MM-YYYY")}
                     </TableCell>
                     <TableCell className="flex gap-3">
                       <Button
                         variant="outline"
-                        className="w-full hover:bg-rose-500 hover:text-white"
+                        className="w-10 hover:bg-green-500 hover:text-white"
                         asChild
                       >
                         <Link to={RouteNurseryEdit(n._id)}>
@@ -245,7 +243,7 @@ const AddNursery = () => {
                       <Button
                         onClick={() => handleDelete(n._id)}
                         variant="outline"
-                        className="w-full hover:bg-rose-500 hover:text-white"
+                        className="w-10 hover:bg-green-500 hover:text-white"
                       >
                         <FaRegTrashAlt />
                       </Button>
@@ -255,7 +253,7 @@ const AddNursery = () => {
               </TableBody>
             </Table>
           </div>
-        </Card>
+
       </div>
     </div>
   );

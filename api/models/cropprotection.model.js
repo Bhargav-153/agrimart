@@ -19,7 +19,7 @@ const cropProtectionSchema = new mongoose.Schema(
 
     tag: {
       type: String,
-      enum: ["Organic", "Herbal", "Chemical", "Premium"],
+      enum: ["Pesticide", "Biological", "Natural", "Eco-friendly", "Herbal", "Organic","Premium"],
       default: "",
     },
     rating: {

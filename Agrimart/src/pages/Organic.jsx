@@ -20,7 +20,7 @@ const Organic = () => {
       <h2 className={styles.title}>Organic Products</h2>
 
       <div className={styles.addSeedsWrapper}>
-        <Button asChild>
+        <Button asChild className={styles.addNutritionBtn}>
           <Link to={RouteOrganicAdd}>Add Organic Product</Link>
         </Button>
       </div>
@@ -36,7 +36,6 @@ const Organic = () => {
 
             <h3 className={styles.name}>{organic.name}</h3>
             <p className={styles.description}>{organic.description}</p>
-            <p className={styles.price}>₹{organic.price}</p>
 
             {organic.tag && (
               <div className={styles.tags}>
@@ -44,9 +43,16 @@ const Organic = () => {
               </div>
             )}
 
-            <p className={styles.rating}>
-              ⭐ {organic.rating || 0} ({organic.reviews || 0} reviews)
-            </p>
+            <p className={styles.productMata}>
+                          <span className={styles.productRating}>
+                            {"★".repeat(Math.floor(organic.rating || 0))}
+                            {organic.rating % 1 !== 0 ? "☆" : ""}
+                            <span>({organic.reviews})</span>
+                          </span>
+                          <span className={styles.productPrice}>
+                            ₹{organic.price}/{organic.unit}
+                          </span>
+                        </p>
             <button className={styles.button}>Add to Cart</button>
           </div>
         ))}

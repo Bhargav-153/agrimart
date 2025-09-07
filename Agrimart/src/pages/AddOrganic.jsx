@@ -43,6 +43,9 @@ const AddOrganic = () => {
     description: z.string().min(3, "Description is too short"),
     price: z.string().min(1, "Price is required"),
     tag: z.enum(["Fertilizer", "Pesticide", "Compost", "Other"]).optional(),
+    unit: z.enum(["kg", "g", "piece", "packet", "liter"], {
+        required_error: "Unit is required",
+      }),
     rating: z
       .preprocess((val) => (val ? Number(val) : 0), z.number().min(0).max(5))
       .optional(),
@@ -57,6 +60,7 @@ const AddOrganic = () => {
       name: "",
       description: "",
       price: "",
+      unit: "",
       tag: "",
       rating: "",
       reviews: "",
@@ -71,6 +75,7 @@ const AddOrganic = () => {
       formData.append("name", values.name);
       formData.append("description", values.description);
       formData.append("price", values.price);
+      formData.append("unit", values.unit);
       formData.append("tag", values.tag || "");
       formData.append("rating", values.rating);
       formData.append("reviews", values.reviews);
@@ -188,6 +193,29 @@ const AddOrganic = () => {
               </div>
             ))}
 
+            <div className={styles.formGroup}>
+                          <FormField
+                            control={form.control}
+                            name="unit"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Unit</FormLabel>
+                                <FormControl>
+                                  <select {...field} className="w-full border rounded p-2" required>
+                                    <option value="">Select Unit</option>
+                                    <option value="kg">Kilogram</option>
+                                    <option value="g">Gram</option>
+                                    <option value="liter">Liter</option>
+                                    <option value="piece">Piece</option>
+                                    <option value="packet">Packet</option>
+                                  </select>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+
             {/* ✅ Rating & Reviews */}
             <div className={styles.formGroup}>
               <FormField
@@ -251,12 +279,12 @@ const AddOrganic = () => {
 
       {/* ✅ Organic Table */}
       <div className={styles.container}>
-        <Card className={styles.card}>
+       
           <h1 className={styles.title}>All Organic Products</h1>
-        </Card>
+        
 
         <div className="mt-10 w-full max-w-6xl">
-          <Table>
+          <Table className="border-separate border-spacing-x-6 border-spacing-y-3 w-full">
             <TableHeader>
               <TableRow>
                 <TableHead>Tag</TableHead>
@@ -278,7 +306,7 @@ const AddOrganic = () => {
                   <TableCell>{p.reviews}</TableCell>
                   <TableCell>{moment(p?.createdAt).format("DD-MM-YYYY")}</TableCell>
                   <TableCell className="flex gap-3">
-                    <Button variant="outline" className="hover:bg-green-500 hover:text-white">
+                    <Button variant="outline" className="w-10 hover:bg-green-500 hover:text-white">
                         <Link to={RouteOrganicEdit(p._id)}>
                             <FaEdit />
                         </Link>
@@ -287,7 +315,7 @@ const AddOrganic = () => {
                     <Button
                       onClick={() => handleDelete(p._id)}
                       variant="outline"
-                      className="hover:bg-rose-500 hover:text-white"
+                      className="w-10 hover:bg-green-500 hover:text-white"
                     >
                       <FaRegTrashAlt />
                     </Button>

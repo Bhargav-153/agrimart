@@ -97,7 +97,7 @@ const Schemes = () => {
                   href={scheme.linkYoutube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={styles.applyBtn}
+                  className={styles.videoBtn}
                 >
                   Video
                 </a>
