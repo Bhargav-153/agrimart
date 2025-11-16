@@ -1,12 +1,18 @@
 import React from "react";
 import styles from "./CropProtection.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { RouteCropProtectionAdd } from "@/helpers/RouteName";
+import { RouteCropProtectionAdd, RouteCart, RouteAddress } from "@/helpers/RouteName";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "@/redux/cart/cart.slice";
+import { showToast } from "@/helpers/showToast";
 import useFetch from "@/hooks/useFetch";
 
 const CropProtection = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const user = useSelector((state) => state.user?.user);
 
   // ✅ Fetch crop protection products from backend
   const { data, loading, error } = useFetch(
@@ -14,6 +20,55 @@ const CropProtection = () => {
     { method: "GET", credentials: "include" },
     []
   );
+
+  // Handle Add to Cart
+  const handleAddToCart = async (product) => {
+    if (!user?._id) {
+      showToast("error", "Please login to add items to cart!");
+      return;
+    }
+
+    try {
+      await dispatch(
+        addToCart({
+          userId: user._id,
+          product: {
+            productId: product._id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+          },
+        })
+      ).unwrap();
+
+      showToast("success", `${product.name} added to cart!`);
+      navigate(RouteCart);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      showToast("error", "Failed to add item to cart. Please try again.");
+    }
+  };
+
+  // Handle Buy Now
+  const handleBuyNow = async (product) => {
+    if (!user?._id) {
+      showToast("error", "Please login to buy items!");
+      return;
+    }
+
+    // Store product data in localStorage for checkout flow
+    const productData = {
+      productId: product._id,
+      _id: product._id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      unit: "unit",
+    };
+    
+    localStorage.setItem("checkout_product", JSON.stringify(productData));
+    navigate(RouteAddress);
+  };
 
   return (
     <div className={styles.container}>
@@ -56,7 +111,8 @@ const CropProtection = () => {
                 </span>
               </p> 
 
-              <button className={styles.addToCart}>Add to Cart</button>
+              <button className={styles.addToCart} onClick={() => handleAddToCart(product)}>Add to Cart</button>
+              <button className={styles.buy} onClick={() => handleBuyNow(product)}>Buy Now</button>
             </div>
           ))
         ) : (

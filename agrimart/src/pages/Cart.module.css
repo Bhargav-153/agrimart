@@ -1,0 +1,153 @@
+.mainContent {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 3rem;
+  
+}
+
+.p{
+    margin-top: 6rem;
+}
+
+.cartTitle {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.cartButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* space between buttons */
+  margin-top: 0.5rem;
+}
+
+.cartButtons button {
+  padding: 10px 20px;      /* Bigger size */
+  font-size: 1rem;         /* Larger text */
+  border-radius: 8px;      /* Smooth corners */
+  font-weight: 600;        /* Bold text */
+  min-width: 100px;        /* Make buttons wider */
+}
+
+.btn2 {
+  background-color: rgb(20, 142, 20);
+}
+
+.btn2:hover {
+  background-color: rgb(15, 107, 15);
+}
+
+.btn1 {
+  background-color: rgb(214, 99, 57);
+}
+
+.btn1:hover {
+  background-color: rgb(173, 78, 43);
+}
+
+.cartGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.cartCard {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cartCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.cartImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.cartInfo {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.cartInfo h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.cartInfo p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.cartSummary {
+  background-color: #f9fafb;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.cartSummary h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cartActions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1200px) {
+  .cartGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 1rem;
+  }
+
+  .cartGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .cartCard {
+    flex-direction: column;
+  }
+
+  .cartImage {
+    height: 160px;
+  }
+
+  .cartInfo h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cartGrid {
+    grid-template-columns: 1fr;
+  }
+}

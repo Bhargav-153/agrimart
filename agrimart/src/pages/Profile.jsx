@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 
 import {
   FaUserCircle,
   FaShoppingBag,
-  FaHeart,
+  FaShoppingCart,
   FaCog,
   FaTrash,
 } from "react-icons/fa";
@@ -28,12 +28,14 @@ import { getEnv } from "@/helpers/getEnv";
 // import useNavigate from "react-router-dom";
 import { showToast } from "@/helpers/showToast";
 import { Link } from "react-router-dom";
-import { RouteSettings } from "../helpers/RouteName";
+import { RouteCart, RouteOrder, RouteSettings } from "../helpers/RouteName";
 import { UserIcon } from "lucide-react";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // const navigate = useNavigate();
 
@@ -79,6 +81,40 @@ const Profile = () => {
   //   }
   // }
 
+  // Fetch orders from MongoDB
+  useEffect(() => {
+    const fetchOrders = async () => {
+      if (!user.user?._id) return;
+
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `${getEnv("VITE_API_BASE_URL")}/orders/${user.user._id}`
+        );
+        const data = await response.json();
+        if (response.ok) {
+          setOrders(data.orders || []);
+        }
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, [user.user?._id]);
+
+  // Format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
     <>
 
@@ -111,12 +147,12 @@ const Profile = () => {
               <a href="#profile" className={styles.active}>
                 <FaUserCircle /> Profile
               </a>
-              <a href="#orders">
+              <Link to={RouteOrder}>
                 <FaShoppingBag /> Orders
-              </a>
-              <a href="#wishlist">
-                <FaHeart /> Wishlist
-              </a>
+              </Link>
+              <Link to={RouteCart}>
+                <FaShoppingCart /> Cart
+              </Link>
               <Link to={RouteSettings} className={styles.settingsLink}>
                 <FaCog /> Settings
               </Link>
@@ -194,26 +230,41 @@ const Profile = () => {
 
             <section id="orders" className={styles.profileSection}>
               <h2>My Orders</h2>
-              <div className={styles.ordersList}>
-                <div className={styles.orderCard}>
-                  <div className={styles.orderHeader}>
-                    <span className={styles.orderId}>Order #12345</span>
-                    <span className={styles.orderDate}>15 March 2024</span>
-                    <span className={styles.orderStatus}>Delivered</span>
-                  </div>
-                  <div className={styles.orderItems}>
-                    <img
-                      src="https://source.unsplash.com/100x100/?seeds"
-                      alt="Product"
-                    />
-                    <div className={styles.orderDetails}>
-                      <h3>Premium Wheat Seeds</h3>
-                      <p>Quantity: 2 kg</p>
-                      <p className={styles.price}>₹400</p>
+              {loading ? (
+                <p>Loading orders...</p>
+              ) : orders.length === 0 ? (
+                <p>No orders found.</p>
+              ) : (
+                <div className={styles.ordersList}>
+                  {orders.map((order) => (
+                    <div key={order._id} className={styles.orderCard}>
+                      <div className={styles.orderHeader}>
+                        <span className={styles.orderId}>Order #{order.orderId}</span>
+                        <span className={styles.orderDate}>
+                          {formatDate(order.orderDate)}
+                        </span>
+                        <span className={styles.orderStatus}>{order.status}</span>
+                      </div>
+                      {order.items.map((item, index) => (
+                        <div key={index} className={styles.orderItems}>
+                          <img
+                            src={item.image || "https://source.unsplash.com/100x100/?seeds"}
+                            alt={item.name}
+                          />
+                          <div className={styles.orderDetails}>
+                            <h3>{item.name}</h3>
+                            <p>Quantity: {item.quantity} {item.unit || "unit"}</p>
+                            <p className={styles.price}>₹{item.price}</p>
+                          </div>
+                        </div>
+                      ))}
+                      <div className={styles.orderTotal}>
+                        <strong>Total: ₹{order.totalAmount}</strong>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              </div>
+              )}
             </section>
 
             <section id="wishlist" className={styles.profileSection}>

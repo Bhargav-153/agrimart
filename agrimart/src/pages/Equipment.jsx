@@ -1,12 +1,18 @@
 import React from "react";
 import styles from "./CropNutrition.module.css"; // ✅ reuse same styles
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { RouteEquipmentAdd } from "@/helpers/RouteName"; // ✅ define this in RouteName.js
+import { Link, useNavigate } from "react-router-dom";
+import { RouteEquipmentAdd, RouteCart, RouteAddress } from "@/helpers/RouteName";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "@/redux/cart/cart.slice";
+import { showToast } from "@/helpers/showToast";
 import useFetch from "@/hooks/useFetch";
 
 const Equipment = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const user = useSelector((state) => state.user?.user);
 
   // ✅ Fetch data from backend
   const { data: equipmentData, loading, error } = useFetch(
@@ -14,6 +20,55 @@ const Equipment = () => {
     { method: "GET" },
     []
   );
+
+  // Handle Add to Cart
+  const handleAddToCart = async (equipment) => {
+    if (!user?._id) {
+      showToast("error", "Please login to add items to cart!");
+      return;
+    }
+
+    try {
+      await dispatch(
+        addToCart({
+          userId: user._id,
+          product: {
+            productId: equipment._id,
+            name: equipment.name,
+            price: equipment.price,
+            image: equipment.image,
+          },
+        })
+      ).unwrap();
+
+      showToast("success", `${equipment.name} added to cart!`);
+      navigate(RouteCart);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      showToast("error", "Failed to add item to cart. Please try again.");
+    }
+  };
+
+  // Handle Buy Now
+  const handleBuyNow = async (equipment) => {
+    if (!user?._id) {
+      showToast("error", "Please login to buy items!");
+      return;
+    }
+
+    // Store product data in localStorage for checkout flow
+    const productData = {
+      productId: equipment._id,
+      _id: equipment._id,
+      name: equipment.name,
+      price: equipment.price,
+      image: equipment.image,
+      unit: "unit",
+    };
+    
+    localStorage.setItem("checkout_product", JSON.stringify(productData));
+    navigate(RouteAddress);
+  };
 
   return (
     <div className={styles.container}>
@@ -56,7 +111,8 @@ const Equipment = () => {
                 ₹{equipment.price}
               </span>
             </p> 
-            <button className={styles.button}>Add to Cart</button>
+            <button className={styles.button} onClick={() => handleAddToCart(equipment)}>Add to Cart</button>
+            <button className={styles.buy} onClick={() => handleBuyNow(equipment)}>Buy Now</button>
           </div>
         ))}
       </div>

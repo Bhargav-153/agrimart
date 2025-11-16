@@ -1,12 +1,18 @@
 import React from "react";
 import styles from "./CropNutrition.module.css";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { RouteCropNutritionAdd } from "@/helpers/RouteName";
+import { Link, useNavigate } from "react-router-dom";
+import { RouteCropNutritionAdd, RouteCart, RouteAddress } from "@/helpers/RouteName";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "@/redux/cart/cart.slice";
+import { showToast } from "@/helpers/showToast";
 import useFetch from "@/hooks/useFetch";
 
 const CropNutrition = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const user = useSelector((state) => state.user?.user);
 
   // ✅ Fetch data from backend
   const { data: cropData, loading, error } = useFetch(
@@ -14,6 +20,55 @@ const CropNutrition = () => {
     { method: "GET" },
     []
   );
+
+  // Handle Add to Cart
+  const handleAddToCart = async (product) => {
+    if (!user?._id) {
+      showToast("error", "Please login to add items to cart!");
+      return;
+    }
+
+    try {
+      await dispatch(
+        addToCart({
+          userId: user._id,
+          product: {
+            productId: product._id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+          },
+        })
+      ).unwrap();
+
+      showToast("success", `${product.name} added to cart!`);
+      navigate(RouteCart);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      showToast("error", "Failed to add item to cart. Please try again.");
+    }
+  };
+
+  // Handle Buy Now
+  const handleBuyNow = async (product) => {
+    if (!user?._id) {
+      showToast("error", "Please login to buy items!");
+      return;
+    }
+
+    // Store product data in localStorage for checkout flow
+    const productData = {
+      productId: product._id,
+      _id: product._id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      unit: "unit",
+    };
+    
+    localStorage.setItem("checkout_product", JSON.stringify(productData));
+    navigate(RouteAddress);
+  };
 
   return (
     <div className={styles.container}>
@@ -56,7 +111,8 @@ const CropNutrition = () => {
                 ₹{product.price}
               </span>
             </p>
-            <button className={styles.button}>Add to Cart</button>
+            <button className={styles.button} onClick={() => handleAddToCart(product)}>Add to Cart</button>
+            <button className={styles.buy} onClick={() => handleBuyNow(product)}>Buy Now</button>
           </div>
         ))}
       </div>

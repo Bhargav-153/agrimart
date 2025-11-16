@@ -21,6 +21,10 @@ export const RouteEquipmentAdd = "/shop/equipment/add";
 export const RouteEquipment = "/shop/equipment";
 export const RouteOrganic = "/shop/organic";
 export const RouteOrganicAdd = "/shop/organic/add";
+export const RouteCart = "/profile/cart";
+export const RouteOrder = "/profile/order";
+export const RouteAddress = "/checkout/address";
+export const RoutePayment = "/checkout/payment";
 
 export const RouteNurseryEdit = (nursery_id) => {
   if (nursery_id) {
