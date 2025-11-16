@@ -1,0 +1,5 @@
+.SubNav {
+  overflow: visible;     /* ✅ Allow dropdown to appear */
+  position: relative;    /* ✅ Keep only if absolutely needed */
+  z-index: auto;         /* ✅ Let dropdown with z-index 9999 work */
+}

@@ -1,0 +1,20 @@
+.logoutBtn {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.18s, box-shadow 0.18s;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.08);
+  margin-top: 12px;
+  letter-spacing: 0.5px;
+}
+
+.logoutBtn:hover,
+.logoutBtn:focus {
+  background: #b91c1c;
+  outline: none;
+}

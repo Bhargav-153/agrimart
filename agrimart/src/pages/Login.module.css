@@ -1,0 +1,87 @@
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .loginBox {
+    width: 400px;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .googleLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.3rem;
+  }
+  
+  .separator {
+    margin: 0.3rem 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    color: #888;
+  }
+  
+  .separator::before,
+  .separator::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+    margin: 0 5px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
+  .inputField {
+    text-align: left;
+  }
+  
+  .submitButton {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    
+  }
+  
+  .submitButton button {
+    width: 100%;
+    background: #4CAF50;
+  }
+  
+  .signUpText {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .signUpLink {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .signUpLink:hover {
+    text-decoration: underline;
+  }

@@ -1,0 +1,69 @@
+.accountSettings {
+  max-width: 800px;
+  /* margin: 0 auto; */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 32px;
+  width: 100%;
+}
+
+.heading {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #22223b;
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 10px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f9fafb;
+  transition: border 0.2s;
+}
+
+.input:focus {
+  border: 1.5px solid #15803d;
+  outline: none;
+  background: #fff;
+}
+
+.saveBtn {
+  background: #15803d;
+  color: #fff;
+  padding: 10px 0;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.18s;
+}
+
+.saveBtn:hover {
+  background: #166534;
+}
+
+.success {
+  color: #15803d;
+  margin-top: 10px;
+  font-weight: 500;
+}
