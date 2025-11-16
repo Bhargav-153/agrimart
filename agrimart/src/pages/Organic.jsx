@@ -1,12 +1,18 @@
 import React from "react";
 import styles from "./CropNutrition.module.css"; // ✅ reuse same styles
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { RouteOrganicAdd } from "@/helpers/RouteName"; // ✅ add in RouteName.js
+import { Link, useNavigate } from "react-router-dom";
+import { RouteOrganicAdd, RouteCart, RouteAddress } from "@/helpers/RouteName";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "@/redux/cart/cart.slice";
+import { showToast } from "@/helpers/showToast";
 import useFetch from "@/hooks/useFetch";
 
 const Organic = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const user = useSelector((state) => state.user?.user);
 
   // ✅ Fetch data from backend
   const { data: organicData, loading, error } = useFetch(
@@ -14,6 +20,56 @@ const Organic = () => {
     { method: "GET" },
     []
   );
+
+  // Handle Add to Cart
+  const handleAddToCart = async (organic) => {
+    if (!user?._id) {
+      showToast("error", "Please login to add items to cart!");
+      return;
+    }
+
+    try {
+      await dispatch(
+        addToCart({
+          userId: user._id,
+          product: {
+            productId: organic._id,
+            name: organic.name,
+            price: organic.price,
+            image: organic.image,
+            unit: organic.unit || "unit",
+          },
+        })
+      ).unwrap();
+
+      showToast("success", `${organic.name} added to cart!`);
+      navigate(RouteCart);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      showToast("error", "Failed to add item to cart. Please try again.");
+    }
+  };
+
+  // Handle Buy Now
+  const handleBuyNow = async (organic) => {
+    if (!user?._id) {
+      showToast("error", "Please login to buy items!");
+      return;
+    }
+
+    // Store product data in localStorage for checkout flow
+    const productData = {
+      productId: organic._id,
+      _id: organic._id,
+      name: organic.name,
+      price: organic.price,
+      image: organic.image,
+      unit: organic.unit || "unit",
+    };
+    
+    localStorage.setItem("checkout_product", JSON.stringify(productData));
+    navigate(RouteAddress);
+  };
 
   return (
     <div className={styles.container}>
@@ -53,7 +109,8 @@ const Organic = () => {
                             ₹{organic.price}/{organic.unit}
                           </span>
                         </p>
-            <button className={styles.button}>Add to Cart</button>
+            <button className={styles.button} onClick={() => handleAddToCart(organic)}>Add to Cart</button>
+            <button className={styles.buy} onClick={() => handleBuyNow(organic)}>Buy Now</button>
           </div>
         ))}
       </div>

@@ -109,12 +109,29 @@
     background: #28a745;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 10px 15px;
     margin-top: 10px;
+    margin-bottom: 10px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 4px;
   }
   .button:hover{
     background: #1f7d35;
+  }
+
+  .buy {
+    background: #ecc155;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+  }
+
+  .buy:hover {
+    background-color: #b7943d;
   }
   

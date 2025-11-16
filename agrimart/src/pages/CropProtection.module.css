@@ -124,8 +124,26 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   
   .addToCart:hover {
     background: #1b6e2e;
+  }
+
+  .buy {
+    background: #ecc155;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+  }
+
+  .buy:hover {
+    background-color: #b7943d;
   }

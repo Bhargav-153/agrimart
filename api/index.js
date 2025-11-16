@@ -15,6 +15,8 @@ import cropNutritionRoutes from "./routes/CropNutrition.route.js";
 import equipmentRoutes from "./routes/Equipment.route.js";
 
 import organicRoutes from "./routes/Organic.route.js";
+import cartRoutes from "./routes/cart.route.js";
+import orderRoutes from "./routes/order.route.js";
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -59,6 +61,8 @@ app.use("/api/crop-protection", cropProtectionRoutes);
 app.use("/api/crop-nutrition", cropNutritionRoutes);
 app.use("/api/equipment", equipmentRoutes);
 app.use("/api/organic", organicRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
 
 // ✅ DB + server
 mongoose

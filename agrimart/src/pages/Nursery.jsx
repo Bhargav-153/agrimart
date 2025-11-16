@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getEnv } from "@/helpers/getEnv";
-import { RouteNurseryAdd } from "@/helpers/RouteName";
+import { RouteNurseryAdd, RouteCart, RouteAddress } from "@/helpers/RouteName";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "@/redux/cart/cart.slice";
+import { showToast } from "@/helpers/showToast";
 import styles from "./Nursery.module.css";
 
 const Nursery = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [nurseries, setNurseries] = useState([]);
+  const user = useSelector((state) => state.user?.user);
 
   useEffect(() => {
     const fetchNurseries = async () => {
@@ -24,6 +30,55 @@ const Nursery = () => {
 
     fetchNurseries();
   }, []);
+
+  // Handle Add to Cart
+  const handleAddToCart = async (nursery) => {
+    if (!user?._id) {
+      showToast("error", "Please login to add items to cart!");
+      return;
+    }
+
+    try {
+      await dispatch(
+        addToCart({
+          userId: user._id,
+          product: {
+            productId: nursery._id,
+            name: nursery.plantName,
+            price: parseFloat(nursery.plantPrice.replace(/[₹,]/g, "")) || 0,
+            image: nursery.plantImage || "",
+          },
+        })
+      ).unwrap();
+
+      showToast("success", `${nursery.plantName} added to cart!`);
+      navigate(RouteCart);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      showToast("error", "Failed to add item to cart. Please try again.");
+    }
+  };
+
+  // Handle Buy Now
+  const handleBuyNow = async (nursery) => {
+    if (!user?._id) {
+      showToast("error", "Please login to buy items!");
+      return;
+    }
+
+    // Store product data in localStorage for checkout flow
+    const productData = {
+      productId: nursery._id,
+      _id: nursery._id,
+      name: nursery.plantName,
+      price: parseFloat(nursery.plantPrice.replace(/[₹,]/g, "")) || 0,
+      image: nursery.plantImage || "",
+      unit: "unit",
+    };
+    
+    localStorage.setItem("checkout_product", JSON.stringify(productData));
+    navigate(RouteAddress);
+  };
 
   return (
     <div className={styles.nurseryContainer}>
@@ -77,8 +132,8 @@ const Nursery = () => {
                     <strong>Phone:</strong> {n.phone}
                   </p>
                 </div>
-                <button className={styles.addToCart}>Add to Cart</button>
-                <button className={styles.buy}>Buy Now</button>
+                <button className={styles.addToCart} onClick={() => handleAddToCart(n)}>Add to Cart</button>
+                <button className={styles.buy} onClick={() => handleBuyNow(n)}>Buy Now</button>
               </CardContent>
             </Card>
           ))
