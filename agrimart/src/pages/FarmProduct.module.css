@@ -1,0 +1,93 @@
+.farmContainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-top: 5rem;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .productsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .productCard {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .productImage {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .productName {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .productPrice {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .productQuantity {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .farmerInfo {
+    background: #eef7e1;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .farmerInfo p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  .addToCart {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .addToCart:hover {
+    background: #218838;
+  }
+
+  .buy {
+    background: #ecc155;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+  }
+.addToCart:hover {
+  background-color: rgb(56, 123, 74);
+}
+.buy:hover {
+  background-color: #b7943d;
+}
+  

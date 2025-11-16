@@ -1,0 +1,136 @@
+.subNav {
+  background: rgba(224, 224, 224);
+  padding: 15px 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 70px;
+  position: fixed;
+  top: 65px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.navItems {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.navItems li {
+  margin: 0 20px; /* More spacing between items */
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 18px; /* Increased font size */
+  font-weight: bold; /* Optional: Makes text bolder */
+  color: #333;
+  padding: 12px 16px; /* Larger padding for better touch area */
+  transition: 0.3s;
+  gap: 4px;
+}
+.navLink:hover {
+  border: 2px;
+  background-color: #c1cac1;
+}
+
+/* Dropdown Styles */
+.shopDropdown {
+  position: relative;
+}
+
+.dropdownMenu {
+  display: none;
+  position: absolute;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  list-style: none;
+  left: 0;
+  top: 100%;
+  z-index: 10;
+}
+
+.dropdownMenu li {
+  display: flex;
+}
+
+.dropdownMenu li:hover {
+  border: 2px;
+  background-color: #d9e1d9;
+}
+
+.shopDropdown.active .dropdownMenu {
+  display: block;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* Mobile Menu Button (Hidden by default) */
+.mobileMenuBtn {
+  display: none;
+  font-size: 26px; /* Larger icon for mobile */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mobileMenuBtn {
+    display: block;
+    position: absolute;
+    left: 10px;
+    /* gap: 10px; */
+    top: 10px;
+  }
+
+  .navContainer {
+    justify-content: space-between;
+  }
+
+  .navItems {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 70px; /* Adjusted for larger nav bar */
+    left: 0;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px 0; /* More padding */
+  }
+
+  .navItems.showMobile {
+    display: flex;
+  }
+
+  .navItems li {
+    text-align: center;
+    width: 100%;
+  }
+
+  .navLink {
+    padding: 14px;
+    font-size: 18px;
+    width: 100%;
+  }
+  .navLink svg {
+    font-size: 20px;
+  }
+}

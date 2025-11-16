@@ -1,0 +1,168 @@
+.ordersPage {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  margin-top: 6rem;
+  text-align: center;
+}
+
+/* Order Card */
+.orderCard {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border: 1px solid #e5e5e5;
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.orderId {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.orderDate {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.orderItem img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+
+/* Status Badge */
+.statusBadge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+}
+
+.pending {
+  background: #f59e0b; /* yellow */
+}
+
+.shipped {
+  background: #3b82f6; /* blue */
+}
+
+.delivered {
+  background: #22c55e; /* green */
+}
+
+.cancelled {
+  background: #ef4444; /* red */
+}
+
+/* Items list */
+.itemsSection {
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.itemRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.itemName {
+  font-weight: 500;
+}
+
+.itemQty {
+  color: #444;
+}
+
+/* Price section */
+.orderFooter {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.totalLabel {
+  font-weight: 600;
+}
+
+.totalAmount {
+  font-weight: 700;
+  color: #000;
+}
+
+.orderTotal {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+  font-size: 1.1rem;
+}
+
+.paymentMethod {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.paymentBadge {
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.orderStatus {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.orderIdDisplay {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #666;
+  padding-top: 0.75rem;
+  border-top: 1px solid #eee;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .orderCard {
+    padding: 1rem;
+  }
+
+  .orderHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .orderFooter {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}

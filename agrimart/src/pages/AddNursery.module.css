@@ -1,0 +1,100 @@
+/* Center the form container */
+.container {
+  /* padding-top: 5rem; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f4f4f4;
+  margin-top: 2rem;
+  padding-bottom: 3rem;
+  /* height: 100vh; */
+}
+
+/* Add this class */
+.formTableWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Card styling */
+.card1 {
+  width: 760px;
+  padding-top: 5rem;
+  margin-top: 4rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 5px;
+}
+.card2 {
+  width: 800px;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Title styles */
+.title {
+  font-size: 25px;
+  font-weight: 600;
+  color: #090808ff;
+  text-decoration: underline;
+}
+
+/* Google login button container */
+.socialLogin {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form group styling */
+.formGroup {
+  margin-bottom: 15px;
+}
+
+/* Submit button styling */
+.submitSection {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.submitButton {
+  width: 100%;
+  background: #4caf50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  border: none;
+}
+
+.submitButton:hover {
+  background-color: rgb(56, 123, 74);
+}
+
+/* Sign-in redirect text */
+.redirectText {
+  margin-top: 10px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.signInLink {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signInLink:hover {
+  text-decoration: underline;
+}
