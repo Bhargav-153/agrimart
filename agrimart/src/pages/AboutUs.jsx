@@ -24,7 +24,7 @@ const AboutUs = () => {
         </section>
 
         <section className={styles.mission}>
-          <h2>Our Mission</h2>
+          <h2>Our Mission is</h2>
           <p>
             Our goal is to support sustainable farming by connecting farmers
             with top-notch products and innovative farming techniques. We aim to
