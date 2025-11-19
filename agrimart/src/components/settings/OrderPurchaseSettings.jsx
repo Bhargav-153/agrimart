@@ -1,10 +1,13 @@
 import React from "react";
+import Orders from "@/pages/Orders";
+import styles from "./OrderPurchaseSettings.module.css";
 
 const OrderPurchaseSettings = () => (
   <section>
-    <h3 className="text-xl font-semibold mb-2">Order & Purchase Settings</h3>
-    <p>Manage your order preferences, addresses, and payment methods here.</p>
-    {/* Add more controls as needed */}
+  <div className={styles.listWrapper}>
+        <Orders/>
+      </div>
+
   </section>
 );
 
