@@ -1,0 +1,64 @@
+.paymentContainer {
+  min-height: calc(100vh - 120px);
+  padding: 2rem 1rem;
+  background: #f5f7fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paymentCard {
+  width: 100%;
+  max-width: 540px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+}
+
+.totalSection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #064e3b;
+}
+
+.totalSection p {
+  margin-bottom: 0.25rem;
+  color: #475467;
+}
+
+.totalSection h3 {
+  margin-top: 1.75rem;
+  font-size: 1.75rem;
+  color: #111827;
+}
+
+.payButton {
+  margin-top: 2rem;
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.payButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.payButton:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .paymentCard {
+    padding: 1.5rem;
+  }
+}
+

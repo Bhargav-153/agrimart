@@ -2,6 +2,7 @@ import { handleError } from "../helpers/handleError.js";
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { dispatchNotification } from "../helpers/dispatchNotification.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -63,6 +64,25 @@ export const Login = async (req, res, next) => {
     const newUser = user.toObject({ getters: true });
     delete newUser.password;
 
+    // Dispatch a non-blocking notification for login
+    try {
+      dispatchNotification(
+        {
+          userId: user._id,
+          title: "Welcome back to Agrimart",
+          message: `Hi ${
+            user.name || "user"
+          }, you have successfully logged in.`,
+          email: user.email,
+          phone: user.phone,
+          type: "auth",
+        },
+        { sendEmail: true, sendSMS: false }
+      );
+    } catch (e) {
+      console.error("Login notification error:", e?.message || e);
+    }
+
     res.status(200).json({
       success: true,
       user: newUser,
@@ -110,6 +130,25 @@ export const GoogleLogin = async (req, res, next) => {
 
     const newUser = user.toObject({ getters: true });
     delete newUser.password;
+    // Dispatch a non-blocking notification for login (google)
+    try {
+      dispatchNotification(
+        {
+          userId: user._id,
+          title: "Welcome to Agrimart",
+          message: `Hi ${
+            user.name || "user"
+          }, you have successfully logged in with Google.`,
+          email: user.email,
+          phone: user.phone,
+          type: "auth",
+        },
+        { sendEmail: true, sendSMS: false }
+      );
+    } catch (e) {
+      console.error("GoogleLogin notification error:", e?.message || e);
+    }
+
     res.status(200).json({
       success: true,
       user: newUser,
@@ -128,6 +167,28 @@ export const Logout = async (req, res, next) => {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       path: "/",
     });
+
+    // Dispatch a logout notification (best-effort; non-blocking)
+    try {
+      const userId = req.user?._id || null;
+      // if req.user not available, we still attempt using query/body if provided
+      const candidateId = userId || req.body.userId || req.query.userId || null;
+      if (candidateId) {
+        dispatchNotification(
+          {
+            userId: candidateId,
+            title: "Logged out",
+            message: `You have successfully logged out of Agrimart.`,
+            email: req.body?.email || undefined,
+            phone: req.body?.phone || undefined,
+            type: "auth",
+          },
+          { sendEmail: true, sendSMS: false }
+        );
+      }
+    } catch (e) {
+      console.error("Logout notification error:", e?.message || e);
+    }
 
     res.status(200).json({
       success: true,

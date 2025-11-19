@@ -22,6 +22,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
 import SchemaRoute from "./routes/Schema.route.js";
+import notificationRoutes from "./routes/notification.route.js";
+
 
 dotenv.config();
 
@@ -63,6 +65,8 @@ app.use("/api/equipment", equipmentRoutes);
 app.use("/api/organic", organicRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/notifications", notificationRoutes);
+
 
 // ✅ DB + server
 mongoose
@@ -71,7 +75,7 @@ mongoose
   .catch((err) => console.log("Database connection failed", err));
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
 
 // ✅ Error middleware

@@ -88,32 +88,44 @@ const Payment = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${getEnv("VITE_API_BASE_URL")}/orders/create`, {
+      const response = await fetch(`${getEnv("VITE_API_BASE_URL")}/orders/place`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
           userId: user._id,
+          items: [
+            {
+              productId: product.productId || product._id,
+              name: product.name,
+              price: product.price,
+              image: product.image,
+              unit: product.unit || "unit",
+              quantity: 1,
+            },
+          ],
+          totalAmount: product.price,
+          email: user.email,
+          phone: user.phone || address?.mobile,
+          address,
           paymentMethod: method,
           paymentGateway: gateway?.id || null,
-          address: address,
-          product: {
-            productId: product.productId || product._id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            unit: product.unit || "unit",
-          },
         }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (response.ok && data.success) {
         // Clear checkout data from localStorage
         localStorage.removeItem("checkout_product");
         localStorage.removeItem("checkout_address");
         
-        showToast("success", `Order placed successfully! Order ID: ${data.order?.orderId || "N/A"}`);
+        showToast(
+          "success",
+          `Order placed successfully! Order ID: ${
+            data.order?.orderId || data.order?._id || "N/A"
+          }`
+        );
         navigate(RouteOrder);
       } else {
         throw new Error(data.message || "Failed to create order");

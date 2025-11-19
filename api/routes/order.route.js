@@ -1,7 +1,10 @@
 import express from "express";
 import Order from "../models/Order.model.js";
+import { placeOrder } from "../controllers/order.controller.js";
+
 
 const router = express.Router();
+router.post("/place", placeOrder);
 
 // CREATE ORDER (Buy Now)
 router.post("/create", async (req, res) => {
