@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { SchemaRoute } from "@/helpers/RouteName";
+import { useSelector } from "react-redux";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -42,6 +43,8 @@ const iconMap = {
 
 const Schemes = () => {
   const [dynamicSchemes, setDynamicSchemes] = useState([]);
+  const user = useSelector((state) => state.user?.user);
+  const isAdmin = user?.role === 'admin';
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/schemes/all`)
@@ -54,9 +57,13 @@ const Schemes = () => {
     <div className={styles.schemesContainer}>
       <h1 className={styles.pageTitle}>Government Agricultural Schemes</h1>
       <div className="mt-4">
-        <Button className={styles.addSchemeBtn}>
-          <Link to={SchemaRoute}>Add Government Schemes </Link>
-        </Button>
+      {isAdmin && (
+        <div className={styles.addSchemesWrapper}>
+          <Button asChild className={styles.addSchemeBtn}>
+            <Link to={SchemaRoute}>Add Government Schemes</Link>
+          </Button>
+        </div>
+      )}
       </div>
       <div className={styles.schemesGrid}>
         

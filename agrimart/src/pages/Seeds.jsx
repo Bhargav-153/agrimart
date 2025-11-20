@@ -118,15 +118,20 @@ const Seeds = () => {
   if (error) return <p>Error: {error.message}</p>;
   if (!data?.seeds?.length) return <p>No seeds found</p>;
 
+  // Check if user is admin
+  const isAdmin = user?.role === 'admin';
+
   return (
     <main className={styles.mainContent}>
       <h1 className="text-3xl font-bold text-center mb-6">Seeds</h1>
 
-      <div className={styles.addSeedsWrapper}>
-        <Button asChild className={styles.addSeedsBtn}>
-          <Link to={RouteSeedsAdd}>Add Seeds</Link>
-        </Button>
-      </div>
+      {isAdmin && (
+        <div className={styles.addSeedsWrapper}>
+          <Button asChild className={styles.addSeedsBtn}>
+            <Link to={RouteSeedsAdd}>Add Seeds</Link>
+          </Button>
+        </div>
+      )}
 
       <ProductCategory
         title="All Seeds"

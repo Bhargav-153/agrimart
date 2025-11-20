@@ -4,6 +4,7 @@ import {
   addProduct,
   getAllProducts,
   getProductById,
+  deleteProduct,
 } from "../controllers/FarmerProduct.controller.js";
 
 const router = express.Router();
@@ -23,5 +24,6 @@ const upload = multer({ storage });
 router.post("/products", upload.single("image"), addProduct);
 router.get("/products", getAllProducts);
 router.get("/products/:id", getProductById);
+router.delete("/products/:id", deleteProduct);
 
 export default router;

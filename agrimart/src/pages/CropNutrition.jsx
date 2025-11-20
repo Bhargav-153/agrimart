@@ -70,15 +70,20 @@ const CropNutrition = () => {
     navigate(RouteAddress);
   };
 
+  // Check if user is admin
+  const isAdmin = user?.role === 'admin';
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Crop Nutrition Products</h2>
 
-      <div className={styles.addSeedsWrapper}>
-        <Button asChild className={styles.addNutritionBtn}>
-          <Link to={RouteCropNutritionAdd}>Add Crop Nutrition</Link>
-        </Button>
-      </div>
+      {isAdmin && (
+        <div className={styles.addSeedsWrapper}>
+          <Button asChild className={styles.addNutritionBtn}>
+            <Link to={RouteCropNutritionAdd}>Add Crop Nutrition</Link>
+          </Button>
+        </div>
+      )}
 
       {/* ✅ Loading & Error states */}
       {loading && <p>Loading products...</p>}

@@ -70,15 +70,20 @@ const Equipment = () => {
     navigate(RouteAddress);
   };
 
+  // Check if user is admin
+  const isAdmin = user?.role === 'admin';
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Farm Equipment</h2>
 
-      <div className={styles.addSeedsWrapper}>
-        <Button asChild className={styles.addNutritionBtn}>
-          <Link to={RouteEquipmentAdd}>Add Equipment</Link>
-        </Button>
-      </div>
+      {isAdmin && (
+        <div className={styles.addSeedsWrapper}>
+          <Button asChild className={styles.addNutritionBtn}>
+            <Link to={RouteEquipmentAdd}>Add Equipment</Link>
+          </Button>
+        </div>
+      )}
 
       {/* ✅ Loading & Error states */}
       {loading && <p>Loading equipment...</p>}

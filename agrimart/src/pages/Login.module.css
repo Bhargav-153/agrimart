@@ -68,6 +68,10 @@
     background: #4CAF50;
   }
   
+  .submitButton button:hover {
+    background-color: #3b933e;
+  }
+  
   .signUpText {
     margin-top: 1rem;
     font-size: 0.9rem;

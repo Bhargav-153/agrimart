@@ -80,6 +80,9 @@ const Nursery = () => {
     navigate(RouteAddress);
   };
 
+  // Check if user is admin
+  const isAdmin = user?.role === 'admin';
+
   return (
     <div className={styles.nurseryContainer}>
       <div className="text-center mb-6">
@@ -87,11 +90,13 @@ const Nursery = () => {
         <h3 className="text-lg text-muted-foreground">
           Flowering & Fruit Plants
         </h3>
-        <div>
-          <Button asChild className={styles.addNurseryBtn}>
-            <Link to={RouteNurseryAdd}>Add Nursery</Link>
-          </Button>
-        </div>
+        {isAdmin && (
+          <div>
+            <Button asChild className={styles.addNurseryBtn}>
+              <Link to={RouteNurseryAdd}>Add Nursery</Link>
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Nursery Cards */}

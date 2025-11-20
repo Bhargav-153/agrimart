@@ -70,15 +70,20 @@ const CropProtection = () => {
     navigate(RouteAddress);
   };
 
+  // Check if user is admin
+  const isAdmin = user?.role === 'admin';
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Crop Protection Products</h2>
 
-      <div className={styles.addSeedsWrapper}>
-        <Button asChild className={styles.addProtectionBtn}>
-          <Link to={RouteCropProtectionAdd}>Add Crop Protection</Link>
-        </Button>
-      </div>
+      {isAdmin && (
+        <div className={styles.addSeedsWrapper}>
+          <Button asChild className={styles.addProtectionBtn}>
+            <Link to={RouteCropProtectionAdd}>Add Crop Protection</Link>
+          </Button>
+        </div>
+      )}
 
       {/* ✅ Loading / Error States */}
       {loading && <p>Loading products...</p>}

@@ -78,6 +78,14 @@ const FarmerRegistration = () => {
       const data = await response.json();
 
       if (!response.ok) {
+        // If farmer is already registered, redirect to add-product page
+        if (data.message === "Farmer already registered" || data.message?.toLowerCase().includes("already registered")) {
+          localStorage.setItem("isRegistered", "true");
+          localStorage.setItem("farmerEmail", farmer.email);
+          setIsRegistered(true);
+          navigate("/add-product");
+          return;
+        }
         return showToast("error", data.message || "Registration failed");
       }
 

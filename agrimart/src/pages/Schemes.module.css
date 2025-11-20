@@ -3,7 +3,11 @@
   background-color: #f9f9f9;
   margin-top: 5rem;
 }
-
+.addSchemesWrapper {
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  margin: 20px 0; /* space above & below */
+}
 .pageTitle {
   text-align: center;
   font-size: 2em;

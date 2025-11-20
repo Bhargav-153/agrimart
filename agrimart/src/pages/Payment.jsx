@@ -116,6 +116,27 @@ const Payment = () => {
       const data = await response.json();
 
       if (response.ok && data.success) {
+        // If it's a farmer product, delete it after successful order
+        if (product.isFarmerProduct && product.productId) {
+          try {
+            const deleteResponse = await fetch(
+              `${getEnv("VITE_API_BASE_URL")}/farmerProducts/products/${product.productId}`,
+              {
+                method: "DELETE",
+              }
+            );
+            
+            if (deleteResponse.ok) {
+              console.log("Farmer product deleted successfully after order");
+            } else {
+              console.error("Failed to delete farmer product:", await deleteResponse.text());
+            }
+          } catch (deleteError) {
+            console.error("Error deleting farmer product:", deleteError);
+            // Don't block the order success flow if deletion fails
+          }
+        }
+
         // Clear checkout data from localStorage
         localStorage.removeItem("checkout_product");
         localStorage.removeItem("checkout_address");
