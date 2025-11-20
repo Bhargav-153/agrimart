@@ -19,13 +19,19 @@ const LogoutButton = () => {
       showToast("error", "You are not logged in!");
       return;
     }
+    const userId = user._id || user.id;
     try {
       const response = await fetch(
         `${getEnv("VITE_API_BASE_URL")}/auth/logout`,
         {
-          method: "GET",
+          method: "POST",
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({userId, email: user.email }),
         }
+        
       );
 
       const data = await response.json();

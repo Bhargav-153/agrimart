@@ -12,7 +12,6 @@ export const placeOrder = async (req, res) => {
       items = [],
       totalAmount,
       email,
-      phone,
       address,
       paymentMethod,
       paymentGateway,
@@ -34,14 +33,10 @@ export const placeOrder = async (req, res) => {
       unit: item.unit || "unit",
     }));
 
-    let notificationEmail = email;
-    let notificationPhone = phone;
-
-    if (!notificationEmail || !notificationPhone) {
-      const user = await User.findById(userId).lean();
-      notificationEmail = notificationEmail || user?.email;
-      notificationPhone = notificationPhone || user?.phone;
-    }
+    // Fetch user details for email/name if not provided in request
+    const user = await User.findById(userId).lean();
+    let notificationEmail = email || user?.email;
+    const userName = user?.name;
 
     const order = await Order.create({
       userId,
@@ -56,16 +51,26 @@ export const placeOrder = async (req, res) => {
     const title = "Order Placed Successfully";
     const message = `Your Agrimart order (${order.orderId}) has been placed. Total: ₹${totalAmount}.`;
 
+    // Website notification (short) + Email (detailed template only for email)
+    const emailTitle = "Order Confirmation";
+    const emailMessage = `Hi ${
+      userName || "customer"
+    },\n\nThank you for shopping with Agrimart!\n\nYour order (${
+      order.orderId
+    }) has been successfully placed.\nTotal Amount: ₹${totalAmount}\n\nWe will notify you when your items are packed and shipped.\n\nThank you for choosing Agrimart to support your farming journey.\n\nWarm regards,\nAgrimart Team`;
+
     await dispatchNotification(
       {
         userId,
         title,
+        // short message for website notifications
         message,
         email: notificationEmail,
-        phone: notificationPhone,
         type: "order",
+        emailTitle,
+        emailMessage,
       },
-      { sendSMS: true }
+      { sendEmail: true }
     );
 
     res.json({

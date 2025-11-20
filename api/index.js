@@ -1,5 +1,5 @@
+import "./loadEnv.js";
 import express from "express";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -25,7 +25,6 @@ import SchemaRoute from "./routes/Schema.route.js";
 import notificationRoutes from "./routes/notification.route.js";
 
 
-dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
