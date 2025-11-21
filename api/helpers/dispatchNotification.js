@@ -23,10 +23,6 @@ export const dispatchNotification = async (
     return;
   }
 
-  try {
-    console.log(
-      `dispatchNotification: saving notification for user ${userId} type=${type}`
-    );
     // 1. Save website notification (short message)
     await Notification.create({ userId, title, message, type });
 
@@ -48,9 +44,6 @@ export const dispatchNotification = async (
         "dispatchNotification: sendEmailFlag is false, skipping email send"
       );
     }
-  } catch (error) {
-    console.error("Notification dispatch error:", error?.message || error);
-  }
-};
+  } 
 
 export default dispatchNotification;

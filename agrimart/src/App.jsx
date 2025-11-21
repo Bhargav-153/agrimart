@@ -6,7 +6,9 @@ import Home from "./components/Home";
 import {
   RouteAboutUs,
   RouteAddProduct,
+  RouteAddress,
   RouteCart,
+  RouteChatbot,
   RouteContactUs,
   RouteCropNutrition,
   RouteCropNutritionAdd,
@@ -14,6 +16,7 @@ import {
   RouteCropProtectionAdd,
   RouteEquipment,
   RouteEquipmentAdd,
+  RouteFAQ,
   RouteIndex,
   RouteNursery,
   RouteNurseryAdd,
@@ -21,6 +24,7 @@ import {
   RouteOrder,
   RouteOrganic,
   RouteOrganicAdd,
+  RoutePayment,
   RouteProduct,
   RouteProfile,
   RouteRegistration,
@@ -30,13 +34,16 @@ import {
   RouteSettings,
   RouteSignIn,
   RouteSignUp,
+  RouteSupport,
+  RouteTickets,
   RouteWeather,
   SchemaRoute,
-  RouteAddress,
-  RoutePayment,
 } from "./helpers/RouteName.js";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+import FaqPage from "./pages/FaqPage";
+import AIAssistant from "./pages/AIAssistant";
+import SupportTicket from "./pages/SupportTicket";
 import Profile from "./pages/Profile";
 import AddProduct from "./pages/AddProduct";
 import FarmerRegistration from "./pages/FarmerRegistration";
@@ -68,8 +75,6 @@ import Orders from "./pages/Orders";
 import Address from "./pages/Address";
 import Payment from "./pages/Payment";
 
-
-
 const App = () => {
   return (
     <Routes>
@@ -80,6 +85,10 @@ const App = () => {
         <Route path={RouteSignUp} element={<Signup />} />
         <Route path={RouteAboutUs} element={<AboutUs />} />
         <Route path={RouteContactUs} element={<ContactUs />} />
+        <Route path={RouteSupport} element={<ContactUs />} />
+        <Route path={RouteFAQ} element={<FaqPage />} />
+        <Route path={RouteChatbot} element={<AIAssistant />} />
+        <Route path={RouteTickets} element={<SupportTicket />} />
 
         <Route path={RouteProfile} element={<Profile />} />
 

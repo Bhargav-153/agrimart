@@ -23,6 +23,8 @@ import { fileURLToPath } from "url";
 import fs from "fs";
 import SchemaRoute from "./routes/Schema.route.js";
 import notificationRoutes from "./routes/notification.route.js";
+import faqRoutes from "./routes/faq.route.js";
+import supportRoutes from "./routes/support.route.js";
 
 
 
@@ -65,6 +67,8 @@ app.use("/api/organic", organicRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/faqs", faqRoutes);
+app.use("/api/support", supportRoutes);
 
 
 // ✅ DB + server
