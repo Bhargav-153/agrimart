@@ -11,6 +11,7 @@ const AuthRoute = express.Router();
 AuthRoute.post("/register", register);
 AuthRoute.post("/login", Login);
 AuthRoute.post("/google-login", GoogleLogin);
-AuthRoute.get("/logout", Logout);
+// Support POST logout as some clients send a POST with body
+AuthRoute.post("/logout", Logout);
 
 export default AuthRoute;

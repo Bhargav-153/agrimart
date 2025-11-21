@@ -35,8 +35,12 @@ const Header = () => {
       const response = await fetch(
         `${getEnv("VITE_API_BASE_URL")}/auth/logout`, // Ensure backend is correctly set
         {
-          method: "get",
+          method: "POST",
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: user.user.email }),
         }
       );
 

@@ -1,15 +1,17 @@
 import Notification from "../models/notification.model.js";
 import sendEmail from "../utils/sendEmail.js";
-import sendSMS from "../utils/sendSMS.js";
 
 export const createNotification = async (req, res) => {
   try {
-    const { userId, title, message, email, phone } = req.body;
+    const { userId, title, message, email } = req.body;
 
+    // 1. Save notification in database
     const note = await Notification.create({ userId, title, message });
 
-    if (email) sendEmail(email, title, message);
-    if (phone) sendSMS(phone, message);
+    // 2. Send email (only if provided)
+    if (email) {
+      await sendEmail(email, title, message);
+    }
 
     res.json({ success: true, note });
   } catch (err) {
