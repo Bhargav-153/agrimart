@@ -1,0 +1,19 @@
+.btnRed {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btnRed:hover:not(:disabled) {
+  background-color: #b91c1c;
+}
+
+.btnRed:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

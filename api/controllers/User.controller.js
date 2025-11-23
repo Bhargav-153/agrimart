@@ -63,3 +63,22 @@ export const updateUser = async (req, res, next) => {
     next(handleError(500, error.message));
   }
 };
+
+export const deleteUser = async (req, res, next) => {
+  try {
+    const { userid } = req.params;
+
+    const user = await User.findById(userid);
+    if (!user) return next(handleError(404, "User not found."));
+
+    // Delete user from database
+    await User.findByIdAndDelete(userid);
+
+    res.status(200).json({
+      success: true,
+      message: "Account deleted successfully.",
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
