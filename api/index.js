@@ -70,6 +70,10 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/faqs", faqRoutes);
 app.use("/api/support", supportRoutes);
 
+import paymentRoute from "./routes/Razorpay.route.js";
+app.use("/api/payment", paymentRoute);
+
+
 
 // ✅ DB + server
 mongoose

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { getEnv } from "@/helpers/getEnv";
 import { showToast } from "@/helpers/showToast";
 import { RouteOrder } from "@/helpers/RouteName";
+import axios from "axios";
 import styles from "./Payment.module.css";
 
 const Payment = () => {
@@ -53,14 +54,14 @@ const Payment = () => {
     }
   }, [navigate]);
 
-  const handlePaymentMethodSelect = (method) => {
+  const handlePaymentMethodSelect = async (method) => {
     setSelectedPaymentMethod(method);
     if (method === "COD") {
       setShowCODConfirm(true);
       setShowOnlineGateways(false);
     } else if (method === "ONLINE") {
-      setShowOnlineGateways(true);
-      setShowCODConfirm(false);
+      // Directly open Razorpay when Pay Online is clicked
+      await initiateRazorpayPayment();
     }
   };
 
@@ -76,7 +77,147 @@ const Payment = () => {
 
   const handleGatewayConfirm = async () => {
     setShowGatewayConfirm(false);
-    await createOrder("ONLINE", selectedGateway);
+    
+    // If Razorpay is selected, open Razorpay checkout
+    if (selectedGateway?.id === "razorpay") {
+      await initiateRazorpayPayment();
+    } else {
+      // For other gateways, proceed with normal order creation
+      await createOrder("ONLINE", selectedGateway);
+    }
+  };
+
+  const loadRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const initiateRazorpayPayment = async () => {
+    if (!user?._id || !product || !address) {
+      showToast("error", "Missing required information");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Load Razorpay SDK
+      const loaded = await loadRazorpay();
+      if (!loaded) {
+        showToast("error", "Razorpay SDK failed to load. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      // Create Razorpay order
+      const orderResponse = await axios.post(
+        `${getEnv("VITE_API_BASE_URL")}/payment/create-order`,
+        {
+          amount: product.price,
+        }
+      );
+
+      if (!orderResponse.data.success) {
+        throw new Error("Failed to create Razorpay order");
+      }
+
+      const razorpayOrder = orderResponse.data.order;
+
+      // Razorpay options
+      const options = {
+        key: "rzp_test_RjBSBqv7N1pZNj", // You might want to move this to env variables
+        amount: razorpayOrder.amount,
+        currency: "INR",
+        order_id: razorpayOrder.id,
+        name: "Agrimart",
+        description: `Payment for ${product.name}`,
+
+        handler: async function (response) {
+          try {
+            // Verify payment
+            const verifyResponse = await axios.post(
+              `${getEnv("VITE_API_BASE_URL")}/payment/verify-payment`,
+              {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                userId: user._id,
+                items: [
+                  {
+                    productId: product.productId || product._id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    unit: product.unit || "unit",
+                    quantity: 1,
+                  },
+                ],
+                amount: product.price,
+                address: address,
+              }
+            );
+
+            if (verifyResponse.data.success) {
+              // If it's a farmer product, delete it after successful order
+              if (product.isFarmerProduct && product.productId) {
+                try {
+                  await fetch(
+                    `${getEnv("VITE_API_BASE_URL")}/farmerProducts/products/${product.productId}`,
+                    {
+                      method: "DELETE",
+                    }
+                  );
+                } catch (deleteError) {
+                  console.error("Error deleting farmer product:", deleteError);
+                }
+              }
+
+              // Clear checkout data from localStorage
+              localStorage.removeItem("checkout_product");
+              localStorage.removeItem("checkout_address");
+
+              showToast("success", "Payment successful! Order placed.");
+              navigate(RouteOrder);
+            } else {
+              showToast("error", "Payment verification failed. Please contact support.");
+              navigate("/payment-failed");
+            }
+          } catch (error) {
+            console.error("Error verifying payment:", error);
+            showToast("error", "Payment verification failed. Please contact support.");
+            navigate("/payment-failed");
+          }
+        },
+
+        prefill: {
+          name: user?.name || address?.name,
+          email: user?.email,
+          contact: user?.phone || address?.mobile,
+        },
+
+        theme: { color: "#0f9b4f" },
+
+        modal: {
+          ondismiss: function () {
+            setLoading(false);
+            showToast("info", "Payment cancelled");
+          },
+        },
+      };
+
+      const paymentObj = new window.Razorpay(options);
+      paymentObj.open();
+      setLoading(false);
+    } catch (error) {
+      console.error("Error initiating Razorpay payment:", error);
+      showToast("error", error.message || "Failed to initiate payment. Please try again.");
+      setLoading(false);
+    }
   };
 
   const createOrder = async (method, gateway) => {

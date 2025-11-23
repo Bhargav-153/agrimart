@@ -75,6 +75,8 @@ import Orders from "./pages/Orders";
 import Address from "./pages/Address";
 import Payment from "./pages/Payment";
 import { useTranslation } from "react-i18next";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentFailed from "./pages/PaymentFailed";
 
 const App = () => {
   const { t } = useTranslation();
@@ -99,6 +101,10 @@ const App = () => {
         <Route path={RouteOrder} element={<Orders />} />
         <Route path={RouteAddress} element={<Address />} />
         <Route path={RoutePayment} element={<Payment />} />
+
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-failed" element={<PaymentFailed />} />
+
 
         <Route path={RouteRegistration} element={<FarmerRegistration />} />
 

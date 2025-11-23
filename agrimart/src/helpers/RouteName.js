@@ -29,6 +29,9 @@ export const RouteCart = "/profile/cart";
 export const RouteOrder = "/profile/order";
 export const RouteAddress = "/checkout/address";
 export const RoutePayment = "/checkout/payment";
+export const RoutePaymentSuccess = "/payment-success";
+export const RoutePaymentFailed = "/payment-failed";
+
 
 export const RouteNurseryEdit = (nursery_id) => {
   if (nursery_id) {
