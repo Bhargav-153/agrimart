@@ -1,6 +1,7 @@
 // filepath: c:\Users\Dell\OneDrive\Desktop\final\agrimart\Agrimart\src\components\Header.jsx
 import React, { useState } from "react";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import styles from "./Header.module.css";
 import { FaUser, FaLeaf } from "react-icons/fa";
 import { RouteAboutUs, RouteSignIn } from "@/helpers/RouteName.js";
@@ -22,9 +23,11 @@ import { removeUser } from "../redux/user/user.slice";
 import { RouteIndex, RouteProfile } from "../helpers/RouteName";
 import { showToast } from "../helpers/showToast";
 import { getEnv } from "../helpers/getEnv";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const Navigate = useNavigate();
@@ -70,7 +73,7 @@ const Header = () => {
         <div className={styles.logoSection}>
           <Link to="/" className={styles.logoLink}>
             <FaLeaf className={styles.logoIcon} />
-            <span className={styles.siteName}>Agrimart</span>
+            <span className={styles.siteName}>{t("appName")}</span>
           </Link>
         </div>
 
@@ -85,7 +88,7 @@ const Header = () => {
                 to="/"
                 className={({ isActive }) => (isActive ? styles.active : "")}
               >
-                Home
+                {t("home")}
               </NavLink>
             </li>
             <li>
@@ -93,7 +96,7 @@ const Header = () => {
                 to={RouteAboutUs}
                 className={({ isActive }) => (isActive ? styles.active : "")}
               >
-                About Us
+                {t("aboutUs")}
               </NavLink>
             </li>
             <li>
@@ -101,8 +104,11 @@ const Header = () => {
                 to={RouteContactUs}
                 className={({ isActive }) => (isActive ? styles.active : "")}
               >
-                Contact Us
+                {t("contactUs")}
               </NavLink>
+            </li>
+            <li className={styles.languageSection}>
+              <LanguageSwitcher />
             </li>
             <li className={styles.profile_section}>
               {!user.isLoggedIn ? (
@@ -115,7 +121,7 @@ const Header = () => {
                       : styles.loginBtn
                   }
                 >
-                  <FaUser className={styles.icon} /> Login
+                  <FaUser className={styles.icon} /> {t("login")}
                 </NavLink>
               ) : (
                 <DropdownMenu>
@@ -160,7 +166,7 @@ const Header = () => {
                     <DropdownMenuItem asChild className={styles.dropdownItem}>
                       <Link to={RouteProfile}>
                         <FaRegUser className={styles.dropdownIcon} />
-                        <span>Profile</span>
+                        <span>{t("profile")}</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem
@@ -171,7 +177,7 @@ const Header = () => {
                         className={styles.dropdownIcon}
                         color="red"
                       />
-                      <span style={{ color: "red" }}>Logout</span>
+                      <span style={{ color: "red" }}>{t("logout")}</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

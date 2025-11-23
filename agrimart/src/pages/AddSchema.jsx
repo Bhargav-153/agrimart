@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./AddSchema.module.css";
 import { Button } from "@/components/ui/button";
 import {
@@ -56,6 +57,7 @@ const formSchema = z.object({
 });
 
 const AddSchema = () => {
+  const { t } = useTranslation();
   const [schemaList, setSchemaList] = useState([]);
   const [refreshData, setRefreshData] = useState(false);
 
@@ -78,7 +80,7 @@ const AddSchema = () => {
       const data = await res.json();
       setSchemaList(data.schemes || []);
     } catch (error) {
-      showToast("error", "Failed to fetch schemes");
+      showToast("error", t("failedToFetchSchemes"));
     }
   };
 
@@ -100,7 +102,7 @@ const AddSchema = () => {
         return showToast("error", data.message || "Add failed");
       }
 
-      showToast("success", "Scheme added successfully");
+      showToast("success", t("schemeAddedSuccessfully"));
       form.reset();
       setRefreshData(!refreshData);
     } catch (error) {
@@ -117,11 +119,11 @@ const AddSchema = () => {
 
       const data = await res.json();
       if (!res.ok) {
-        return showToast("error", data.message || "Delete failed");
+        return showToast("error", data.message || t("deleteFailed"));
       }
 
       setRefreshData(!refreshData);
-      showToast("success", "Scheme deleted");
+      showToast("success", t("schemeDeleted"));
     } catch (err) {
       showToast("error", err.message);
     }
@@ -139,7 +141,7 @@ const AddSchema = () => {
     <div>
       {/* add section */}
       <div className={styles.container}>
-        <h1 className={styles.title}>Add Government Scheme</h1>
+        <h1 className={styles.title}>{t("addGovernmentSchemes")}</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             {/* Title */}
@@ -148,11 +150,11 @@ const AddSchema = () => {
               name="title"
               render={({ field }) => (
                 <FormItem className={styles.formGroup}>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>{t("title")}</FormLabel>
                   <FormControl>
                     <Input
                       className={styles.input}
-                      placeholder="Enter scheme title"
+                      placeholder={t("enterSchemeTitle")}
                       {...field}
                     />
                   </FormControl>
@@ -167,11 +169,11 @@ const AddSchema = () => {
               name="description"
               render={({ field }) => (
                 <FormItem className={styles.formGroup}>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>{t("description")}</FormLabel>
                   <FormControl>
                     <textarea
                       className={styles.textarea}
-                      placeholder="Enter scheme description"
+                      placeholder={t("enterSchemeDescription")}
                       {...field}
                     />
                   </FormControl>
@@ -186,11 +188,11 @@ const AddSchema = () => {
                 name="linkApply"
                 render={({ field }) => (
                   <FormItem className={styles.formGroup}>
-                    <FormLabel>Apply Link</FormLabel>
+                    <FormLabel>{t("applyLink")}</FormLabel>
                     <FormControl>
                       <Input
                         className={styles.input}
-                        placeholder="Enter Google link"
+                        placeholder={t("enterGoogleLink")}
                         {...field}
                       />
                     </FormControl>
@@ -207,11 +209,11 @@ const AddSchema = () => {
                 name="linkYoutube"
                 render={({ field }) => (
                   <FormItem className={styles.formGroup}>
-                    <FormLabel>Video Link</FormLabel>
+                    <FormLabel>{t("videoLink")}</FormLabel>
                     <FormControl>
                       <Input
                         className={styles.input}
-                        placeholder="Enter Youtube link"
+                        placeholder={t("enterYoutubeLink")}
                         {...field}
                       />
                     </FormControl>
@@ -223,7 +225,7 @@ const AddSchema = () => {
 
             {/* Details */}
             <div className={styles.formGroup}>
-              <FormLabel>Details</FormLabel>
+              <FormLabel>{t("details")}</FormLabel>
               {details.map((detail, idx) => (
                 <div key={idx} className={styles.detailsRow}>
                   <FormField
@@ -234,7 +236,7 @@ const AddSchema = () => {
                         <FormControl>
                           <Input
                             className={styles.input}
-                            placeholder={`Detail ${idx + 1}`}
+                            placeholder={`${t("detail")} ${idx + 1}`}
                             {...field}
                           />
                         </FormControl>
@@ -258,7 +260,7 @@ const AddSchema = () => {
                 onClick={addDetailField}
                 className={styles.addDetailBtn}
               >
-                + Add Detail
+                + {t("addDetail")}
               </button>
             </div>
 
@@ -268,10 +270,10 @@ const AddSchema = () => {
               name="icon"
               render={({ field }) => (
                 <FormItem className={styles.formGroup}>
-                  <FormLabel>Icon</FormLabel>
+                  <FormLabel>{t("icon")}</FormLabel>
                   <FormControl>
                     <select {...field} className={styles.input}>
-                      <option value="">Select Icon</option>
+                      <option value="">{t("selectIcon")}</option>
                       {iconOptions.map((opt) => (
                         <option key={opt.value} value={opt.value}>
                           {opt.label}
@@ -285,7 +287,7 @@ const AddSchema = () => {
             />
 
             <Button type="submit" className={styles.submitBtn}>
-              Add Scheme
+              {t("addScheme")}
             </Button>
           </form>
         </Form>
@@ -293,13 +295,13 @@ const AddSchema = () => {
       {/* table section */}
       <div className={styles.tableContainer}>
         <div className="mt-10 w-full max-w-6xl">
-          <h1 className={styles.titleAll}>All Schemes</h1>
+          <h1 className={styles.titleAll}>{t("allSchemes")}</h1>
           <Table>
             <TableHeader>
               <TableRow className={styles.tableHeaderRow}>
-                <TableHead>Title</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Action</TableHead>
+                <TableHead>{t("title")}</TableHead>
+                <TableHead>{t("date")}</TableHead>
+                <TableHead>{t("action")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody className={styles.tableBody}>

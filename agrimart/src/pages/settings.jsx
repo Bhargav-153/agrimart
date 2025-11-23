@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import AccountSettings from "../components/settings/AccountSettings";
 import NotificationSettings from "../components/settings/NotificationSettings";
 import OrderPurchaseSettings from "../components/settings/OrderPurchaseSettings";
 import SupportHelpSettings from "../components/settings/SupportHelpSettings";
 import DeleteAccount from "../components/settings/DeleteAccount";
 import LogoutButton from "../components/settings/LogoutButton";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 import {
   FaUser,
   FaBell,
@@ -12,20 +14,23 @@ import {
   FaLifeRing,
   FaTrash,
   FaSignOutAlt,
+  FaGlobe,
 } from "react-icons/fa";
 import styles from "./settings.module.css";
 
-const menu = [
-  { key: "account", label: "Profile", icon: <FaUser /> },
-  { key: "notifications", label: "Notifications", icon: <FaBell /> },
-  { key: "orders", label: "Orders", icon: <FaShoppingCart /> },
-  { key: "support", label: "Help", icon: <FaLifeRing /> },
-  { key: "delete", label: "Delete Account", icon: <FaTrash /> },
-  { key: "logout", label: "Logout", icon: <FaSignOutAlt /> },
-];
-
 const Settings = () => {
+  const { t } = useTranslation();
   const [active, setActive] = useState("account");
+
+  const menu = [
+    { key: "account", label: t("profile"), icon: <FaUser /> },
+    { key: "notifications", label: t("notifications"), icon: <FaBell /> },
+    { key: "orders", label: t("orders"), icon: <FaShoppingCart /> },
+    { key: "language", label: t("language"), icon: <FaGlobe /> },
+    { key: "support", label: t("help"), icon: <FaLifeRing /> },
+    { key: "delete", label: t("deleteAccount"), icon: <FaTrash /> },
+    { key: "logout", label: t("logout"), icon: <FaSignOutAlt /> },
+  ];
 
   const renderSection = () => {
     switch (active) {
@@ -35,6 +40,18 @@ const Settings = () => {
         return <NotificationSettings />;
       case "orders":
         return <OrderPurchaseSettings />;
+      case "language":
+        return (
+          <div className={styles.languageSection}>
+            <h3 className={styles.languageHeading}>{t("selectLanguage")}</h3>
+            <p className={styles.languageDescription}>
+              {t("chooseLanguage")}
+            </p>
+            <div className={styles.languageSwitcherWrapper}>
+              <LanguageSwitcher variant="button" />
+            </div>
+          </div>
+        );
       case "support":
         return <SupportHelpSettings />;
       case "delete":
@@ -53,7 +70,7 @@ const Settings = () => {
           {/* Sidebar */}
           <aside className={styles.settingsSidebar}>
             <h2 className="text-3xl font-bold mb-11 text-gray-800">
-              Account Settings
+              {t("accountSettings")}
             </h2>
             <nav className={styles.settingsNav}>
               {menu.map((item) => (
@@ -87,15 +104,13 @@ const Settings = () => {
             <div className="mb-8">
               <h3>{menu.find((m) => m.key === active)?.label}</h3>
               <p>
-                {active === "account" &&
-                  "Change your profile and account settings"}
-                {active === "notifications" &&
-                  "Manage your notification preferences"}
-                {active === "orders" &&
-                  "View and manage your orders and purchases"}
-                {active === "support" && "Get help and support"}
-                {active === "delete" && "Permanently delete your account"}
-                {active === "logout" && "Sign out of your account"}
+                {active === "account" && t("changeProfile")}
+                {active === "notifications" && t("manageNotifications")}
+                {active === "orders" && t("viewOrders")}
+                {active === "language" && t("changeLanguage")}
+                {active === "support" && t("getHelp")}
+                {active === "delete" && t("deleteAccountDesc")}
+                {active === "logout" && t("signOut")}
               </p>
             </div>
             <div className={styles.settingsSection}>{renderSection()}</div>

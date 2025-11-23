@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./AddProduct.module.css";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { showToast } from "@/helpers/showToast";
 
 const AddProduct = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     productName: "",
     category: "",
@@ -56,7 +58,7 @@ const AddProduct = () => {
 
       if (!res.ok) throw new Error("Failed to add product");
 
-      showToast("success", "Product added successfully");
+      showToast("success", t("productAddedSuccessfully"));
 
       // Reset form after success
       setFormData({
@@ -72,20 +74,20 @@ const AddProduct = () => {
       setImagePreview(null);
     } catch (err) {
       console.error(err);
-      showToast("error", "Error adding product");
+      showToast("error", t("errorAddingProduct"));
     }
   };
 
   return (
     <main className={styles.mainContent}>
       <div className={styles.formContainer}>
-        <h1 className={styles.formTitle}>Add New Product</h1>
+        <h1 className={styles.formTitle}>{t("addNewProduct")}</h1>
         <form className={styles.productForm} onSubmit={handleSubmit}>
           {/* Product Details */}
           <div className={styles.formSection}>
-            <h2>Product Details</h2>
+            <h2>{t("productDetails")}</h2>
             <div className={styles.formGroup}>
-              <label htmlFor="productName">Product Name</label>
+              <label htmlFor="productName">{t("productName")}</label>
               <input
                 type="text"
                 id="productName"
@@ -96,22 +98,22 @@ const AddProduct = () => {
             </div>
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
-                <label htmlFor="category">Category</label>
+                <label htmlFor="category">{t("category")}</label>
                 <select
                   id="category"
                   value={formData.category}
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Select Category</option>
-                  <option value="Vegetable">Vegetable</option>
-                  <option value="Fruit">Fruit</option>
-                  <option value="Flower">Flower</option>
-                  <option value="Flower">Seeds</option>
+                  <option value="">{t("selectCategory")}</option>
+                  <option value="Vegetable">{t("vegetable")}</option>
+                  <option value="Fruit">{t("fruit")}</option>
+                  <option value="Flower">{t("flower")}</option>
+                  <option value="Seeds">{t("seeds")}</option>
                 </select>
               </div>
               <div className={styles.formGroup}>
-                <label htmlFor="price">Price (₹)</label>
+                <label htmlFor="price">{t("price")} (₹)</label>
                 <input
                   type="number"
                   id="price"
@@ -122,7 +124,7 @@ const AddProduct = () => {
                 />
               </div>
               <div className={styles.formGroup}>
-                <label htmlFor="contact">Contact</label>
+                <label htmlFor="contact">{t("contact")}</label>
                 <input
                   type="text"
                   id="contact"
@@ -133,7 +135,7 @@ const AddProduct = () => {
               </div>
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="description">Product Description</label>
+              <label htmlFor="description">{t("productDescription")}</label>
               <textarea
                 id="description"
                 value={formData.description}
@@ -146,10 +148,10 @@ const AddProduct = () => {
 
           {/* Stock Info */}
           <div className={styles.formSection}>
-            <h2>Stock Information</h2>
+            <h2>{t("stockInformation")}</h2>
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
-                <label htmlFor="quantity">Quantity Available</label>
+                <label htmlFor="quantity">{t("quantityAvailable")}</label>
                 <input
                   type="number"
                   id="quantity"
@@ -160,18 +162,18 @@ const AddProduct = () => {
                 />
               </div>
               <div className={styles.formGroup}>
-                <label htmlFor="unit">Unit</label>
+                <label htmlFor="unit">{t("unit")}</label>
                 <select
                   id="unit"
                   value={formData.unit}
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Select Unit</option>
-                  <option value="kg">Kilogram</option>
-                  <option value="g">Gram</option>
-                  <option value="piece">Piece</option>
-                  <option value="packet">Packet</option>
+                  <option value="">{t("selectUnit")}</option>
+                  <option value="kg">{t("kilogram")}</option>
+                  <option value="g">{t("gram")}</option>
+                  <option value="piece">{t("piece")}</option>
+                  <option value="packet">{t("packet")}</option>
                 </select>
               </div>
             </div>
@@ -179,9 +181,9 @@ const AddProduct = () => {
 
           {/* Image Upload */}
           <div className={styles.formSection}>
-            <h2>Product Image</h2>
+            <h2>{t("productImage")}</h2>
             <div className={styles.formGroup}>
-              <label htmlFor="productImage">Upload Image</label>
+              <label htmlFor="productImage">{t("uploadImage")}</label>
               <div className={styles.imageUploadContainer}>
                 <div className={styles.imagePreview}>
                   {imagePreview ? (
@@ -189,8 +191,8 @@ const AddProduct = () => {
                   ) : (
                     <div className={styles.uploadPlaceholder}>
                       <FaCloudUploadAlt size={40} />
-                      <p>Click to upload or drag and drop</p>
-                      <span>Supported formats: JPG, PNG</span>
+                      <p>{t("clickToUpload")}</p>
+                      <span>{t("supportedFormats")}</span>
                     </div>
                   )}
                 </div>
@@ -208,7 +210,7 @@ const AddProduct = () => {
           {/* Form Actions */}
           <div className={styles.formActions}>
             <button type="submit" className={styles.submitBtn}>
-              Add Product
+              {t("addProduct")}
             </button>
             <button
               type="reset"
@@ -227,7 +229,7 @@ const AddProduct = () => {
                 setImagePreview(null);
               }}
             >
-              Reset
+              {t("reset")}
             </button>
           </div>
         </form>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,13 +8,16 @@ import { RouteNurseryAdd, RouteCart, RouteAddress } from "@/helpers/RouteName";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "@/redux/cart/cart.slice";
 import { showToast } from "@/helpers/showToast";
+import { translateProductName } from "@/helpers/productTranslations";
 import styles from "./Nursery.module.css";
 
 const Nursery = () => {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [nurseries, setNurseries] = useState([]);
   const user = useSelector((state) => state.user?.user);
+  const currentLanguage = i18n.language || 'en';
 
   useEffect(() => {
     const fetchNurseries = async () => {
@@ -34,7 +38,7 @@ const Nursery = () => {
   // Handle Add to Cart
   const handleAddToCart = async (nursery) => {
     if (!user?._id) {
-      showToast("error", "Please login to add items to cart!");
+      showToast("error", t("pleaseLoginToAddToCart"));
       return;
     }
 
@@ -51,18 +55,18 @@ const Nursery = () => {
         })
       ).unwrap();
 
-      showToast("success", `${nursery.plantName} added to cart!`);
+      showToast("success", `${nursery.plantName} ${t("addedToCart")}`);
       navigate(RouteCart);
     } catch (error) {
       console.error("Error adding to cart:", error);
-      showToast("error", "Failed to add item to cart. Please try again.");
+      showToast("error", t("failedToAddToCart"));
     }
   };
 
   // Handle Buy Now
   const handleBuyNow = async (nursery) => {
     if (!user?._id) {
-      showToast("error", "Please login to buy items!");
+      showToast("error", t("pleaseLoginFirst"));
       return;
     }
 
@@ -86,14 +90,14 @@ const Nursery = () => {
   return (
     <div className={styles.nurseryContainer}>
       <div className="text-center mb-6">
-        <h2 className="text-3xl font-bold">Nursery Plants</h2>
+        <h2 className="text-3xl font-bold">{t("nurseryPlants")}</h2>
         <h3 className="text-lg text-muted-foreground">
-          Flowering & Fruit Plants
+          {t("floweringFruitPlants")}
         </h3>
         {isAdmin && (
           <div>
             <Button asChild className={styles.addNurseryBtn}>
-              <Link to={RouteNurseryAdd}>Add Nursery</Link>
+              <Link to={RouteNurseryAdd}>{t("addNursery")}</Link>
             </Button>
           </div>
         )}
@@ -102,7 +106,7 @@ const Nursery = () => {
       {/* Nursery Cards */}
       <div className=" grid gap-6 sm:grid-cols-2 md:grid-cols-4 mt-10">
         {nurseries.length === 0 ? (
-          <p>No nursery plants available.</p>
+          <p>{t("noNurseryPlantsAvailable")}</p>
         ) : (
           nurseries.map((n, i) => (
             <Card key={i} className="pt-5">
@@ -120,7 +124,7 @@ const Nursery = () => {
 
                 {/* Title and  */}
                 <div className="mb-2">
-                  <h3 className={styles.productName}>{n.plantName}</h3>
+                  <h3 className={styles.productName}>{translateProductName(n.plantName, currentLanguage)}</h3>
                   <p className={styles.productPrice}>{n.plantPrice}</p>
                 </div>
 
@@ -128,17 +132,17 @@ const Nursery = () => {
 
                 <div className={styles.farmerInfo}>
                   <p>
-                    <strong>Nursery:</strong> {n.nurseryName}
+                    <strong>{t("nursery")}:</strong> {n.nurseryName}
                   </p>
                   <p>
-                    <strong>Address:</strong> {n.address}
+                    <strong>{t("address")}:</strong> {n.address}
                   </p>
                   <p>
-                    <strong>Phone:</strong> {n.phone}
+                    <strong>{t("phone")}:</strong> {n.phone}
                   </p>
                 </div>
-                <button className={styles.addToCart} onClick={() => handleAddToCart(n)}>Add to Cart</button>
-                <button className={styles.buy} onClick={() => handleBuyNow(n)}>Buy Now</button>
+                <button className={styles.addToCart} onClick={() => handleAddToCart(n)}>{t("addToCart")}</button>
+                <button className={styles.buy} onClick={() => handleBuyNow(n)}>{t("buyNow")}</button>
               </CardContent>
             </Card>
           ))

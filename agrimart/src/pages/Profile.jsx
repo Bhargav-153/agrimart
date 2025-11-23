@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./Profile.module.css";
 
 import {
@@ -32,6 +33,7 @@ import { RouteCart, RouteOrder, RouteSettings } from "../helpers/RouteName";
 import { UserIcon } from "lucide-react";
 
 const Profile = () => {
+  const { t } = useTranslation();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [orders, setOrders] = useState([]);
@@ -145,16 +147,16 @@ const Profile = () => {
             </div>
             <nav className={styles.profileNav}>
               <a href="#profile" className={styles.active}>
-                <FaUserCircle /> Profile
+                <FaUserCircle /> {t("profile")}
               </a>
               <Link to={RouteOrder}>
-                <FaShoppingBag /> Orders
+                <FaShoppingBag /> {t("orders")}
               </Link>
               <Link to={RouteCart}>
-                <FaShoppingCart /> Cart
+                <FaShoppingCart /> {t("cart")}
               </Link>
               <Link to={RouteSettings} className={styles.settingsLink}>
-                <FaCog /> Settings
+                <FaCog /> {t("accountSettings")}
               </Link>
             </nav>
           </div>
@@ -207,14 +209,14 @@ const Profile = () => {
               id="profile"
               className={`${styles.profileSection} ${styles.active}`}
             >
-              <h2>Profile Information</h2>
+              <h2>{t("changeProfile")}</h2>
               <div className={styles.infoGrid}>
                 <div className={styles.infoItem}>
-                  <label>Full Name</label>
-                  <p> {user.user?.name || "User"}</p>
+                  <label>{t("profile")}</label>
+                  <p> {user.user?.name || t("profile")}</p>
                 </div>
                 <div className={styles.infoItem}>
-                  <label>Phone</label>
+                  <label>{t("phone")}</label>
                   <p>{user.user?.phone || 4579725799}</p>
                 </div>
                 <div className={styles.infoItem}>
@@ -222,24 +224,24 @@ const Profile = () => {
                   <p>{user.user?.email || "abc@gmail.com"}</p>
                 </div>
                 <div className={styles.infoItem}>
-                  <label>Address</label>
-                  <p>{user.user?.address || "Your location"}</p>
+                  <label>{t("address")}</label>
+                  <p>{user.user?.address || t("address")}</p>
                 </div>
               </div>
             </section>
 
             <section id="orders" className={styles.profileSection}>
-              <h2>My Orders</h2>
+              <h2>{t("orders")}</h2>
               {loading ? (
-                <p>Loading orders...</p>
+                <p>{t("loading")}</p>
               ) : orders.length === 0 ? (
-                <p>No orders found.</p>
+                <p>{t("noOrdersFound")}</p>
               ) : (
                 <div className={styles.ordersList}>
                   {orders.map((order) => (
                     <div key={order._id} className={styles.orderCard}>
                       <div className={styles.orderHeader}>
-                        <span className={styles.orderId}>Order #{order.orderId}</span>
+                        <span className={styles.orderId}>{t("orders")} #{order.orderId}</span>
                         <span className={styles.orderDate}>
                           {formatDate(order.orderDate)}
                         </span>
@@ -253,13 +255,13 @@ const Profile = () => {
                           />
                           <div className={styles.orderDetails}>
                             <h3>{item.name}</h3>
-                            <p>Quantity: {item.quantity} {item.unit || "unit"}</p>
+                            <p>{t("quantity")}: {item.quantity} {item.unit || t("unit")}</p>
                             <p className={styles.price}>₹{item.price}</p>
                           </div>
                         </div>
                       ))}
                       <div className={styles.orderTotal}>
-                        <strong>Total: ₹{order.totalAmount}</strong>
+                        <strong>{t("total")}: ₹{order.totalAmount}</strong>
                       </div>
                     </div>
                   ))}
@@ -268,7 +270,7 @@ const Profile = () => {
             </section>
 
             <section id="wishlist" className={styles.profileSection}>
-              <h2>My Wishlist</h2>
+              <h2>{t("wishlist")}</h2>
               <div className={styles.wishlistGrid}>
                 <div className={styles.wishlistCard}>
                   <img
@@ -276,9 +278,9 @@ const Profile = () => {
                     alt="Product"
                   />
                   <div className={styles.wishlistInfo}>
-                    <h3>Organic Fertilizer</h3>
+                    <h3>{t("organic")}</h3>
                     <p className={styles.price}>₹750</p>
-                    <button className={styles.addToCart}>Add to Cart</button>
+                    <button className={styles.addToCart}>{t("addToCart")}</button>
                     <button className={styles.removeWishlist}>
                       <FaTrash />
                     </button>

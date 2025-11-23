@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import {
   FaStore,
@@ -29,6 +30,7 @@ import { RouteCropProtection } from "@/helpers/RouteName";
 import { RouteCropNutrition } from "@/helpers/RouteName";
 
 const SubNav = () => {
+  const { t } = useTranslation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -80,7 +82,7 @@ const SubNav = () => {
               }}
             >
               <FaStore />
-              Shop
+              {t("shop")}
               <FaChevronDown className={isDropdownOpen ? styles.rotate : ""} />
             </button>
 
@@ -91,27 +93,27 @@ const SubNav = () => {
             >
               <li>
                 <Link to={RouteSeeds}>
-                  <FaSeedling /> Seeds
+                  <FaSeedling /> {t("seeds")}
                 </Link>
               </li>
               <li>
                 <Link to={RouteCropProtection}>
-                  <FaShieldAlt /> Crop Protection
+                  <FaShieldAlt /> {t("cropProtection")}
                 </Link>
               </li>
               <li>
                 <Link to={RouteCropNutrition}>
-                  <FaLeaf /> Crop Nutrition
+                  <FaLeaf /> {t("cropNutrition")}
                 </Link>
               </li>
               <li>
                 <Link to="/shop/equipment">
-                  <FaTractor /> Equipment
+                  <FaTractor /> {t("equipment")}
                 </Link>
               </li>
               <li>
                 <Link to="/shop/organic">
-                  <FaAppleAlt /> Organic
+                  <FaAppleAlt /> {t("organic")}
                 </Link>
               </li>
             </ul>
@@ -125,7 +127,7 @@ const SubNav = () => {
               onClick={closeMenu}
             >
               <FaCloudSun />
-              Weather
+              {t("weather")}
             </Link>
           </li>
           <li>
@@ -135,7 +137,7 @@ const SubNav = () => {
               onClick={closeMenu}
             >
               <FaSeedling />
-              Nursery
+              {t("nursery")}
             </Link>
           </li>
           <li>
@@ -145,7 +147,7 @@ const SubNav = () => {
               onClick={closeMenu}
             >
               <FaLandmark />
-              Gov. Schemes
+              {t("govSchemes")}
             </Link>
           </li>
           <li>
@@ -155,7 +157,7 @@ const SubNav = () => {
               onClick={closeMenu}
             >
               <FaPlusCircle />
-              Add Product
+              {t("addProduct")}
             </Link>
           </li>
           <li>
@@ -165,7 +167,7 @@ const SubNav = () => {
               onClick={closeMenu}
             >
               <FaPlusCircle />
-              Farm Product
+              {t("farmProduct")}
             </Link>
           </li>
           <li>
@@ -175,7 +177,7 @@ const SubNav = () => {
               onClick={closeMenu}
             >
               <FaUserCircle />
-              Profile
+              {t("profile")}
             </Link>
           </li>
         </ul>

@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
+import "./i18n_language/lang"; // Initialize i18n
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>

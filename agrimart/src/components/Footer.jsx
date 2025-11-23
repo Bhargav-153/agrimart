@@ -9,76 +9,78 @@ import {
 } from "react-icons/fa";
 import styles from "./Footer.module.css";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { RouteAboutUs, RouteContactUs } from "../helpers/RouteName";
 
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const { t } = useTranslation();
+  
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div>
-          <h3 className={styles.title}>About Agrimart</h3>
+          <h3 className={styles.title}>{t("aboutAgrimart")}</h3>
           <p>
-            Your trusted marketplace for agricultural products and farming
-            solutions.
+            {t("footerAboutDescription")}
           </p>
         </div>
 
         <div>
-          <h3 className={styles.title}>Quick Links</h3>
+          <h3 className={styles.title}>{t("quickLinks")}</h3>
           <ul>
             <li>
               <a href="/" className={styles.link}>
-                Home
+                {t("home")}
               </a>
             </li>
             <li>
               <Link to={RouteAboutUs} className={styles.link}>
-                About Us
+                {t("aboutUs")}
               </Link>
             </li>
             <li>
               <Link to={RouteContactUs} className={styles.link}>
-                Contact
+                {t("contact")}
               </Link>
             </li>
             <li>
               <a href="/terms" className={styles.link}>
-                Terms & Conditions
+                {t("termsAndConditions")}
               </a>
             </li>
           </ul>
         </div>
 
         <div>
-          <h3 className={styles.title}>Categories</h3>
+          <h3 className={styles.title}>{t("categories")}</h3>
           <ul>
             <li>
               <a href="/shop/seeds" className={styles.link}>
-                Seeds
+                {t("seeds")}
               </a>
             </li>
             <li>
               <a href="/shop/protection" className={styles.link}>
-                Crop Protection
+                {t("cropProtection")}
               </a>
             </li>
             <li>
               <a href="/shop/nutrition" className={styles.link}>
-                Crop Nutrition
+                {t("cropNutrition")}
               </a>
             </li>
             <li>
               <a href="/shop/equipment" className={styles.link}>
-                Equipment
+                {t("equipment")}
               </a>
             </li>
           </ul>
         </div>
 
         <div>
-          <h3 className={styles.title}>Contact Us</h3>
+          <h3 className={styles.title}>{t("contactUs")}</h3>
           <ul>
             <li className={styles.contactItem}>
               <FaPhone /> +91 95372 76545
@@ -95,7 +97,7 @@ const Footer = () => {
 
       <div className={styles.footerBottom}>
         <div className={styles.containerBottom}>
-          <p>&copy; 2025 Agrimart. All rights reserved.</p>
+          <p>&copy; 2025 Agrimart. {t("allRightsReserved")}</p>
           <div className={styles.socialLinks}>
             <a href="#" className={styles.socialIcon}>
               <FaFacebook />

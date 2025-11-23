@@ -1,10 +1,12 @@
 import styles from "./ContactUs.module.css";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import emailjs from "emailjs-com";
 
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const ContactUs = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -37,10 +39,10 @@ const ContactUs = () => {
         );
       })
       .then(() => {
-        alert("Message sent Successfully! 📩");
+        alert(t("messageSentSuccess"));
       })
       .catch((err) => {
-        alert("Failed to send message ❌");
+        alert(t("messageSentFailed"));
         console.error(err);
       });
   };
@@ -48,11 +50,11 @@ const ContactUs = () => {
     <>
       <div className={styles.contactContainer}>
         <header className={styles.header}>
-          <h1>Contact Us</h1>
+          <h1>{t("contactUs")}</h1>
         </header>
 
         <section className={styles.contactInfo}>
-          <p>If you have any inquiries, feel free to reach out to us:</p>
+          <p>{t("contactUsDesc")}</p>
           <ul>
             <li className={styles.contactItem}>
               <FaPhone /> +91 9537276545
@@ -67,39 +69,39 @@ const ContactUs = () => {
         </section>
 
         <section className={styles.contactForm}>
-          <h2>Send Us a Message</h2>
+          <h2>{t("sendUsMessage")}</h2>
           <form onSubmit={sendEmail}>
             <div className={styles.formGroup}>
-              <label>Name</label>
+              <label>{t("fullName")}</label>
               <input
                 type="text"
                 name="name"
-                placeholder="Enter your name"
+                placeholder={t("enterYourName")}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Email</label>
+              <label>{t("email")}</label>
               <input
                 type="email"
                 name="email"
-                placeholder="Enter your email"
+                placeholder={t("enterYourEmail")}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Message</label>
+              <label>{t("message")}</label>
               <textarea
                 name="message"
-                placeholder="Enter your message"
+                placeholder={t("enterYourMessage")}
                 onChange={handleChange}
                 required
               ></textarea>
             </div>
             <button type="submit" className={styles.submitButton}>
-              Send Message
+              {t("sendMessage")}
             </button>
           </form>
         </section>

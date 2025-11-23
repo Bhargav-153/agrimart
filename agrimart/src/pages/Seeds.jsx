@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./Seeds.module.css";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,21 +8,26 @@ import useFetch from "@/hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "@/redux/cart/cart.slice";
 import { showToast } from "@/helpers/showToast";
+import { translateProductName, translateProductDescription } from "@/helpers/productTranslations";
 
 // ✅ ProductCategory Component
-const ProductCategory = ({ title, products, onAddToCart, onBuyNow }) => (
-  <div className={styles.categorySection}>
-    <h2 className="text-2xl font-semibold mb-4">{title}</h2>
-    <div className={styles.productsGrid}>
-      {products.map((product) => (
-        <div key={product._id} className={styles.productCard}>
-          <div className={styles.productImage}>
-            <img src={product.image} alt={product.alt || product.name} />
-            {product.tag && <span className={styles.tag}>{product.tag}</span>}
-          </div>
-          <div className={styles.productInfo}>
-            <h3>{product.name}</h3>
-            <p className={styles.productDescription}>{product.description}</p>
+const ProductCategory = ({ title, products, onAddToCart, onBuyNow, t, currentLanguage }) => {
+  return (
+    <div className={styles.categorySection}>
+      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+      <div className={styles.productsGrid}>
+        {products.map((product) => {
+          const translatedName = translateProductName(product.name, currentLanguage);
+          const translatedDesc = translateProductDescription(product.description, currentLanguage);
+          return (
+            <div key={product._id} className={styles.productCard}>
+              <div className={styles.productImage}>
+                <img src={product.image} alt={product.alt || translatedName} />
+                {product.tag && <span className={styles.tag}>{product.tag}</span>}
+              </div>
+              <div className={styles.productInfo}>
+                <h3>{translatedName}</h3>
+                <p className={styles.productDescription}>{translatedDesc}</p>
             <div className={styles.productMeta}>
               <span className={styles.productRating}>
                 {"★".repeat(Math.floor(product.rating || 0))}
@@ -36,25 +42,26 @@ const ProductCategory = ({ title, products, onAddToCart, onBuyNow }) => (
               className={styles.addToCart}
               onClick={() => onAddToCart(product)}
             >
-              Add to Cart
+              {t("addToCart")}
             </button>
             <button className={styles.buy} onClick={() => onBuyNow(product)}>
-              Buy Now
+              {t("buyNow")}
             </button>
-
-
-
           </div>
         </div>
-      ))}
+          );
+        })}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // ✅ Main Seeds Component
 const Seeds = () => {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const currentLanguage = i18n.language || 'en';
 
   // ✅ Get logged-in user from Redux
   const user = useSelector((state) => state.user?.user);
@@ -64,7 +71,7 @@ const Seeds = () => {
   // ✅ Handle Add to Cart
   const handleAddToCart = async (product) => {
     if (!user?._id) {
-      showToast("error", "Please login to add items to cart!");
+      showToast("error", t("pleaseLoginToAddToCart"));
       return;
     }
 
@@ -82,18 +89,18 @@ const Seeds = () => {
         })
       ).unwrap();
 
-      showToast("success", `${product.name} added to cart!`);
+      showToast("success", `${product.name} ${t("addedToCart")}`);
       navigate(RouteCart);
     } catch (error) {
       console.error("Error adding to cart:", error);
-      showToast("error", "Failed to add item to cart. Please try again.");
+      showToast("error", t("failedToAddToCart"));
     }
   };
 
   // ✅ Handle Buy Now
   const handleBuyNow = async (product) => {
     if (!user?._id) {
-      showToast("error", "Please login first!");
+      showToast("error", t("pleaseLoginFirst"));
       return;
     }
 
@@ -114,30 +121,32 @@ const Seeds = () => {
 
 
   // ✅ Handle loading states
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-  if (!data?.seeds?.length) return <p>No seeds found</p>;
+  if (loading) return <p>{t("loading")}</p>;
+  if (error) return <p>{t("error")}: {error.message}</p>;
+  if (!data?.seeds?.length) return <p>{t("noSeedsFound")}</p>;
 
   // Check if user is admin
   const isAdmin = user?.role === 'admin';
 
   return (
     <main className={styles.mainContent}>
-      <h1 className="text-3xl font-bold text-center mb-6">Seeds</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">{t("seeds")}</h1>
 
       {isAdmin && (
         <div className={styles.addSeedsWrapper}>
           <Button asChild className={styles.addSeedsBtn}>
-            <Link to={RouteSeedsAdd}>Add Seeds</Link>
+            <Link to={RouteSeedsAdd}>{t("addSeeds")}</Link>
           </Button>
         </div>
       )}
 
       <ProductCategory
-        title="All Seeds"
+        title={t("allSeeds")}
         products={data.seeds}
         onAddToCart={handleAddToCart}
         onBuyNow={handleBuyNow}
+        t={t}
+        currentLanguage={currentLanguage}
       />
     </main>
   );

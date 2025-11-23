@@ -319,4 +319,16 @@ body {
   font-size: 1.2rem;
 }
 
+/* Language Switcher */
+.languageSection {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .languageSection {
+    margin: 10px 0;
+  }
+}
+
 /* ------------------ */

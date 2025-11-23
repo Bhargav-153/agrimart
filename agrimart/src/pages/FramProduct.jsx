@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "@/redux/cart/cart.slice";
 import { showToast } from "@/helpers/showToast";
 import { RouteCart, RouteAddress } from "@/helpers/RouteName";
+import { translateProductName } from "@/helpers/productTranslations";
 import styles from "./FarmProduct.module.css";
 
 const FarmProducts = () => {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user?.user);
   const [farmProducts, setFarmProducts] = useState([]);
+  const currentLanguage = i18n.language || 'en';
 
   const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
@@ -32,7 +36,7 @@ const FarmProducts = () => {
   // ✅ Handle Add to Cart
   const handleAddToCart = async (product) => {
     if (!user?._id) {
-      showToast("error", "Please login to add items to cart!");
+      showToast("error", t("pleaseLoginToAddToCart"));
       return;
     }
 
@@ -50,18 +54,18 @@ const FarmProducts = () => {
         })
       ).unwrap();
 
-      showToast("success", `${product.productName} added to cart!`);
+      showToast("success", `${product.productName} ${t("addedToCart")}`);
       navigate(RouteCart);
     } catch (error) {
       console.error("Error adding to cart:", error);
-      showToast("error", "Failed to add item to cart. Please try again.");
+      showToast("error", t("failedToAddToCart"));
     }
   };
 
   // ✅ Handle Buy Now
   const handleBuyNow = async (product) => {
     if (!user?._id) {
-      showToast("error", "Please login first!");
+      showToast("error", t("pleaseLoginFirst"));
       return;
     }
 
@@ -83,7 +87,7 @@ const FarmProducts = () => {
 
   return (
     <div className={styles.farmContainer}>
-      <h2 className={styles.title}>Farm Fresh Products</h2>
+      <h2 className={styles.title}>{t("farmProduct")}</h2>
       <div className={styles.productsGrid}>
         {farmProducts.map((product) => (
           <div key={product._id} className={styles.productCard}>
@@ -97,27 +101,27 @@ const FarmProducts = () => {
               className={styles.productImage}
             />
 
-            <h3 className={styles.productName}>{product.productName}</h3>
+            <h3 className={styles.productName}>{translateProductName(product.productName, currentLanguage)}</h3>
             <p className={styles.productPrice}>
               ₹{product.price}/{product.unit}
             </p>
             <p className={styles.productQuantity}>
-              Quantity: {product.quantity} {product.unit}
+              {t("quantity")}: {product.quantity} {product.unit}
             </p>
             <div className={styles.farmerInfo}>
-              <p><strong>Contact:</strong> {product.contact}</p>
+              <p><strong>{t("contact")}:</strong> {product.contact}</p>
             </div>
             <button 
               className={styles.addToCart}
               onClick={() => handleAddToCart(product)}
             >
-              Add to Cart
+              {t("addToCart")}
             </button>
             <button 
               className={styles.buy}
               onClick={() => handleBuyNow(product)}
             >
-              Buy Now
+              {t("buyNow")}
             </button>
           </div>
         ))}

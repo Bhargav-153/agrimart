@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addToCart } from '@/redux/cart/cart.slice';
 import { showToast } from '@/helpers/showToast';
 import { RouteAddress } from '@/helpers/RouteName';
 import { getEnv } from '@/helpers/getEnv';
+import { translateProductName, translateProductDescription } from '@/helpers/productTranslations';
 import styles from './Hero.module.css';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3000';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
 
 const Hero = () => {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user?.user);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const currentLanguage = i18n.language || 'en';
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -142,7 +146,7 @@ const Hero = () => {
   // Handle Buy Now
   const handleBuyNow = async (product) => {
     if (!user?._id) {
-      showToast('error', 'Please login first!');
+      showToast('error', t('pleaseLoginFirst'));
       return;
     }
 
@@ -164,7 +168,7 @@ const Hero = () => {
     return (
       <div className={styles.heroContainer}>
         <main className={styles.mainContent}>
-          <p>Loading products...</p>
+          <p>{t('loadingProducts')}</p>
         </main>
       </div>
     );
@@ -173,26 +177,30 @@ const Hero = () => {
   return (
     <div className={styles.heroContainer}>
       <main className={styles.mainContent}>
-        <h2 className="text-3xl font-bold">Featured Products</h2>
+        <h2 className="text-3xl font-bold">{t('featuredProducts')}</h2>
         <div className={styles.productGrid}>
           {products.length > 0 ? (
-            products.map((product) => (
-              <div key={`${product.category}-${product._id}`} className={styles.productCard}>
-                <img src={product.image} alt={product.name} className={styles.productImage} />
-                <div className={styles.productInfo}>
-                  <h3>{product.name}</h3>
-                  <p>{product.description}</p>
-                  <div className={styles.price}>
-                    ₹{product.price}/{product.unit}
+            products.map((product) => {
+              const translatedName = translateProductName(product.name, currentLanguage);
+              const translatedDesc = translateProductDescription(product.description, currentLanguage);
+              return (
+                <div key={`${product.category}-${product._id}`} className={styles.productCard}>
+                  <img src={product.image} alt={translatedName} className={styles.productImage} />
+                  <div className={styles.productInfo}>
+                    <h3>{translatedName}</h3>
+                    <p>{translatedDesc}</p>
+                    <div className={styles.price}>
+                      ₹{product.price}/{product.unit}
+                    </div>
+                    <button className={styles.buyBtn} onClick={() => handleBuyNow(product)}>
+                      {t('buyNow')}
+                    </button>
                   </div>
-                  <button className={styles.buyBtn} onClick={() => handleBuyNow(product)}>
-                    Buy Now
-                  </button>
                 </div>
-              </div>
-            ))
+              );
+            })
           ) : (
-            <p>No products available.</p>
+            <p>{t('noProductsAvailable')}</p>
           )}
         </div>
       </main>

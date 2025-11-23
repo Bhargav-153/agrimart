@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import styles from "./Weather.module.css";
 import { FaSearchLocation, FaMapMarkerAlt } from "react-icons/fa";
@@ -11,6 +12,7 @@ import {
 
 
 const Weather = () => {
+  const { t } = useTranslation();
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState("");
@@ -45,7 +47,7 @@ const Weather = () => {
         }
       );
     } else {
-      alert("Geolocation is not supported by this browser.");
+      alert(t("geolocationNotSupported"));
     }
   };
 
@@ -69,12 +71,12 @@ const Weather = () => {
       
 
       <div className={styles.weatherContainer}>
-        <h2 className={styles.title}>🌤 Weather Info</h2>
+        <h2 className={styles.title}>🌤 {t("weatherInfo")}</h2>
 
         <div className={styles.searchContainer}>
           <input
             type="text"
-            placeholder="Search for cities..."
+            placeholder={t("searchForCities")}
             className={styles.searchInput}
             value={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -83,7 +85,7 @@ const Weather = () => {
             className={styles.searchButton}
             onClick={() => fetchWeather(location)}
           >
-            <FaSearchLocation /> Search
+            <FaSearchLocation /> {t("search")}
           </button>
         </div>
         <div className={styles.centerButton}>
@@ -91,39 +93,39 @@ const Weather = () => {
             className={styles.locationButton}
             onClick={fetchLocationWeather}
           >
-            <FaMapMarkerAlt /> Use Live Location
+            <FaMapMarkerAlt /> {t("useLiveLocation")}
           </button>
         </div>
 
         <div className={styles.weatherInfo}>
           {loading ? (
-            <p>Loading weather...</p>
+            <p>{t("loadingWeather")}</p>
           ) : weather ? (
             <>
               <h3>{weather.name}</h3>
               <p>{weather.weather[0].description}</p>
               <div className={styles.weatherDetails}>
                 <div className={styles.weatherDetailItem}>
-                  <WiThermometer /> Temp: {Math.round(weather.main.temp)}°C
+                  <WiThermometer /> {t("temp")}: {Math.round(weather.main.temp)}°C
                 </div>
                 <div className={styles.weatherDetailItem}>
-                  <WiCloud /> Cloudiness: {weather.clouds.all}%
+                  <WiCloud /> {t("cloudiness")}: {weather.clouds.all}%
                 </div>
                 <div className={styles.weatherDetailItem}>
-                  <WiHumidity /> Humidity: {weather.main.humidity}%
+                  <WiHumidity /> {t("humidity")}: {weather.main.humidity}%
                 </div>
                 <div className={styles.weatherDetailItem}>
-                  <WiStrongWind /> Wind: {weather.wind.speed} m/s
+                  <WiStrongWind /> {t("wind")}: {weather.wind.speed} m/s
                 </div>
               </div>
 
               <div className={styles.forecastContainer}>
-                <h3>📅 7-Day Forecast</h3>
+                <h3>📅 {t("sevenDayForecast")}</h3>
                 <div className={styles.forecastGrid}>
                   {["☀️", "☀️", "☀️", "☁️", "☁️", "🌧️", "⛈️"].map(
                     (icon, index) => (
                       <div key={index} className={styles.forecastItem}>
-                        <p>Day {index + 1}</p>
+                        <p>{t("day")} {index + 1}</p>
                         <p>{icon}</p>
                         <p>37°C / 21°C</p>
                       </div>
@@ -133,7 +135,7 @@ const Weather = () => {
               </div>
             </>
           ) : (
-            <p>No weather data available.</p>
+            <p>{t("noWeatherDataAvailable")}</p>
           )}
         </div>
       </div>

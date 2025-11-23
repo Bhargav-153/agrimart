@@ -74,8 +74,11 @@ import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import Address from "./pages/Address";
 import Payment from "./pages/Payment";
+import { useTranslation } from "react-i18next";
 
 const App = () => {
+  const { t } = useTranslation();
+  
   return (
     <Routes>
       <Route path={RouteIndex} element={<Layout />}>
@@ -145,6 +148,8 @@ const App = () => {
 
         <Route path={RouteProduct} element={<FarmProduct />} />
         <Route path={RouteSettings} element={<Settings />} />
+
+        <Route path="*" element={<h1>{t("pageNotFound")}</h1>} />
       </Route>
     </Routes>
   );
