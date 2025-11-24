@@ -49,6 +49,7 @@
 /* Dropdown Styles */
 .shopDropdown {
   position: relative;
+  cursor: pointer;
 }
 
 .dropdownMenu {
@@ -61,15 +62,32 @@
   left: 0;
   top: 100%;
   z-index: 10;
+  min-width: 250px;
+  border-radius: 8px;
 }
 
 .dropdownMenu li {
-  display: flex;
+  display: block;
 }
 
 .dropdownMenu li:hover {
   border: 2px;
   background-color: #d9e1d9;
+}
+
+/* Ensure link inside dropdown shows icon and text inline */
+.dropdownMenu li a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.dropdownMenu li a svg {
+  font-size: 18px;
 }
 
 .shopDropdown.active .dropdownMenu {

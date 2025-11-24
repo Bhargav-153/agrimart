@@ -9,7 +9,6 @@
 
 .settingsContainer {
   min-height: 80vh;
-  min-width: 80vh;
   margin: 0 auto;
   background: #fff;
   border-radius: 18px;
@@ -96,36 +95,4 @@
   margin-bottom: 24px;
 }
 
-.settingsSection {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  padding: 32px;
-  margin-bottom: 32px;
-}
 
-.languageSection {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.languageHeading {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #22223b;
-  margin-bottom: 8px;
-}
-
-.languageDescription {
-  color: #6b7280;
-  font-size: 1rem;
-  margin-bottom: 24px;
-}
-
-.languageSwitcherWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 20px 0;
-}

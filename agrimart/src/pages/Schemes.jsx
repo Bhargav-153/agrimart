@@ -64,7 +64,7 @@ const Schemes = () => {
       {isAdmin && (
         <div className={styles.addSchemesWrapper}>
           <Button asChild className={styles.addSchemeBtn}>
-            <Link to={SchemaRoute}>{t("addProduct")} - {t("govSchemes")}</Link>
+            <Link to={SchemaRoute}>{t("AddgovSchemes")}</Link>
           </Button>
         </div>
       )}

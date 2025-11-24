@@ -10,7 +10,7 @@ import {
 import styles from "./Footer.module.css";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { RouteAboutUs, RouteContactUs } from "../helpers/RouteName";
+import { RouteAboutUs, RouteContactUs, RouteCropNutrition, RouteCropProtection } from "../helpers/RouteName";
 
 import { Link } from "react-router-dom";
 
@@ -62,14 +62,12 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="/shop/protection" className={styles.link}>
-                {t("cropProtection")}
-              </a>
+              <Link to={RouteCropProtection}  className={styles.link}>{t("cropProtection")}</Link>
+             
             </li>
             <li>
-              <a href="/shop/nutrition" className={styles.link}>
-                {t("cropNutrition")}
-              </a>
+              <Link to={RouteCropNutrition}  className={styles.link}>{t("cropNutrition")}</Link>
+
             </li>
             <li>
               <a href="/shop/equipment" className={styles.link}>
@@ -99,18 +97,18 @@ const Footer = () => {
         <div className={styles.containerBottom}>
           <p>&copy; 2025 Agrimart. {t("allRightsReserved")}</p>
           <div className={styles.socialLinks}>
-            <a href="#" className={styles.socialIcon}>
+            <a href="https://www.facebook.com/profile.php?id=61584082506578" target="_blank"  rel="noopener noreferrer" className={styles.socialIcon}>
               <FaFacebook />
             </a>
-            <a href="#" className={styles.socialIcon}>
+            <a href="https://x.com/Agrimart431253"  target="_blank"  rel="noopener noreferrer" className={styles.socialIcon}>
               <FaTwitter />
             </a>
-            <a href="#" className={styles.socialIcon}>
+            <a href="https://www.instagram.com/agri.mart4321/"  target="_blank"  rel="noopener noreferrer" className={styles.socialIcon}>
               <FaInstagram />
             </a>
-            <a href="#" className={styles.socialIcon}>
+            {/* <a href="#" className={styles.socialIcon}>
               <FaLinkedin />
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

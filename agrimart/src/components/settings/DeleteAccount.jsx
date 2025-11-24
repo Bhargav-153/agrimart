@@ -57,7 +57,8 @@ const DeleteAccount = () => {
   };
 
   return (
-    <section>
+   <div className={styles.container}>
+     <section>
       <h3 className="text-xl font-semibold mb-2 text-red-600">Delete Account</h3>
       {!confirm ? (
         <button 
@@ -89,6 +90,7 @@ const DeleteAccount = () => {
         </div>
       )}
     </section>
+   </div>
   );
 };
 

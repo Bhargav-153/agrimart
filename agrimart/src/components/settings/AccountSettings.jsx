@@ -123,18 +123,12 @@ const AccountSettings = () => {
             <IoCameraOutline className="text-black w-4 h-4" />
           </div>
         </Avatar>
-
-        
           </div>
-    
           )}
         </Dropzone>
         
   {/* Camera icon overlay - now works */}
-        
       </div>
-
-
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className="flex flex-row gap-4 ">
           <input

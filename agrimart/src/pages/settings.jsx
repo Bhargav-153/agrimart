@@ -6,7 +6,7 @@ import OrderPurchaseSettings from "../components/settings/OrderPurchaseSettings"
 import SupportHelpSettings from "../components/settings/SupportHelpSettings";
 import DeleteAccount from "../components/settings/DeleteAccount";
 import LogoutButton from "../components/settings/LogoutButton";
-import LanguageSwitcher from "../components/LanguageSwitcher";
+import LanguageSettings from "../components/settings/LanguageSettings";
 import {
   FaUser,
   FaBell,
@@ -41,17 +41,7 @@ const Settings = () => {
       case "orders":
         return <OrderPurchaseSettings />;
       case "language":
-        return (
-          <div className={styles.languageSection}>
-            <h3 className={styles.languageHeading}>{t("selectLanguage")}</h3>
-            <p className={styles.languageDescription}>
-              {t("chooseLanguage")}
-            </p>
-            <div className={styles.languageSwitcherWrapper}>
-              <LanguageSwitcher variant="button" />
-            </div>
-          </div>
-        );
+        return <LanguageSettings />;
       case "support":
         return <SupportHelpSettings />;
       case "delete":
@@ -66,7 +56,7 @@ const Settings = () => {
   return (
     <div className={styles.settingsBg}>
       <div className={styles.settingsContainer}>
-        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow flex overflow-hidden">
+        <div className="w-full bg-white rounded-xl shadow flex overflow-hidden">
           {/* Sidebar */}
           <aside className={styles.settingsSidebar}>
             <h2 className="text-3xl font-bold mb-11 text-gray-800">
@@ -113,7 +103,7 @@ const Settings = () => {
                 {active === "logout" && t("signOut")}
               </p>
             </div>
-            <div className={styles.settingsSection}>{renderSection()}</div>
+            {renderSection()}
           </main>
         </div>
       </div>

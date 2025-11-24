@@ -26,7 +26,7 @@
     border-radius: 4px;
     transition: background-color 0.2s;
     color: #fff;
-    width: 200px;
+    width: full;
     font-size: 20px;
   }
 

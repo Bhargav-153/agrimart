@@ -115,6 +115,14 @@
   flex-wrap: wrap;
   margin-top: 1rem;
 }
+.cartActions button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  min-width: 120px;
+  background-color: rgba(231, 119, 119, 1);
+}
 
 /* Responsive tweaks */
 @media (max-width: 1200px) {

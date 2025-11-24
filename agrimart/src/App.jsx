@@ -77,6 +77,7 @@ import Payment from "./pages/Payment";
 import { useTranslation } from "react-i18next";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";
+import TermsConditions from "./pages/TermsConditions";
 
 const App = () => {
   const { t } = useTranslation();
@@ -156,6 +157,7 @@ const App = () => {
         <Route path={RouteSettings} element={<Settings />} />
 
         <Route path="*" element={<h1>{t("pageNotFound")}</h1>} />
+        <Route path="/terms" element={<TermsConditions />} />
       </Route>
     </Routes>
   );

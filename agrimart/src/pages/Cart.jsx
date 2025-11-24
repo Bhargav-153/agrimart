@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { RouteAddress } from "@/helpers/RouteName";
 import { showToast } from "@/helpers/showToast";
 import { translateProductName } from "@/helpers/productTranslations";
+import Orders from "./Orders";
 
 const Cart = () => {
   const { t, i18n } = useTranslation();
@@ -102,7 +103,6 @@ const Cart = () => {
           <Button variant="secondary" onClick={() => dispatch(clearCart(user._id))}>
             {t("clearCart")}
           </Button>
-          <Button>Checkout</Button>
         </div>
       </div>
     </main>

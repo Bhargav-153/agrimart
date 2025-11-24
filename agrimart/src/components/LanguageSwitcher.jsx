@@ -8,12 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { FaGlobe } from "react-icons/fa";
 import styles from "./LanguageSwitcher.module.css";
-
-const languages = [
-  { code: "en", name: "English", nativeName: "English" },
-  { code: "hi", name: "Hindi", nativeName: "हिंदी" },
-  { code: "gu", name: "Gujarati", nativeName: "ગુજરાતી" },
-];
+import { languageOptions } from "@/constants/languages";
 
 const LanguageSwitcher = ({ variant = "default" }) => {
   const { i18n } = useTranslation();
@@ -22,7 +17,8 @@ const LanguageSwitcher = ({ variant = "default" }) => {
     i18n.changeLanguage(langCode);
   };
 
-  const currentLanguage = languages.find((lang) => lang.code === i18n.language) || languages[0];
+  const currentLanguage =
+    languageOptions.find((lang) => lang.code === i18n.language) || languageOptions[0];
 
   if (variant === "button") {
     return (
@@ -36,7 +32,7 @@ const LanguageSwitcher = ({ variant = "default" }) => {
           className={styles.dropdownContent}
           style={{ zIndex: 9999 }}
         >
-          {languages.map((lang) => (
+          {languageOptions.map((lang) => (
             <DropdownMenuItem
               key={lang.code}
               onClick={() => handleLanguageChange(lang.code)}
@@ -66,7 +62,7 @@ const LanguageSwitcher = ({ variant = "default" }) => {
           className={styles.dropdownContent}
           style={{ zIndex: 9999 }}
         >
-          {languages.map((lang) => (
+          {languageOptions.map((lang) => (
             <DropdownMenuItem
               key={lang.code}
               onClick={() => handleLanguageChange(lang.code)}

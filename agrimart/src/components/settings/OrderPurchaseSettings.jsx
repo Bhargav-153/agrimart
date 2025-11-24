@@ -4,7 +4,7 @@ import styles from "./OrderPurchaseSettings.module.css";
 
 const OrderPurchaseSettings = () => (
   <section>
-  <div className={styles.listWrapper}>
+  <div className={styles.listWrapper}> 
         <Orders/>
       </div>
 
