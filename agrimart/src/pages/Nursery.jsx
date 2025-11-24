@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import { getEnv } from "@/helpers/getEnv";
 import { RouteNurseryAdd, RouteCart, RouteAddress } from "@/helpers/RouteName";
@@ -9,13 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "@/redux/cart/cart.slice";
 import { showToast } from "@/helpers/showToast";
 import { translateProductName } from "@/helpers/productTranslations";
+import { Search, X } from "lucide-react";
 import styles from "./Nursery.module.css";
 
 const Nursery = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [allNurseries, setAllNurseries] = useState([]);
   const [nurseries, setNurseries] = useState([]);
+  const [searchLocation, setSearchLocation] = useState("");
+  const [showSearchInput, setShowSearchInput] = useState(false);
   const user = useSelector((state) => state.user?.user);
   const currentLanguage = i18n.language || 'en';
 
@@ -26,6 +31,7 @@ const Nursery = () => {
           `${getEnv("VITE_API_BASE_URL")}/nursery/all-nursery`
         );
         const data = await res.json();
+        setAllNurseries(data.nursery);
         setNurseries(data.nursery);
       } catch (err) {
         console.error("Failed to fetch nurseries:", err);
@@ -34,6 +40,30 @@ const Nursery = () => {
 
     fetchNurseries();
   }, []);
+
+  // Filter nurseries by location
+  useEffect(() => {
+    if (searchLocation.trim() === "") {
+      setNurseries(allNurseries);
+    } else {
+      const filtered = allNurseries.filter((nursery) =>
+        nursery.address?.toLowerCase().includes(searchLocation.toLowerCase())
+      );
+      setNurseries(filtered);
+    }
+  }, [searchLocation, allNurseries]);
+
+  const handleSearchClick = () => {
+    setShowSearchInput(!showSearchInput);
+    if (showSearchInput) {
+      setSearchLocation("");
+    }
+  };
+
+  const handleClearSearch = () => {
+    setSearchLocation("");
+    setShowSearchInput(false);
+  };
 
   // Handle Add to Cart
   const handleAddToCart = async (nursery) => {
@@ -90,7 +120,38 @@ const Nursery = () => {
   return (
     <div className={styles.nurseryContainer}>
       <div className="text-center mb-6">
-        <h2 className="text-3xl font-bold">{t("nurseryPlants")}</h2>
+        <div className={styles.headingContainer}>
+          <h2 className="text-3xl font-bold">{t("nurseryPlants")}</h2>
+          <Button
+            onClick={handleSearchClick}
+            className={styles.searchBtn}
+            variant="outline"
+          >
+            <Search className="w-4 h-4 mr-2" />
+            {t("searchByLocation")}
+          </Button>
+        </div>
+        {showSearchInput && (
+          <div className={styles.searchContainer}>
+            <Input
+              type="text"
+              placeholder={t("enterLocation")}
+              value={searchLocation}
+              onChange={(e) => setSearchLocation(e.target.value)}
+              className={styles.searchInput}
+            />
+            {searchLocation && (
+              <Button
+                onClick={handleClearSearch}
+                className={styles.clearBtn}
+                variant="ghost"
+                size="sm"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+        )}
         <h3 className="text-lg text-muted-foreground">
           {t("floweringFruitPlants")}
         </h3>
@@ -106,7 +167,11 @@ const Nursery = () => {
       {/* Nursery Cards */}
       <div className=" grid gap-6 sm:grid-cols-2 md:grid-cols-4 mt-10">
         {nurseries.length === 0 ? (
-          <p>{t("noNurseryPlantsAvailable")}</p>
+          <p>
+            {searchLocation
+              ? t("noNurseriesFoundInLocation")
+              : t("noNurseryPlantsAvailable")}
+          </p>
         ) : (
           nurseries.map((n, i) => (
             <Card key={i} className="pt-5">
