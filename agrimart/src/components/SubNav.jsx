@@ -78,7 +78,10 @@ const SubNav = () => {
               className={styles.navLink}
               onClick={(e) => {
                 e.preventDefault();
-                setIsDropdownOpen(!isDropdownOpen);
+                const opening = !isDropdownOpen;
+                setIsDropdownOpen(opening);
+                // if opening the shop dropdown on mobile, ensure the mobile nav is visible
+                if (opening) setIsMobileNavOpen(true);
               }}
             >
               <FaStore />
@@ -92,27 +95,27 @@ const SubNav = () => {
               }`}
             >
               <li>
-                <Link to={RouteSeeds}>
+                <Link to={RouteSeeds} onClick={closeMenu}>
                   <FaSeedling /> {t("seeds")}
                 </Link>
               </li>
               <li>
-                <Link to={RouteCropProtection}>
+                <Link to={RouteCropProtection} onClick={closeMenu}>
                   <FaShieldAlt /> {t("cropProtection")}
                 </Link>
               </li>
               <li>
-                <Link to={RouteCropNutrition}>
+                <Link to={RouteCropNutrition} onClick={closeMenu}>
                   <FaLeaf /> {t("cropNutrition")}
                 </Link>
               </li>
               <li>
-                <Link to="/shop/equipment">
+                <Link to="/shop/equipment" onClick={closeMenu}>
                   <FaTractor /> {t("equipment")}
                 </Link>
               </li>
               <li>
-                <Link to="/shop/organic">
+                <Link to="/shop/organic" onClick={closeMenu}>
                   <FaAppleAlt /> {t("organic")}
                 </Link>
               </li>

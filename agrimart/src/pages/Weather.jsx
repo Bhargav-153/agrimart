@@ -68,8 +68,6 @@ const Weather = () => {
 
   return (
     <>
-      
-
       <div className={styles.weatherContainer}>
         <h2 className={styles.title}>🌤 {t("weatherInfo")}</h2>
 

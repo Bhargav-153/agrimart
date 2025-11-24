@@ -125,17 +125,23 @@
   .navItems {
     display: none;
     flex-direction: column;
-    width: 100%;
+    width: calc(100% - 20px);
     position: absolute;
-    top: 70px; /* Adjusted for larger nav bar */
-    left: 0;
-    background: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    top: 80px; /* Adjusted for larger nav bar */
+    left: 10px;
+    right: 10px;
+    /* make the mobile menu slightly transparent so background remains visible */
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
     padding: 15px 0; /* More padding */
+    border-radius: 8px;
   }
 
   .navItems.showMobile {
     display: flex;
+    /* ensure subnav mobile menu appears above header overlays */
+    z-index: 2002;
   }
 
   .navItems li {
