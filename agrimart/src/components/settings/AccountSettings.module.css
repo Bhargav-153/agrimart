@@ -67,3 +67,81 @@
   margin-top: 10px;
   font-weight: 500;
 }
+
+/* ============================
+   📱 Mobile View (max-width: 600px)
+   ============================ */
+@media (max-width: 600px) {
+  .accountSettings {
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 10px;
+  }
+
+  .heading {
+    font-size: 1rem;
+  }
+
+  .avatarWrapper {
+    margin-bottom: 15px;
+  }
+
+  .form {
+    gap: 12px;
+  }
+
+  /* Inputs full width */
+  .form input {
+    width: 100% !important;
+  }
+
+  /* Make two-column rows stack vertically */
+  .form div {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .saveBtn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .success {
+    text-align: center;
+  }
+}
+
+/* ============================
+   📝 Tablet View (601px – 992px)
+   ============================ */
+@media (min-width: 601px) and (max-width: 992px) {
+  .accountSettings {
+    padding: 28px;
+    max-width: 85%;
+    margin: 0 auto;
+  }
+
+  .heading {
+    font-size: 1.1rem;
+  }
+
+  .form {
+    gap: 14px;
+  }
+
+  /* Adjust row spacing */
+  .form div {
+    gap: 14px;
+  }
+
+  .input {
+    font-size: 0.95rem;
+  }
+
+  .saveBtn {
+    padding: 12px;
+    font-size: 1.05rem;
+  }
+}
+

@@ -179,3 +179,52 @@
   background-color: rgb(39, 130, 43);
 }
   
+/* ============================
+   📱 Mobile View (max-width: 600px)
+   -> Show 1 product per row
+   ============================ */
+@media (max-width: 600px) {
+  .productsGrid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+  }
+
+  .productImage img {
+    width: 100%;
+    height: 180px;
+  }
+
+  .buy {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .addToCart {
+    width: 100%;
+  }
+}
+
+/* ============================
+   📝 Tablet View (601px – 992px)
+   -> Show 2 products per row
+   ============================ */
+@media (min-width: 601px) and (max-width: 992px) {
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .productImage img {
+    width: 100%;
+    height: 200px;
+  }
+
+  .buy {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .addToCart {
+    width: 100%;
+  }
+}

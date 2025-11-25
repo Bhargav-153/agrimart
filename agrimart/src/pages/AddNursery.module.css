@@ -98,3 +98,70 @@
 .signInLink:hover {
   text-decoration: underline;
 }
+
+/* =============================
+📱 MOBILE VIEW (max-width: 600px)
+============================= */
+@media (max-width: 600px) {
+  .card1 {
+    width: 100%;
+    margin: 0 10px;
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .formGroup {
+    margin-bottom: 10px;
+  }
+
+  .submitButton {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  /* Table scroll wrapper */
+  .tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 700px !important;
+  }
+
+  .container {
+    padding: 0 5px;
+  }
+}
+
+/* =============================
+📱 TABLET VIEW (601px – 992px)
+============================= */
+@media (min-width: 601px) and (max-width: 992px) {
+  .card1 {
+    width: 85%;
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  /* Table scroll wrapper */
+  .tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 900px !important;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+}
+

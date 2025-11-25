@@ -90,4 +90,26 @@
 .buy:hover {
   background-color: #b7943d;
 }
+
+/* 📱 Mobile View: Show 1 Item Per Row */
+@media (max-width: 768px) {
+  .productsGrid {
+    grid-template-columns: repeat(1, 1fr); /* Show 1 item */
+  }
+
+  .productImage {
+    width: 100%; 
+    height: 180px;
+  }
+
+  .buy {
+    margin-left: 0;  /* Fix button alignment on mobile */
+    width: 100%;
+  }
+  
+  .addToCart {
+    width: 100%;
+  }
+}
+
   
