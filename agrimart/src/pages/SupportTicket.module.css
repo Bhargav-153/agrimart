@@ -1,10 +1,14 @@
 .wrapper {
   background: #f2f6f1;
   padding: 40px 16px;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
 }
 
 .ticketCard {
   max-width: 1100px;
+  width: 100%;
   margin: 0 auto;
   background: #ffffff;
   border-radius: 24px;
@@ -15,9 +19,11 @@
   gap: 24px;
 }
 
+/* HEADER */
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 16px;
 }
 
@@ -26,10 +32,11 @@
   letter-spacing: 0.08em;
   font-weight: 600;
   color: #4caf50;
+  font-size: 14px;
 }
 
 .header h1 {
-  font-size: 34px;
+  font-size: 32px;
   margin: 8px 0;
   color: #1e3622;
 }
@@ -37,18 +44,23 @@
 .lead {
   margin: 0;
   color: #4a4a4a;
+  font-size: 15px;
+  line-height: 1.45;
 }
 
 .headerIcon {
   font-size: 54px;
   color: #2f7c3a;
+  flex-shrink: 0;
 }
 
+/* BODY GRID */
 .content {
   display: flex;
   gap: 32px;
 }
 
+/* FORM */
 .form {
   flex: 2;
   display: flex;
@@ -73,8 +85,8 @@
   border: 1px solid #d9e5d7;
   border-radius: 12px;
   padding: 12px 14px;
-  font-size: 15px;
-  transition: border 0.2s ease;
+  font-size: 16px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 .fieldGroup textarea {
@@ -89,9 +101,10 @@
   box-shadow: 0 0 0 2px rgba(47, 158, 68, 0.15);
 }
 
+/* GRID ROW */
 .fieldRow {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
 }
 
@@ -100,11 +113,19 @@
   border: none;
   border-radius: 14px;
   padding: 14px 24px;
-  font-size: 16px;
+  font-size: 17px;
   color: #fff;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.form button:hover {
+  opacity: 0.9;
+}
+
+.form button:active {
+  transform: scale(0.97);
 }
 
 .form button:disabled {
@@ -112,11 +133,13 @@
   cursor: not-allowed;
 }
 
+/* SIDEBAR */
 .sidebar {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 18px;
+  min-width: 260px;
 }
 
 .tipCard {
@@ -141,24 +164,43 @@
   color: #4c614c;
 }
 
+/* SUCCESS BANNER */
 .successBanner {
   background: #e9f7ec;
   border-radius: 14px;
   padding: 14px 18px;
   color: #145a24;
   font-weight: 600;
+  margin-top: 8px;
 }
 
 .error {
   color: #c0392b;
 }
 
+/* ============ RESPONSIVE BREAKPOINTS ============ */
+
+/* Tablet Mode */
 @media (max-width: 900px) {
   .content {
     flex-direction: column;
   }
+
+  .sidebar {
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .tipCard {
+    flex: 1;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
 }
 
+/* Mobile Mode */
 @media (max-width: 600px) {
   .ticketCard {
     padding: 20px;
@@ -167,5 +209,28 @@
   .header {
     flex-direction: column;
   }
-}
 
+  .headerIcon {
+    align-self: flex-start;
+  }
+
+  .lead {
+    font-size: 14px;
+  }
+
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    flex-direction: column;
+  }
+
+  .tipCard {
+    width: 100%;
+  }
+
+  .form button {
+    width: 100%;
+  }
+}

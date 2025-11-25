@@ -1,43 +1,46 @@
 .section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+  grid-template-row: 1.1fr 2fr;
+  gap: 2rem;
   width: 100%;
 }
 
+/* Card Left */
 .preferences {
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-  padding: 2rem;
-  height: 300px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+  padding: 1.8rem;
+  height: auto;
+
 }
 
 .heading {
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin-bottom: 0.35rem;
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
   color: #0f172a;
 }
 
 .subheading {
-  margin: 0;
+  font-size: 1rem;
   color: #475467;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.6rem;
 }
 
 .options {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.3rem;
 }
 
 .label {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 1rem;
+  gap: 0.8rem;
+  font-size: 1.05rem;
   color: #0f172a;
+  cursor: pointer;
 }
 
 .checkbox {
@@ -46,6 +49,64 @@
   height: 20px;
 }
 
+/* Right panel: notification list */
 .listWrapper {
-  min-height: 100%;
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.6rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+  width: 100%;
+}
+
+/* -------------------------
+📱 Tablet
+-------------------------- */
+@media (max-width: 1024px) {
+  .section {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+
+  .heading {
+    font-size: 1.3rem;
+  }
+
+  .label {
+    font-size: 1.05rem;
+  }
+  
+}
+
+/* -------------------------
+📱 Mobile
+-------------------------- */
+@media (max-width: 600px) {
+  .section {
+    grid-template-columns: 1fr;
+  }
+
+  .preferences {
+    padding: 1.4rem;
+  }
+
+  .heading {
+    font-size: 1.25rem;
+  }
+
+  .subheading {
+    font-size: 0.95rem;
+  }
+
+  .label {
+    font-size: 0.95rem;
+  }
+
+  .checkbox {
+    width: 18px;
+    height: 18px;
+  }
+
+  .listWrapper {
+    padding: 1.3rem;
+  }
 }

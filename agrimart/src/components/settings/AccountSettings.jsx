@@ -130,7 +130,7 @@ const AccountSettings = () => {
   {/* Camera icon overlay - now works */}
       </div>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <div className="flex flex-row gap-4 ">
+        <div className={styles.fieldRow}>
           <input
             name="name"
             value={form.name}
@@ -154,7 +154,7 @@ const AccountSettings = () => {
           className={styles.input}
         />
 
-        <div className="flex flex-row gap-4">
+        <div className={styles.fieldRow}>
           <input
             name="password"
             value={form.password}

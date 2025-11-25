@@ -56,7 +56,7 @@ const Settings = () => {
   return (
     <div className={styles.settingsBg}>
       <div className={styles.settingsContainer}>
-        <div className="w-full bg-white rounded-xl shadow flex overflow-hidden">
+        <div className={`${styles.settingsLayout} w-full bg-white rounded-xl shadow overflow-hidden`}>
           {/* Sidebar */}
           <aside className={styles.settingsSidebar}>
             <h2 className="text-3xl font-bold mb-11 text-gray-800">

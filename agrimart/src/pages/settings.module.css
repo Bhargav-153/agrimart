@@ -1,72 +1,78 @@
 .settingsBg {
-  min-height: 80vh;
+  min-height: 100vh;
   background: #f8fafc;
   padding-top: 50px;
   margin-top: 30px;
-  height: 100%;
   width: 100%;
 }
 
+/* Wrapper */
 .settingsContainer {
-  min-height: 80vh;
+  /* max-width: 1200px; */
   margin: 0 auto;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-  display: flex;
   overflow: hidden;
-  height: 100%;
+}
+
+/* Desktop layout */
+.settingsLayout {
+  display: flex;
   width: 100%;
 }
 
+/* Sidebar */
 .settingsSidebar {
-  width: 280px;
+  width: 290px;
   background: #f9fafb;
   border-right: 1px solid #e5e7eb;
-  padding: 40px 32px;
+  padding: 35px 25px;
   display: flex;
   flex-direction: column;
 }
 
 .settingsSidebar h2 {
-  font-size: 2rem;
+  font-size: 2.1rem;
   font-weight: 700;
+  margin-bottom: 32px;
   color: #22223b;
-  margin-bottom: 40px;
 }
 
+/* Sidebar options */
 .settingsNav {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .settingsNav button {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 12px 18px;
+  padding: 14px 18px;
   border: none;
   background: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
+  border-radius: 10px;
+  font-size: 1.15rem;
   color: #444;
   cursor: pointer;
-  transition: 0.18s, color 0.18s;
+  transition: 0.2s ease;
 }
 
 .settingsNav button.active,
 .settingsNav button:focus {
   background: #e6f4ea;
-  color: #15803d;
+  color: #0f7a35;
   font-weight: 600;
 }
 
 .settingsNav button:hover:not(.active) {
   background: #f3f4f6;
-  color: #22223b;
+  color: #111;
 }
 
+/* Delete / Logout special style */
 .settingsNav .delete {
   color: #dc2626;
 }
@@ -76,22 +82,107 @@
   color: #6b7280;
 }
 
+/* Main Content */
 .settingsMain {
   flex: 1;
-  padding: 48px 48px 48px 48px;
+  padding: 50px;
   background: #f8fafc;
 }
 
 .settingsMain h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
   color: #22223b;
   margin-bottom: 6px;
 }
 
 .settingsMain p {
-  color: #6b7280;
-  font-size: 1rem;
-  margin-bottom: 24px;
+  color: #555;
+  font-size: 1.05rem;
+  margin-bottom: 22px;
 }
 
+/* =========================
+📱 Tablet Responsive
+========================= */
+@media (max-width: 1024px) {
+  .settingsLayout {
+    flex-direction: column;
+  }
+
+  .settingsSidebar {
+    width: 100%;
+    padding: 25px 18px;
+    border-right: none;
+    border-bottom: 2px solid #d1d5db;
+  }
+
+  .settingsSidebar h2 {
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+  }
+
+  .settingsNav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .settingsNav button {
+    /* flex: 1 1 calc(50% - 10px); */
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    font-size: 1.1rem;
+    padding: 12px;
+  }
+
+  .settingsMain {
+    padding: 36px 26px;
+  }
+}
+
+/* =========================
+📱 Mobile Responsive
+========================= */
+@media (max-width: 640px) {
+  .settingsSidebar h2 {
+    font-size: 1.4rem;
+  }
+
+  .settingsNav button {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    padding: 12px 14px;
+    font-size: 1rem;
+  }
+
+  .settingsMain {
+    padding: 20px 15px;
+  }
+
+  .settingsMain h3 {
+    font-size: 1.35rem;
+  }
+
+  .settingsMain p {
+    font-size: 0.95rem;
+  }
+}
+
+/* =========================
+📱 Very Small Screens
+========================= */
+@media (max-width: 430px) {
+  .settingsNav button {
+    font-size: 0.92rem;
+    padding: 10px;
+  }
+
+  .settingsMain h3 {
+    font-size: 1.2rem;
+  }
+
+  .settingsMain {
+    padding: 14px;
+  }
+}

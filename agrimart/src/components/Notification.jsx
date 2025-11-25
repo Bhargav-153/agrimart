@@ -58,7 +58,6 @@ function Notifications({ userId }) {
 
   return (
     <div className={styles.page}>
-      <div className={styles.box}>
         <h3 className={styles.heading}>Recent Notifications</h3>
         {loading && <p className={styles.info}>Loading notifications...</p>}
         {error && <p className={styles.error}>{error}</p>}
@@ -79,7 +78,6 @@ function Notifications({ userId }) {
           ))}
         </div>
       </div>
-    </div>
   );
 }
 

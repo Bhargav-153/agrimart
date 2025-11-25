@@ -13,11 +13,7 @@
     padding: 0 1.5rem;
 }
 
-@media (min-width: 768px) {
-    .container {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
+
 
 .title {
     font-size: 1.25rem;
@@ -59,12 +55,7 @@
     align-items: center;
     justify-items: center;
 }
-@media (min-width: 768px) {
-    .containerBottom {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
+
 
 .socialLinks {
     display: flex;
@@ -79,4 +70,38 @@
 
 .socialIcon:hover {
     color: #9ca3af;
+}
+@media (min-width: 768px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .containerBottom {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.2rem;
+  }
+
+  .footerBottom p {
+    font-size: 14.5px;
+  }
+}
+
+/* ==================== DESKTOP ==================== */
+@media (min-width: 1024px) {
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+  }
+
+  .containerBottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
 }
