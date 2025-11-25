@@ -1,36 +1,39 @@
-/* EditSeeds.module.css */
+ /* Base Layout */ 
 
 .container {
-  
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 7rem;
+  padding: 6rem 2rem;
   background-color: #f9fafb;
   min-height: 100vh;
+  width: 100%;
 }
 
+ /* Card */
 .card {
   width: 100%;
-  max-width: 700px;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  max-width: 720px;
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
   background: #ffffff;
-  padding: 1rem;
+  padding: 1.75rem;
 }
 
+/*  Title */
 .title {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
   text-align: center;
-  color: #1f2937; /* dark gray */
+  color: #1f2937;
 }
 
+ /* Form Group */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 .formGroup {
@@ -39,38 +42,117 @@
   gap: 0.5rem;
 }
 
+/* 📌 Dropzone */
 .dropzoneWrapper {
-  border: 2px dashed #9ca3af;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 140px;
+  border: 2px dashed #b9c0ca;
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1rem;
   text-align: center;
   cursor: pointer;
-  background-color: #f3f4f6;
-  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  background: #f3f4f6;
+  transition: 0.2s ease;
 }
 
 .dropzoneWrapper:hover {
-  border-color: #2563eb; /* blue-600 */
-  background-color: #e0f2fe; /* light blue */
+  border-color: #2563eb;
+  background: #e0f2fe;
 }
 
+/*  Preview Image */
 .previewImage {
-  margin-top: 0.75rem;
-  max-height: 180px;
+  width: 100%;
+  max-height: 200px;
+  border-radius: 10px;
   object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 0.6rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
+/*  Submit Button */
 .submitButton {
-  background-color: #0aa13f !important; /* blue-600 */
-  color: white !important;
-  font-weight: 500;
-  border-radius: 12px;
-  padding: 0.75rem;
-  transition: background-color 0.2s ease-in-out;
+  width: 100%;
+  background-color: #0aa13f !important;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.9rem;
+  border-radius: 10px;
+  transition: 0.25s ease;
 }
 
 .submitButton:hover {
-  background-color: #067a2f !important; /* blue-700 */
+  background-color: #067a2f !important;
+}
+
+ /* Inputs & Selects */
+input,
+select {
+  height: 42px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+ /* Mobile — Small (max 480px) */
+
+@media (max-width: 480px) {
+  .container {
+    padding: 5rem 1rem 2rem 1rem;
+    margin-bottom: 0;
+  }
+
+  .card {
+    padding: 1.25rem;
+  }
+
+  .title {
+    font-size: 1.45rem;
+  }
+
+  .dropzoneWrapper {
+    min-height: 120px;
+    padding: 0.8rem;
+  }
+
+  input,
+  select {
+    height: 38px;
+    font-size: 0.85rem;
+  }
+
+  .submitButton {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+  }
+}
+
+ /* Tablet (481px–900px) */
+
+@media (min-width: 481px) and (max-width: 900px) {
+  .container {
+    padding: 6rem 1.8rem;
+  }
+
+  .card {
+    max-width: 85%;
+  }
+
+  .title {
+    font-size: 1.55rem;
+  }
+
+  .dropzoneWrapper {
+    min-height: 135px;
+  }
+}
+
+
+ /* Large Desktop (≥1200px) */
+
+@media (min-width: 1200px) {
+  .card {
+    max-width: 760px;
+  }
 }

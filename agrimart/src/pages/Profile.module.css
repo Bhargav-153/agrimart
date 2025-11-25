@@ -2,6 +2,7 @@
   padding: 20px;
   background-color: #f5f5f5;
   margin-top: 5rem;
+  height: calc(100vh - 5rem);
 }
 
 .profileContainer {
@@ -183,6 +184,8 @@ h2 {
   color: #c0392b;
 }
 
+
+
 @media (max-width: 768px) {
   .profileContainer {
     flex-direction: column;
@@ -192,8 +195,12 @@ h2 {
     width: 100%;
     text-align: center;
   }
-
+  .profileContent{
+    padding-top: 5px;
+  }
+ 
   .infoGrid {
     grid-template-columns: 1fr;
   }
 }
+

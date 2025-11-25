@@ -2,115 +2,168 @@
   padding: 20px;
   background-color: #f9f9f9;
   margin-top: 5rem;
+  min-height: 100vh;
 }
-.addSchemesWrapper {
-  display: flex;
-  justify-content: center; /* centers horizontally */
-  margin: 20px 0; /* space above & below */
-}
+
 .pageTitle {
   text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
-  background-color: #1f2937;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding: 14px;
+  width: 100%;
+  background: #1f2937;
   color: white;
+  border-radius: 8px;
+}
+
+.addSchemesWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0 25px;
 }
 
 .addSchemeBtn {
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-
-  padding: 10px 20px;
-  background-color: #4caf50;
+  padding: 10px 18px;
+  background: #31a137;
   color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.25s ease;
 }
 
-.addSchemeBtn:hover{
-  background-color: rgb(39, 130, 43);
+.addSchemeBtn:hover {
+  background: rgb(39, 130, 43);
 }
 
 .schemesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   margin-top: 20px;
 }
 
 .schemeCard {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  background: #fff;
+  border: 1px solid #dddd;
+  border-radius: 10px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  transition: 0.25s ease;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .schemeCard:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
 }
 
 .schemeIcon {
-  font-size: 2em;
-  color: #4caf50;
+  font-size: 2.1rem;
+  color: #31a137;
   margin-bottom: 10px;
 }
 
 .schemeInfo h2 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 6px;
 }
 
 .schemeInfo p {
-  font-size: 1em;
+  font-size: 0.95rem;
+  color: #444;
   margin-bottom: 10px;
+  line-height: 1.4;
 }
 
 .schemeDetails {
+  margin-top: 8px;
+  margin-bottom: 12px;
   list-style: none;
   padding: 0;
-  margin-bottom: 10px;
 }
 
 .schemeDetails li {
   display: flex;
+  gap: 6px;
   align-items: center;
-  margin-bottom: 5px;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
 }
 
-.schemeDetails li .faCheck {
-  margin-right: 5px;
-  color: #4caf50;
+.schemeDetails li svg {
+  color: #31a137;
+}
+
+.applyBtn,
+.videoBtn {
+  display: inline-block;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.25s ease;
 }
 
 .applyBtn {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-  margin-right: 10px;
+  background: #31a137;
+  margin-right: 8px;
 }
 
-.videoBtn{
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #d65109;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-  margin-left: 10px;
-}
-
-.videoBtn:hover{
-  background-color: #ab430b;
-}
 .applyBtn:hover {
-  background-color: #317b35;
+  background: #1f7b2d;
+}
+
+.videoBtn {
+  background: #d65109;
+}
+
+.videoBtn:hover {
+  background: #ab430b;
+}
+
+@media (max-width: 600px) {
+  .schemesContainer {
+    padding: 15px;
+  }
+
+  .pageTitle {
+    font-size: 1.6rem;
+    padding: 12px;
+  }
+
+  .schemesGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .schemeCard {
+    padding: 15px;
+  }
+
+  .applyBtn,
+  .videoBtn {
+    width: 30%;
+    margin: 6px 0;
+    display: inline-block;
+    margin-right: 10px
+  
+
+  }
+}
+
+@media (min-width: 601px) and (max-width: 992px) {
+  .schemesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1400px) {
+  .schemesGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

@@ -1,167 +1,202 @@
-/* Center the form container */
+/**************************************
+ 🌱 Overall Layout
+**************************************/
 .container {
-  /* padding-top: 5rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f4f4f4;
-  margin-top: 2rem;
-  padding-bottom: 3rem;
-  /* height: 100vh; */
-}
-
-/* Add this class */
-.formTableWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 2rem 0 3rem 0;
   width: 100%;
 }
 
-/* Card styling */
+/**************************************
+ Card (Form Box)
+**************************************/
 .card1 {
-  width: 760px;
-  padding-top: 5rem;
-  margin-top: 4rem;
-  padding: 1rem;
+  width: 100%;
+  max-width: 750px;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  margin-bottom: 5px;
-}
-.card2 {
-  width: 800px;
-  padding: 1rem;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* Title styles */
+/**************************************
+ Title
+**************************************/
 .title {
-  font-size: 25px;
+  font-size: 1.6rem;
   font-weight: 600;
-  color: #090808ff;
+  color: #0a0a0a;
+  text-align: center;
+  margin-bottom: 1rem;
   text-decoration: underline;
 }
 
-/* Google login button container */
-.socialLogin {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-/* Form group styling */
+/**************************************
+ Form Fields
+**************************************/
 .formGroup {
-  margin-bottom: 15px;
+  margin-bottom: 1.2rem;
 }
 
-/* Submit button styling */
+input {
+  height: 42px;
+}
+
+/**************************************
+ Dropzone
+**************************************/
+.dropzoneArea {
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: center;
+}
+
+.dropzoneBox {
+  width: 160px;
+  height: 130px;
+  border: 2px dashed #bfbfbf;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .3s;
+}
+
+.dropzoneBox:hover {
+  border-color: #777;
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/**************************************
+ Submit Button
+**************************************/
 .submitSection {
-  margin-top: 20px;
+  margin-top: 1.5rem;
   text-align: center;
 }
 
 .submitButton {
   width: 100%;
+  padding: 12px;
+  font-weight: 600;
   background: #4caf50;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-  border: none;
+  border-radius: 6px;
+  transition: 0.3s;
 }
 
 .submitButton:hover {
-  background-color: rgb(56, 123, 74);
+  background: rgb(56,123,74);
 }
 
-/* Sign-in redirect text */
-.redirectText {
-  margin-top: 10px;
-  font-size: 14px;
-  display: flex;
-  justify-content: center;
-  gap: 5px;
+/**************************************
+  Table Wrapper
+**************************************/
+.tableContainer {
+  margin-top: 3rem;
+  max-width: 900px;
+  width: 100%;
 }
 
-.signInLink {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: bold;
+/* makes table scrollable in smaller screens */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
 }
 
-.signInLink:hover {
-  text-decoration: underline;
+/**************************************
+  Table styling (Desktop)
+**************************************/
+table {
+  width: 100%;
 }
 
-/* =============================
-📱 MOBILE VIEW (max-width: 600px)
-============================= */
+/**************************************
+  RESPONSIVE CSS
+**************************************/
+
+/* 📱 Mobile FIRST */
 @media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+    margin-top: 4rem;
+  }
+
   .card1 {
     width: 100%;
-    margin: 0 10px;
     padding: 1rem;
+    margin-top: 1rem;
   }
 
   .title {
-    font-size: 20px;
+    font-size: 1.30rem;
   }
 
-  .formGroup {
-    margin-bottom: 10px;
+  .dropzoneBox {
+    width: 140px;
+    height: 110px;
+  }
+
+  input {
+    height: 38px;
+    font-size: 0.9rem;
   }
 
   .submitButton {
-    padding: 8px;
-    font-size: 14px;
+    padding: 10px;
+    font-size: 0.95rem;
   }
 
-  /* Table scroll wrapper */
+  /* Table scroll */
   .tableWrapper {
-    width: 100%;
-    overflow-x: auto;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
   }
 
   table {
-    width: 700px !important;
-  }
-
-  .container {
-    padding: 0 5px;
+    min-width: 720px;
   }
 }
 
-/* =============================
-📱 TABLET VIEW (601px – 992px)
-============================= */
+/* 📱 Tablet (Portrait / Landscape) */
 @media (min-width: 601px) and (max-width: 992px) {
   .card1 {
-    width: 85%;
+    max-width: 85%;
     padding: 1.5rem;
   }
 
   .title {
-    font-size: 22px;
+    font-size: 1.45rem;
   }
 
-  /* Table scroll wrapper */
-  .tableWrapper {
-    width: 100%;
-    overflow-x: auto;
+  .dropzoneBox {
+    width: 160px;
+    height: 120px;
   }
 
   table {
-    width: 900px !important;
-  }
-
-  .container {
-    padding: 0 10px;
+    min-width: 900px;
   }
 }
 
+/* 🖥 Larger Screens */
+@media (min-width: 1200px) {
+  .card1 {
+    max-width: 850px;
+  }
+
+  .tableContainer {
+    max-width: 1000px;
+  }
+}

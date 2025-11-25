@@ -1,7 +1,7 @@
 .weatherContainer {
   width: 100%;
   max-width: 1500px;
-  margin: 2rem auto;
+  margin: .5rem auto;
   padding: 2rem;
   /* background: linear-gradient(135deg, #1e3a8a, #9333ea); */
   background: linear-gradient(135deg,rgb(52, 152, 105),rgb(187, 131, 240));
@@ -133,6 +133,7 @@
   .weatherContainer {
     padding: 1rem;
     border-radius: 8px;
+    margin-bottom: .1rem;
   }
   .title {
     font-size: 1.5rem;
