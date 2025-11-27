@@ -102,7 +102,7 @@ const Equipment = () => {
               <img
                 src={equipment.image}
                 alt={translatedName}
-                className={styles.image}
+                className={styles.productImage}
               />
               <h3 className={styles.name}>{translatedName}</h3>
               <p className={styles.description}>{translatedDesc}</p>
@@ -123,8 +123,10 @@ const Equipment = () => {
                 ₹{equipment.price}
               </span>
             </p> 
-            <button className={styles.button} onClick={() => handleAddToCart(equipment)}>{t("addToCart")}</button>
+            <div className={styles.buttonGroup}>
+            <button className={styles.addToCart} onClick={() => handleAddToCart(equipment)}>{t("addToCart")}</button>
             <button className={styles.buy} onClick={() => handleBuyNow(equipment)}>{t("buyNow")}</button>
+            </div>
           </div>
           );
         })}

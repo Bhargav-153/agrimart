@@ -301,6 +301,47 @@ const productTranslations = {
     hi: "मिट्टी के स्वास्थ्य और फसल उपज में सुधार के लिए पोषक तत्वों से भरपूर",
     gu: "માટીના સ્વાસ્થ્ય અને પાક ઉપજમાં સુધારો કરવા માટે પોષક તત્વોથી સમૃદ્ધ"
   },
+
+
+  "Pyrethrin Spray": {
+    en: "Pyrethrin Spray",
+    hi: "पाइरेथ्रिन स्प्रे",
+    gu: "પાયરેથ્રિન સ્પ્રે"
+  },
+
+  "Horticultural Oil": {
+    en: "Horticultural Oil",
+    hi: "बागवानी तेल",
+    gu: "હોર્ટીકલ્ચરલ તેલ"
+  },
+
+  "Sulfur Fungicide": {
+    en: "Sulfur Fungicide",
+    hi: "सल्फर फफूंदनाशी",
+    gu: "સલ્ફર ફૂગનાશક"
+  },
+
+  "Garlic Barrier Spray": {
+    en: "Garlic Barrier Spray",
+    hi: "लहसुन बैरियर स्प्रे",
+    gu: "લસણ બેરિયર સ્પ્રે"
+  },
+
+  "Spinosad Insecticide": {
+    en: "Spinosad Insecticide",
+    hi: "स्पिनोसाड कीटनाशक",
+    gu: "સ્પિનોસાડ કીટનાશક"
+  },
+
+  "Bacillus Thuringiensis": {
+    en: "Bacillus Thuringiensis",
+    hi: "बैसिलस थूरिंजिएन्सिस",
+    gu: "બેસિલસ થુરિંજેન્સિસ"
+  },
+
+  
+
+  
   
   // Nursery Plants
   "Curry Leaf": {
@@ -440,6 +481,36 @@ const productTranslations = {
     hi: "खीरा",
     gu: "કાકડી"
   },
+  Cabbage: {
+      en: "Cabbage",
+      gu: "કોબી",
+      hi: "पत्ता गोभी",
+    },
+    Beetroot: {
+      en: "Beetroot",
+      gu: "બીટરૂટ",
+      hi: "चुकंदर",
+    },
+    Brinjal: {
+      en: "Brinjal",
+      gu: "રીંગણ",
+      hi: "बैंगन",
+    },
+    Tomato: {
+      en: "Tomato",
+      gu: "ટમેટું",
+      hi: "टमाटर",
+    },
+    Radish: {
+      en: "Radish",
+      gu: "મૂળી",
+      hi: "मूली",
+    },
+    Carrot: {
+      en: "Carrot",
+      gu: "ગાજર",
+      hi: "गाजर",
+    },
   "F1 કાકડી બીજ": {
     en: "F1 Cucumber Seeds",
     hi: "F1 खीरा बीज",
@@ -500,6 +571,55 @@ const productTranslations = {
     hi: "सहजन",
     gu: "સરગવો"
   },
+  "Spinach": { gu: "પાલક", hi: "पालक" },
+  "Lettuce": { gu: "લેટીસ", hi: "लेट्यूस" },
+  "Cabbage": { gu: "કોબી", hi: "पत्ता गोभी" },
+  "Kale": { gu: "કેલ", hi: "केल" },
+  "Swiss chard": { gu: "સ્વિસ ચાર્ડ", hi: "स्विस चार्ड" },
+  "Fenugreek (Methi)": { gu: "માંથી (મેથી)", hi: "मेथी" },
+  "Amaranth (Chaulai)": { gu: "રાજગારું (ચોળાઈ)", hi: "चौलाई" },
+
+  "Carrot": { gu: "ગાજર", hi: "गाजर" },
+  "Beetroot": { gu: "બીટ", hi: "चुकंदर" },
+  "Potato": { gu: "બટાટા", hi: "आलू" },
+  "Sweet potato": { gu: "શક્કરિયા", hi: "शकरकंद" },
+  "Radish": { gu: "મૂળો", hi: "मूली" },
+  "Turnip": { gu: "શલગમ", hi: "शलगम" },
+  "Yam": { gu: "રતાળુ", hi: "जिमीकंद" },
+
+  "Bottle gourd (Lauki)": { gu: "દૂધી", hi: "लौकी" },
+  "Bitter gourd (Karela)": { gu: "કરેલા", hi: "करेला" },
+  "Ridge gourd (Turai)": { gu: "તુરીયા", hi: "तुरई" },
+  "Sponge gourd (Gilki)": { gu: "ગિલકી", hi: "गिलकी" },
+  "Pumpkin": { gu: "કોળું", hi: "कद्दू" },
+  "Zucchini": { gu: "જુક્કીની", hi: "ज़ूकीनी" },
+  "Cucumber": { gu: "કાકડી", hi: "खीरा" },
+
+  "Tomato": { gu: "ટમેટું", hi: "टमाटर" },
+  "Brinjal": { gu: "રીંગણ", hi: "बैंगन" },
+  "Capsicum": { gu: "શિમલા મરચાં", hi: "शिमला मिर्च" },
+  "Chillies": { gu: "મરચાં", hi: "मिर्च" },
+  "Okra (Ladyfinger)": { gu: "ભીંડો", hi: "भिंडी" },
+  "Peas": { gu: "વટાણા", hi: "मटर" },
+  "Corn": { gu: "મકાઈ", hi: "मक्का" },
+  "Beans": { gu: "ફણસી", hi: "बीन्स" },
+
+  "Cauliflower": { gu: "ફૂલકોબી", hi: "फूलगोभी" },
+  "Broccoli": { gu: "બ્રોકોલી", hi: "ब्रोकली" },
+  "Brussels sprouts": { gu: "બ્રસલ્સ સ્પ્રાઉટ્સ", hi: "ब्रसल्स स्प्राउट्स" },
+  "Kohlrabi": { gu: "ગાંઠ ગોબી", hi: "गांठ गोभी" },
+
+  "Onion": { gu: "ડુંગળી", hi: "प्याज़" },
+  "Garlic": { gu: "લસણ", hi: "लहसुन" },
+  "Ginger": { gu: "આદુ", hi: "अदरक" },
+  "Turmeric": { gu: "હળદર", hi: "हल्दी" },
+  "Celery": { gu: "સેલેરી", hi: "सेलेरी" },
+  "Asparagus": { gu: "એસ્પેરાગસ", hi: "एस्पेरेगस" },
+
+  "Green beans": { gu: "લીલા ફણસી", hi: "हरी बीन्स" },
+  "Broad beans": { gu: "વાલ", hi: "सेम" },
+  "Lima beans": { gu: "લીમા બીન્સ", hi: "लिमा बीन्स" },
+  "Green peas": { gu: "લીલા વટાણા", hi: "हरे मटर" },
   
   // Common Descriptions
   "Early maturing variety with consistent fruit size": {
@@ -793,7 +913,151 @@ const productTranslations = {
     en: "Ensures fair prices",
     hi: "निष्पक्ष मूल्य सुनिश्चित करता है",
     gu: "યોગ્ય કિંમતોની ખાતરી કરે છે"
-  }
+  },
+  "Mixed Vegetable Seeds Pack": {
+    gu: "મિશ્રિત શાકભાજી બીજ પેક",
+    hi: "मिक्स्ड वेजिटेबल सीड्स पैक",
+  },
+  "Collection of 10 popular vegetable varieties": {
+    gu: "10 લોકપ્રિય શાકભાજીની જાતિઓનો સંગ્રહ",
+    hi: "10 लोकप्रिय सब्जियों की किस्मों का संग्रह",
+  },
+
+  "Premium Jeera Seeds": {
+    gu: "પ્રીમિયમ જીરું બીજ",
+    hi: "प्रीमियम जीरा बीज",
+  },
+  "Aromatic Gujarat jeera variety with intense flavor": {
+    gu: "તિવ્ર સ્વાદવાળી સુગંધિત ગુજરાતી જીરું જાત",
+    hi: "गहरे स्वाद वाली सुगंधित गुजरात जीरा किस्म",
+  },
+
+  "Organic Soyabean Seeds": {
+    gu: "સંગઠિત સોયાબીન બીજ",
+    hi: "ऑर्गेनिक सोयाबीन बीज",
+  },
+  "Early maturing variety with high protein content": {
+    gu: "ઉચ્ચ પ્રોટીનવાળી વહેલી પરિપક્વ જાત",
+    hi: "उच्च प्रोटीन वाली जल्दी पकने वाली किस्म",
+  },
+
+  "Hybrid Sunflower Seeds": {
+    gu: "હાઈબ્રિડ સનફ્લાવર બીજ",
+    hi: "हाइब्रिड सूरजमुखी बीज",
+  },
+  "High oil content variety with drought tolerance": {
+    gu: "ઉચ્ચ તેલવાળી અને દુષ્કાળ-પ્રતિકારક જાત",
+    hi: "उच्च तेल वाली और सूखा सहनशील किस्म",
+  },
+
+  "Premium Cotton Seeds": {
+    gu: "પ્રીમિયમ કપાસ બીજ",
+    hi: "प्रीमियम कपास बीज",
+  },
+  "Long-staple cotton variety for superior quality": {
+    gu: "ઉત્તમ ગુણવત્તાવાળી લાંબા રેશાવાળી કપાસ જાત",
+    hi: "उत्कृष्ट गुणवत्ता वाली लंबी रेशा कपास किस्म",
+  },
+
+  "Hybrid Corn Seeds": {
+    gu: "હાઈબ્રિડ મકાઈ બીજ",
+    hi: "हाइब्रिड मक्का बीज",
+  },
+  "High-yielding corn variety with excellent disease resistance": {
+    gu: "ઉચ્ચ ઉપજવાળી અને રોગ-પ્રતિકારક મકાઈ જાત",
+    hi: "उच्च उत्पादन और रोग-प्रतिरोधी मक्का किस्म",
+  },
+
+  "Organic Rice Seeds": {
+    gu: "સંગઠિત ચોખા બીજ",
+    hi: "ऑर्गेनिक धान बीज",
+  },
+  "Traditional basmati variety for premium quality": {
+    gu: "પ્રીમિયમ ગુણવત્તાવાળી પરંપરાગત બસમતી જાત",
+    hi: "प्रीमियम गुणवत्ता वाली पारंपरिक बासमती किस्म",
+  },
+
+  "Premium Wheat Seeds": {
+    gu: "પ્રીમિયમ ઘઉં બીજ",
+    hi: "प्रीमियम गेहूं बीज",
+  },
+  "High-yield wheat variety suitable for all seasons": {
+    gu: "સર્વ ઋતુ માટે યોગ્ય ઉચ્ચ ઉપજવાળી ઘઉં જાત",
+    hi: "सभी मौसमों के लिए उपयुक्त उच्च उत्पादन गेहूं किस्म",
+  },
+
+  "Indian Gooseberry Seeds": {
+    gu: "આવળા બીજ",
+    hi: "आंवला बीज",
+  },
+  "High-yielding Amla variety rich in Vitamin C": {
+    gu: "ઉચ્ચ ઉપજવાળી અને વિટામિન Cથી સમૃદ્ધ આવળા જાત",
+    hi: "उच्च उत्पादन और विटामिन C से भरपूर आंवला किस्म",
+  },
+
+  "Honey Dew Muskmelon Seeds": {
+    gu: "હની ડ્યૂ ખરબૂજ બીજ",
+    hi: "हनी ड्यू खरबूजा बीज",
+  },
+  "Sweet aromatic variety with high market value": {
+    gu: "મીઠી સુગંધિત અને ઊંચી બજાર કિંમત ધરાવતી જાત",
+    hi: "मीठी सुगंधित और उच्च बाजार मूल्य वाली किस्म",
+  },
+
+  "Sugar Baby Watermelon Seeds": {
+    gu: "શુગર બેબી તરબૂચ બીજ",
+    hi: "शुगर बेबी तरबूज बीज",
+  },
+  "Sweet variety with dark green rind and red flesh": {
+    gu: "ડાર્ક લીલી છાલ અને લાલ ગૂદાવાળી મીઠી જાત",
+    hi: "गहरे हरे छिलके और लाल गूदे वाली मीठी किस्म",
+  },
+
+  "Red Lady Papaya Seeds": {
+    gu: "રેડ લેડી પપૈયા બીજ",
+    hi: "रेड लेडी पपीता बीज",
+  },
+  "High-yielding dwarf variety, ideal for home gardens": {
+    gu: "ઘરગથ્થું બાગ માટે યોગ્ય ઊંચી ઉપજવાળી બટુક જાત",
+    hi: "घरेलू बागों के लिए उपयुक्त उच्च उत्पादन बौनी किस्म",
+  },
+
+  "Kasuri Methi Seeds": {
+    gu: "કસૂરી મેથી બીજ",
+    hi: "कसूरी मेथी बीज",
+  },
+  "Small-leaved variety perfect for dried fenugreek": {
+    gu: "શુષ્ક મેથી માટે યોગ્ય નાની પાંદિયાવાળી જાત",
+    hi: "सूखी मेथी के लिए उपयुक्त छोटे पत्तों वाली किस्म",
+  },
+
+  "Gujarat Cumin Seeds": {
+    gu: "ગુજરાત જીરું બીજ",
+    hi: "गुजरात जीरा बीज",
+  },
+  "High-quality variety with strong aroma": {
+    gu: "મજબૂત સુગંધવાળી ઉચ્ચ ગુણવત્તાની જાત",
+    hi: "तेज़ सुगंध वाली उच्च गुणवत्ता की किस्म",
+  },
+
+  "Local Coriander Seeds": {
+    gu: "સ્થાનિક ધાણાં બીજ",
+    hi: "स्थानीय धनिया बीज",
+  },
+  "Fast-growing variety with aromatic leaves": {
+    gu: "ઝડપી વૃદ્ધિ અને સુગંધિત પાંદડા ધરાવતી જાત",
+    hi: "तेज़ बढ़ने वाली और सुगंधित पत्तों वाली किस्म",
+  },
+
+  "Premium Chili Seeds": {
+    gu: "પ્રીમિયમ મરચાં બીજ",
+    hi: "प्रीमियम मिर्च बीज",
+  },
+  "High-heat variety perfect for commercial cultivation": {
+    gu: "વ્યાવસાયિક ખેતી માટે યોગ્ય ઊંચી તીખાશવાળી જાત",
+    hi: "व्यावसायिक खेती के लिए उपयुक्त अत्यधिक तीखी किस्म",
+  },
+  
 };
 
 // Function to translate product name

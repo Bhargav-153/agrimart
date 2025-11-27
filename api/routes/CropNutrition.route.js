@@ -1,5 +1,4 @@
 import express from "express";
-import multer from "multer";
 import {
   addCropNutrition,
   getAllCropNutrition,
@@ -10,14 +9,10 @@ import {
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
-});
-const upload = multer({ storage });
+
 
 // ✅ Add a new crop nutrition product (with image upload)
-router.post("/add", upload.single("image"), addCropNutrition);
+router.post("/add", addCropNutrition);
 
 // ✅ Get all products
 router.get("/all", getAllCropNutrition);
@@ -26,7 +21,7 @@ router.get("/all", getAllCropNutrition);
 router.get("/:id", getCropNutritionById);
 
 // ✅ Update product (with optional new image)
-router.put("/update/:id", upload.single("image"), updateCropNutrition);
+router.put("/update/:id", updateCropNutrition);
 
 // ✅ Delete product
 router.delete("/delete/:id", deleteCropNutrition);

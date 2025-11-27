@@ -100,7 +100,11 @@ const Organic = () => {
           const translatedDesc = translateProductDescription(organic.description, currentLanguage);
           return (
             <div key={organic._id} className={styles.card}>
-              <img src={organic.image} alt={translatedName} className={styles.image} />
+              <img
+                              src={organic.image}
+                              alt={translatedName}
+                              className={styles.productImage}
+                            />
 
               <h3 className={styles.name}>{translatedName}</h3>
               <p className={styles.description}>{translatedDesc}</p>
@@ -121,8 +125,10 @@ const Organic = () => {
                             ₹{organic.price}/{organic.unit}
                           </span>
                         </p>
-            <button className={styles.button} onClick={() => handleAddToCart(organic)}>{t("addToCart")}</button>
+            <div className={styles.buttonGroup}>
+            <button className={styles.addToCart} onClick={() => handleAddToCart(organic)}>{t("addToCart")}</button>
             <button className={styles.buy} onClick={() => handleBuyNow(organic)}>{t("buyNow")}</button>
+            </div>
           </div>
           );
         })}

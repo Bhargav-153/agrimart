@@ -1,89 +1,90 @@
 import Organic from "../models/organic.model.js";
+import { handleError } from "../helpers/handleError.js";
 
-// ✅ Create
-
+// Add Organic product
 export const addOrganic = async (req, res, next) => {
   try {
-    const { name, description, price,unit, tag, rating, reviews } = req.body;
+    const { name, description, price, unit, tag, rating, reviews, image } = req.body;
 
-    if (!name || !description || !price) {
-      return res.status(400).json({ message: "Name, description & price are required" });
+if (!image) {
+  return res.status(400).json({ message: "Organic image is required" });
+}
+
+const newOrganic = new Organic({
+  name,
+  description,
+  price,
+  unit,
+  tag,
+  rating,
+  reviews,
+  image, // base64 string stored directly in MongoDB
+});
+
+await newOrganic.save();
+res.status(200).json({ message: "Organic product added", organic: newOrganic });
+
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
+// Update Organic
+export const updateOrganic = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { image, ...rest } = req.body;
+
+    const updatedOrganic = await Organic.findByIdAndUpdate(
+      id,
+      { ...rest, ...(image && { image }) },
+      { new: true }
+    );
+
+    if (!updatedOrganic) return res.status(404).json({ message: "Organic not found" });
+
+    res.status(200).json({ message: "Organic updated", organic: updatedOrganic });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
+// Get single organic product
+export const getOrganicById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const organic = await Organic.findById(id);
+
+    if (!organic) {
+      return res.status(404).json({ message: "Organic not found" });
     }
 
-    const imagePath = req.file
-      ? `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`
-      : null;
-
-    const organic = new Organic({
-      name,
-      description,
-      price: Number(price),
-      tag,
-      unit,
-      rating: rating ? Number(rating) : 0,
-      reviews: reviews ? Number(reviews) : 0,
-      image: imagePath,
-    });
-
-    await organic.save();
-    res.status(201).json({ success: true, organic });
-  } catch (err) {
-    next(err);
+    res.status(200).json({ organic });
+  } catch (error) {
+    next(handleError(500, error.message));
   }
 };
 
 
-// ✅ Get all
+// Get all organics
 export const getAllOrganics = async (req, res, next) => {
   try {
     const organics = await Organic.find().sort({ createdAt: -1 });
-    res.json({ success: true, organics });
-  } catch (err) {
-    next(err);
+    res.status(200).json({ organics });
+  } catch (error) {
+    next(handleError(500, error.message));
   }
 };
 
-// ✅ Get by id
-export const getOrganicById = async (req, res, next) => {
-  try {
-    const organic = await Organic.findById(req.params.id);
-    if (!organic) return res.status(404).json({ message: "Organic product not found" });
-    res.json({ success: true, organic });
-  } catch (err) {
-    next(err);
-  }
-};
-
-// ✅ Update
-
-export const updateOrganic = async (req, res, next) => {
-  try {
-    const updates = { ...req.body };
-    if (updates.price) updates.price = Number(updates.price);
-    if (updates.rating) updates.rating = Number(updates.rating);
-    if (updates.reviews) updates.reviews = Number(updates.reviews);
-
-    if (req.file) {
-      updates.image = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
-    }
-
-    const organic = await Organic.findByIdAndUpdate(req.params.id, updates, { new: true });
-    if (!organic) return res.status(404).json({ message: "Organic product not found" });
-
-    res.json({ success: true, organic });
-  } catch (err) {
-    next(err);
-  }
-};
-
-
-// ✅ Delete
+// Delete Organic
 export const deleteOrganic = async (req, res, next) => {
   try {
-    const organic = await Organic.findByIdAndDelete(req.params.id);
-    if (!organic) return res.status(404).json({ message: "Organic product not found" });
-    res.json({ success: true, message: "Organic product deleted" });
-  } catch (err) {
-    next(err);
+    const { id } = req.params;
+    const organic = await Organic.findByIdAndDelete(id);
+    if (!organic) return res.status(404).json({ message: "Organic not found" });
+
+    res.status(200).json({ message: "Organic deleted" });
+  } catch (error) {
+    next(handleError(500, error.message));
   }
 };

@@ -75,42 +75,46 @@ const AddSeeds = () => {
   });
 
   // ✅ Submit new seed
-  async function onSubmit(values) {
-    try {
-      const formData = new FormData();
-      
-      formData.append("name", values.name);
-      formData.append("description", values.description);
-      formData.append("price", values.price);
-      formData.append("unit", values.unit);
-      formData.append("category", values.category);
-      formData.append("tag", values.tag || "");
-      formData.append("rating", values.rating || "");
-      formData.append("reviews", values.reviews || "");
+  const toBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 
+async function onSubmit(values) {
+  try {
+    if (!file) return showToast("error", "Seed image is required");
 
-      if (!file) return showToast("error", "Seed image is required");
-      formData.append("seedImage", file);
+    const base64Image = await toBase64(file);
 
-      const response = await fetch(`${API_BASE_URL}/seeds/add`, {
-        method: "POST",
-        body: formData,
-      });
+    const payload = {
+      ...values,
+      image: base64Image, // ✅ key must match backend
+    };
 
-      const data = await response.json();
-      if (!response.ok) {
-        return showToast("error", data.message);
-      }
+    const response = await fetch(`${API_BASE_URL}/seeds/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      credentials: "include",
+    });
 
-      showToast("success", "Seed added successfully");
-      form.reset();
-      setFile(null);
-      setPreview(null);
-      setRefreshData(!refreshData);
-    } catch (error) {
-      showToast("error", error.message);
-    }
+    const data = await response.json();
+    if (!response.ok) return showToast("error", data.message);
+
+    showToast("success", "Seed added successfully");
+    form.reset();
+    setFile(null);
+    setPreview(null);
+    setRefreshData(!refreshData);
+  } catch (error) {
+    showToast("error", error.message);
   }
+}
+
+
 
   // ✅ File handling
   const handleFileSelection = (files) => {

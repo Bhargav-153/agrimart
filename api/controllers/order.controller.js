@@ -1,3 +1,4 @@
+import FarmerProduct from "../models/farmerProduct.model.js";
 import Order from "../models/Order.model.js";
 import User from "../models/user.model.js";
 import { dispatchNotification } from "../helpers/dispatchNotification.js";
@@ -7,36 +8,38 @@ const generateOrderId = () =>
 
 export const placeOrder = async (req, res) => {
   try {
-    const {
-      userId,
-      items = [],
-      totalAmount,
-      email,
-      address,
-      paymentMethod,
-      paymentGateway,
-    } = req.body;
+    const { userId, items = [], totalAmount, address, paymentMethod, paymentGateway } = req.body;
 
     if (!userId || !items.length || !totalAmount) {
-      return res.status(400).json({
-        success: false,
-        message: "Missing order details",
-      });
+      return res.status(400).json({ success: false, message: "Missing order details" });
     }
 
-    const normalizedItems = items.map((item) => ({
-      productId: item.productId || item._id,
-      name: item.name,
-      price: item.price,
-      image: item.image,
-      quantity: item.quantity || 1,
-      unit: item.unit || "unit",
-    }));
+    // 🔥 Ensure every item has an image (fetch from DB if not provided)
+    const normalizedItems = await Promise.all(
+      items.map(async (item) => {
+        let image = item.image;
 
-    // Fetch user details for email/name if not provided in request
+        // If image missing → fetch from database
+        if (!image && item.productId) {
+          const product = await FarmerProduct.findById(item.productId).lean();
+          if (product && product.image) {
+            image = product.image; // base64 from DB
+          }
+        }
+
+        return {
+          productId: item.productId || item._id,
+          name: item.name,
+          price: item.price,
+          image: image || "",    // final guaranteed image
+          quantity: item.quantity || 1,
+          unit: item.unit || "unit",
+        };
+      })
+    );
+
     const user = await User.findById(userId).lean();
-    let notificationEmail = email || user?.email;
-    const userName = user?.name;
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
 
     const order = await Order.create({
       userId,
@@ -48,37 +51,9 @@ export const placeOrder = async (req, res) => {
       paymentGateway: paymentGateway || null,
     });
 
-    const title = "Order Placed Successfully";
-    const message = `Your Agrimart order (${order.orderId}) has been placed. Total: ₹${totalAmount}.`;
-
-    // Website notification (short) + Email (detailed template only for email)
-    const emailTitle = "Order Confirmation";
-    const emailMessage = `Hi ${
-      userName || "customer"
-    },\n\nThank you for shopping with Agrimart!\n\nYour order (${
-      order.orderId
-    }) has been successfully placed.\nTotal Amount: ₹${totalAmount}\n\nWe will notify you when your items are packed and shipped.\n\nThank you for choosing Agrimart to support your farming journey.\n\nWarm regards,\nAgrimart Team`;
-
-    await dispatchNotification(
-      {
-        userId,
-        title,
-        // short message for website notifications
-        message,
-        email: notificationEmail,
-        type: "order",
-        emailTitle,
-        emailMessage,
-      },
-      { sendEmail: true }
-    );
-
-    res.json({
-      success: true,
-      order,
-      message: "Order placed. Notifications sent.",
-    });
+    res.json({ success: true, order, message: "Order placed successfully" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Place order error:", err);
+    res.status(500).json({ success: false, message: err.message });
   }
 };

@@ -98,6 +98,16 @@
 .buy:hover {
   background: #b7943d;
 }
+.buttonRow {
+  display: flex;
+  gap: 30px;
+  margin: 8px;
+}
+
+.buttonRow button {
+  flex: 1;
+}
+
 
 /* Phones */
 @media (max-width: 600px) {

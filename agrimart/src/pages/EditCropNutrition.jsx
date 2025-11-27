@@ -17,34 +17,28 @@ import Dropzone from "react-dropzone";
 import { useParams, useNavigate } from "react-router-dom";
 import { showToast } from "@/helpers/showToast";
 import { getEnv } from "@/helpers/getEnv";
-import styles from "./EditSeeds.module.css"; // ✅ reuse styles
+import styles from "./EditSeeds.module.css";
 import { RouteCropNutrition } from "@/helpers/RouteName";
 
-// ✅ Validation schema
+// -------------------------------
+// Validation Schema
+// -------------------------------
 const formSchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  description: z.string().min(3, "Description is required"),
-  price: z.preprocess(
-    (val) => Number(val),
-    z.number().positive("Price must be greater than 0")
-  ),
-  
+  name: z.string().min(2),
+  description: z.string().min(3),
+  price: z.preprocess((v) => Number(v), z.number().positive()),
   tag: z.enum(["Organic", "Mineral", "Liquid", "Premium"]).optional(),
-  rating: z
-    .preprocess((val) => (val ? Number(val) : 0), z.number().min(0).max(5))
-    .optional(),
-  reviews: z
-    .preprocess((val) => (val ? Number(val) : 0), z.number().min(0))
-    .optional(),
+  rating: z.preprocess((v) => Number(v || 0), z.number().min(0).max(5)),
+  reviews: z.preprocess((v) => Number(v || 0), z.number().min(0)),
 });
 
 const EditCropNutrition = () => {
   const { nutritionid } = useParams();
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
-  const [filePreview, setFilePreview] = useState(null);
-
   const baseURL = getEnv("VITE_API_BASE_URL");
+
+  const [filePreview, setFilePreview] = useState(null);
+  const [base64Image, setBase64Image] = useState(null);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -58,90 +52,100 @@ const EditCropNutrition = () => {
     },
   });
 
-  // ✅ Fetch crop nutrition product for editing
-  // ✅ Normalize value to match enum (capitalize first letter)
-// ✅ Map backend to form enum options
+  // -----------------------------------
+  // Convert File → Base64
+  // -----------------------------------
+  const convertToBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+    });
 
-const normalizeType = (value) => {
-    if (!value) return "";
-    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+  const handleFileSelect = async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
+
+    const base64 = await convertToBase64(file);
+    setBase64Image(base64);
+    setFilePreview(base64);
   };
 
+  // -----------------------------------
+  // Fetch product data
+  // -----------------------------------
+  useEffect(() => {
+    const fetchNutrition = async () => {
+      try {
+        const res = await fetch(`${baseURL}/crop-nutrition/${nutritionid}`);
+        const result = await res.json();
 
-// ✅ Fetch crop nutrition product for editing
-useEffect(() => {
-  const fetchNutrition = async () => {
-    try {
-      const res = await fetch(`${baseURL}/crop-nutrition/${nutritionid}`);
-      const result = await res.json();
+        if (!res.ok) {
+          showToast("error", "Product not found");
+          return;
+        }
 
-      if (res.ok && result) {
         form.reset({
           name: result.name || "",
           description: result.description || "",
           price: result.price || "",
-          tag: normalizeType(result.tag) || "",   // ✅ normalize tag
+          tag: result.tag || "",
           rating: result.rating || 0,
           reviews: result.reviews || 0,
         });
 
         if (result.image) {
-          const previewURL = result.image.startsWith("http")
-            ? result.image
-            : `${baseURL.replace("/api", "")}${result.image}`;
-          setFilePreview(previewURL);
+          // If it's base64 keep as it is
+          if (result.image.startsWith("data:image")) {
+            setFilePreview(result.image);
+            setBase64Image(result.image);
+          } else {
+            // If image stored as path
+            const url = `${baseURL.replace("/api", "")}${result.image}`;
+            setFilePreview(url);
+            setBase64Image(url);
+          }
         }
-      } else {
-        showToast("error", result.message || "Product not found");
+      } catch (err) {
+        showToast("error", "Failed to fetch data");
       }
-    } catch (error) {
-      showToast("error", "Failed to fetch product data");
-    }
-  };
+    };
 
-  fetchNutrition();
-}, [nutritionid, baseURL, form]);
+    fetchNutrition();
+  }, [nutritionid, baseURL]);
 
-
-  // ✅ Submit update
+  // -----------------------------------
+  // Submit Update
+  // -----------------------------------
   const onSubmit = async (values) => {
     try {
-      const formData = new FormData();
-      Object.keys(values).forEach((key) => {
-        formData.append(key, values[key] || "");
-      });
-      if (file) {
-        formData.append("image", file);
-      }
+      const payload = {
+        ...values,
+        image: base64Image, // IMPORTANT
+      };
 
       const res = await fetch(
         `${baseURL}/crop-nutrition/update/${nutritionid}`,
         {
           method: "PUT",
-          body: formData,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         }
       );
 
       const result = await res.json();
+
       if (!res.ok) {
-        showToast("error", result.message || "Failed to update product");
+        showToast("error", result.message || "Update failed");
         return;
       }
 
-      showToast(
-        "success",
-        result.message || "Crop nutrition product updated successfully"
-      );
+      showToast("success", "Crop nutrition product updated successfully");
       navigate(RouteCropNutrition);
     } catch (err) {
       showToast("error", err.message || "Something went wrong");
     }
-  };
-
-  const handleFileSelect = (acceptedFiles) => {
-    const selected = acceptedFiles[0];
-    setFile(selected);
-    setFilePreview(URL.createObjectURL(selected));
   };
 
   return (
@@ -149,33 +153,32 @@ useEffect(() => {
       <Card className={styles.card}>
         <CardContent>
           <h2 className={styles.title}>Edit Crop Nutrition Product</h2>
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
-              
 
-              {/* ✅ Tag */}
+              {/* TAG */}
               <FormField
-  control={form.control}
-  name="tag"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Tag</FormLabel>
-      <FormControl>
-        <select {...field} className="w-full border rounded p-2">
-          <option value="">Select Tag</option>
-          <option value="Organic">Organic</option>
-          <option value="Mineral">Mineral</option>
-          <option value="Liquid">Liquid</option>
-          <option value="Premium">Premium</option>
-        </select>
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
+                control={form.control}
+                name="tag"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tag</FormLabel>
+                    <FormControl>
+                      <select {...field} className="w-full border p-2 rounded">
+                        <option value="">Select Tag</option>
+                        <option value="Organic">Organic</option>
+                        <option value="Mineral">Mineral</option>
+                        <option value="Liquid">Liquid</option>
+                        <option value="Premium">Premium</option>
+                      </select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-
-              {/* ✅ Name */}
+              {/* NAME */}
               <FormField
                 control={form.control}
                 name="name"
@@ -190,7 +193,7 @@ useEffect(() => {
                 )}
               />
 
-              {/* ✅ Description */}
+              {/* DESCRIPTION */}
               <FormField
                 control={form.control}
                 name="description"
@@ -205,7 +208,7 @@ useEffect(() => {
                 )}
               />
 
-              {/* ✅ Price */}
+              {/* PRICE */}
               <FormField
                 control={form.control}
                 name="price"
@@ -213,14 +216,14 @@ useEffect(() => {
                   <FormItem>
                     <FormLabel>Price</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} placeholder="Enter price" />
+                      <Input type="number" {...field} placeholder="Price" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Rating */}
+              {/* RATING */}
               <FormField
                 control={form.control}
                 name="rating"
@@ -228,14 +231,13 @@ useEffect(() => {
                   <FormItem>
                     <FormLabel>Rating</FormLabel>
                     <FormControl>
-                      <Input type="number" min="1" max="5" {...field} />
+                      <Input type="number" min="0" max="5" {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Reviews */}
+              {/* REVIEWS */}
               <FormField
                 control={form.control}
                 name="reviews"
@@ -245,12 +247,11 @@ useEffect(() => {
                     <FormControl>
                       <Input type="number" {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Image Upload */}
+              {/* IMAGE */}
               <div className={styles.formGroup}>
                 <FormLabel>Product Image</FormLabel>
                 <Dropzone onDrop={handleFileSelect}>
@@ -264,7 +265,7 @@ useEffect(() => {
                           className={styles.previewImage}
                         />
                       ) : (
-                        <p>Click or drag to upload image</p>
+                        <p>Click or drag image here</p>
                       )}
                     </div>
                   )}
@@ -274,6 +275,7 @@ useEffect(() => {
               <Button type="submit" className={styles.submitButton}>
                 Update Product
               </Button>
+
             </form>
           </Form>
         </CardContent>

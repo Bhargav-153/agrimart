@@ -69,47 +69,47 @@ const AddOrganic = () => {
 
   // ✅ Submit new organic product
   async function onSubmit(values) {
-    try {
-      const formData = new FormData();
+  if (!filePreview) return showToast("error", "Organic product image is required");
 
-      formData.append("name", values.name);
-      formData.append("description", values.description);
-      formData.append("price", values.price);
-      formData.append("unit", values.unit);
-      formData.append("tag", values.tag || "");
-      formData.append("rating", values.rating);
-      formData.append("reviews", values.reviews);
+  try {
+    const payload = {
+      ...values,
+      image: filePreview, // base64 string
+    };
 
-      if (!file) return showToast("error", "Organic product image is required");
-      formData.append("image", file);
+    const response = await fetch(`${API_BASE_URL}/organic/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-      const response = await fetch(`${API_BASE_URL}/organic/add`, {
-        method: "POST",
-        body: formData,
-      });
+    const data = await response.json();
+    if (!response.ok) return showToast("error", data.message);
 
-      const data = await response.json();
-      if (!response.ok) {
-        return showToast("error", data.message);
-      }
-
-      showToast("success", "Organic product added successfully");
-      form.reset();
-      setFile(null);
-      setPreview(null);
-      setRefreshData(!refreshData);
-    } catch (error) {
-      showToast("error", error.message);
-    }
+    showToast("success", "Organic product added successfully");
+    form.reset();
+    setFile(null);
+    setPreview(null);
+    setRefreshData(!refreshData);
+  } catch (err) {
+    showToast("error", err.message);
   }
+}
+
 
   // ✅ File handling
   const handleFileSelection = (files) => {
-    const file = files[0];
-    const preview = URL.createObjectURL(file);
-    setFile(file);
-    setPreview(preview);
+  const file = files[0];
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = () => {
+    setPreview(reader.result); // base64 string used for submission & preview
   };
+  reader.onerror = () => {
+    showToast("error", "Failed to read file");
+  };
+};
+
 
   // ✅ Fetch all organics
   const { data: organicData } = useFetch(

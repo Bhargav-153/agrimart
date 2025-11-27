@@ -1,5 +1,4 @@
 import express from "express";
-import multer from "multer";
 import {
   addEquipment,
   getAllEquipment,
@@ -10,14 +9,10 @@ import {
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
-});
-const upload = multer({ storage });
+
 
 // ✅ Add
-router.post("/add", upload.single("image"), addEquipment);
+router.post("/add", addEquipment);
 
 // ✅ Get all
 router.get("/all", getAllEquipment);
@@ -26,7 +21,7 @@ router.get("/all", getAllEquipment);
 router.get("/:id", getEquipmentById);
 
 // ✅ Update
-router.put("/update/:id", upload.single("image"), updateEquipment);
+router.put("/update/:id",updateEquipment);
 
 // ✅ Delete
 router.delete("/delete/:id", deleteEquipment);

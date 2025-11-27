@@ -1,5 +1,4 @@
 import express from "express";
-import multer from "multer";
 import {
   addCropProtection,
   getAllCropProtection,
@@ -10,14 +9,10 @@ import {
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
-});
-const upload = multer({ storage });
+
 
 // ✅ Add a new crop protection product (with image upload)
-router.post("/add", upload.single("image"), addCropProtection);
+router.post("/add",addCropProtection);
 
 // ✅ Get all products
 router.get("/all", getAllCropProtection);
@@ -26,7 +21,7 @@ router.get("/all", getAllCropProtection);
 router.get("/:id", getCropProtectionById);
 
 // ✅ Update product (with optional new image)
-router.put("/update/:id", upload.single("image"), updateCropProtection);
+router.put("/update/:id", updateCropProtection);
 
 // ✅ Delete product
 router.delete("/delete/:id", deleteCropProtection);

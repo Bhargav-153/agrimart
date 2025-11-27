@@ -1,27 +1,22 @@
 import express from "express";
-import multer from "multer";
 import {
   addOrganic,
   getAllOrganics,
-  getOrganicById,
   updateOrganic,
   deleteOrganic,
+  getOrganicById,
 } from "../controllers/Organic.controller.js";
 
 const router = express.Router();
 
-// ✅ Multer config
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
-});
-const upload = multer({ storage });
+
 
 // ✅ Routes
-router.post("/add", upload.single("image"), addOrganic);
+router.post("/add", addOrganic);
 router.get("/all", getAllOrganics);
-router.get("/:id", getOrganicById);
-router.put("/update/:id", upload.single("image"), updateOrganic);
+router.put("/update/:id", updateOrganic);
 router.delete("/delete/:id", deleteOrganic);
+router.get("/:id", getOrganicById);
+
 
 export default router;

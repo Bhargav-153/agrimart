@@ -20,30 +20,22 @@ import { getEnv } from "@/helpers/getEnv";
 import styles from "./EditSeeds.module.css";
 import { RouteOrganic } from "@/helpers/RouteName";
 
-// ✅ Validation schema
 const formSchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  description: z.string().min(3, "Description is required"),
-  price: z.preprocess(
-    (val) => Number(val),
-    z.number().positive("Price must be greater than 0")
-  ),
+  name: z.string().min(2),
+  description: z.string().min(3),
+  price: z.preprocess((v) => Number(v), z.number().positive()),
   tag: z.enum(["Fertilizer", "Pesticide", "Compost", "Other"]).optional(),
-  rating: z
-    .preprocess((val) => (val ? Number(val) : 0), z.number().min(0).max(5))
-    .optional(),
-  reviews: z
-    .preprocess((val) => (val ? Number(val) : 0), z.number().min(0))
-    .optional(),
+  rating: z.preprocess((v) => Number(v || 0), z.number().min(0).max(5)),
+  reviews: z.preprocess((v) => Number(v || 0), z.number().min(0)),
 });
 
 const EditOrganic = () => {
   const { organicid } = useParams();
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
-  const [filePreview, setFilePreview] = useState(null);
-
   const baseURL = getEnv("VITE_API_BASE_URL");
+
+  const [filePreview, setFilePreview] = useState(null);
+  const [base64Image, setBase64Image] = useState(null);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -57,79 +49,86 @@ const EditOrganic = () => {
     },
   });
 
-  // ✅ Fetch organic product for editing
-  useEffect(() => {
-  const fetchOrganic = async () => {
-    try {
-      const res = await fetch(`${baseURL}/organic/${organicid}`, {
-        method: "GET",
-        credentials: "include", // if your API needs cookies
-      });
+  // Convert image → Base64
+  const convertToBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+    });
 
-      const data = await res.json();
-      if (!res.ok) {
-        return showToast("error", data.message || "Failed to fetch organic product");
-      }
+  const handleFileSelect = async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
 
-      const organic = data.organic || data; // adjust if backend wraps response
-
-      form.reset({
-        name: organic.name || "",
-        description: organic.description || "",
-        price: organic.price || "",
-        tag: organic.tag || "",
-        rating: organic.rating || 0,
-        reviews: organic.reviews || 0,
-      });
-
-      if (organic.image) {
-        const previewURL = organic.image.startsWith("http")
-          ? organic.image
-          : `${baseURL.replace("/api", "")}${organic.image}`;
-        setFilePreview(previewURL);
-      }
-    } catch (error) {
-      showToast("error", "Failed to fetch organic product data");
-    }
+    const base64 = await convertToBase64(file);
+    setBase64Image(base64);
+    setFilePreview(base64);
   };
 
-  if (organicid) fetchOrganic();
-}, [organicid, baseURL, form]);
+  // Fetch organic product
+  useEffect(() => {
+    const fetchOrganic = async () => {
+      try {
+        const res = await fetch(`${baseURL}/organic/${organicid}`);
+        const data = await res.json();
 
+        if (!res.ok) {
+          showToast("error", "Organic product not found");
+          return;
+        }
 
-  // ✅ Submit update
+        const organic = data.organic || data;
+
+        form.reset({
+          name: organic.name,
+          description: organic.description,
+          price: organic.price,
+          tag: organic.tag,
+          rating: organic.rating,
+          reviews: organic.reviews,
+        });
+
+        if (organic.image) {
+          setFilePreview(organic.image);
+          setBase64Image(organic.image);
+        }
+      } catch {
+        showToast("error", "Failed to load organic product");
+      }
+    };
+
+    fetchOrganic();
+  }, [organicid, baseURL]);
+
+  // Submit Base64 update
   const onSubmit = async (values) => {
     try {
-      const formData = new FormData();
-      Object.keys(values).forEach((key) => {
-        formData.append(key, values[key] || "");
-      });
-      if (file) {
-        formData.append("image", file);
-      }
+      const payload = {
+        ...values,
+        image: base64Image,
+      };
 
       const res = await fetch(`${baseURL}/organic/update/${organicid}`, {
         method: "PUT",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
       const result = await res.json();
+
       if (!res.ok) {
-        showToast("error", result.message || "Failed to update organic product");
+        showToast("error", result.message);
         return;
       }
 
-      showToast("success", result.message || "Organic product updated successfully");
+      showToast("success", "Organic product updated successfully");
       navigate(RouteOrganic);
-    } catch (err) {
-      showToast("error", err.message || "Something went wrong");
-    }
-  };
 
-  const handleFileSelect = (acceptedFiles) => {
-    const selected = acceptedFiles[0];
-    setFile(selected);
-    setFilePreview(URL.createObjectURL(selected));
+    } catch (err) {
+      showToast("error", err.message);
+    }
   };
 
   return (
@@ -137,9 +136,11 @@ const EditOrganic = () => {
       <Card className={styles.card}>
         <CardContent>
           <h2 className={styles.title}>Edit Organic Product</h2>
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
-              {/* ✅ Tag */}
+
+              {/* Tag */}
               <FormField
                 control={form.control}
                 name="tag"
@@ -147,7 +148,7 @@ const EditOrganic = () => {
                   <FormItem>
                     <FormLabel>Tag</FormLabel>
                     <FormControl>
-                      <select {...field} className="w-full border rounded p-2">
+                      <select {...field} className="w-full border p-2 rounded">
                         <option value="">Select Tag</option>
                         <option value="Fertilizer">Fertilizer</option>
                         <option value="Pesticide">Pesticide</option>
@@ -155,12 +156,11 @@ const EditOrganic = () => {
                         <option value="Other">Other</option>
                       </select>
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Name */}
+              {/* Name */}
               <FormField
                 control={form.control}
                 name="name"
@@ -168,14 +168,13 @@ const EditOrganic = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Organic Product Name" />
+                      <Input {...field} placeholder="Organic product name" />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Description */}
+              {/* Description */}
               <FormField
                 control={form.control}
                 name="description"
@@ -183,14 +182,13 @@ const EditOrganic = () => {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Organic Product Description" />
+                      <Input {...field} placeholder="Description" />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Price */}
+              {/* Price */}
               <FormField
                 control={form.control}
                 name="price"
@@ -200,12 +198,11 @@ const EditOrganic = () => {
                     <FormControl>
                       <Input type="number" {...field} placeholder="Enter price" />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Rating */}
+              {/* Rating */}
               <FormField
                 control={form.control}
                 name="rating"
@@ -213,14 +210,13 @@ const EditOrganic = () => {
                   <FormItem>
                     <FormLabel>Rating</FormLabel>
                     <FormControl>
-                      <Input type="number" min="1" max="5" {...field} />
+                      <Input type="number" min="0" max="5" {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Reviews */}
+              {/* Reviews */}
               <FormField
                 control={form.control}
                 name="reviews"
@@ -230,12 +226,11 @@ const EditOrganic = () => {
                     <FormControl>
                       <Input type="number" {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Image Upload */}
+              {/* Image Upload */}
               <div className={styles.formGroup}>
                 <FormLabel>Organic Product Image</FormLabel>
                 <Dropzone onDrop={handleFileSelect}>
@@ -245,11 +240,11 @@ const EditOrganic = () => {
                       {filePreview ? (
                         <img
                           src={filePreview}
-                          alt="Preview"
+                          alt=""
                           className={styles.previewImage}
                         />
                       ) : (
-                        <p>Click or drag to upload image</p>
+                        <p>Click or drag an image</p>
                       )}
                     </div>
                   )}

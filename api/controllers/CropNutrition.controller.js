@@ -1,16 +1,14 @@
 import CropNutrition from "../models/cropNutrition.model.js";
 import { handleError } from "../helpers/handleError.js";
 
-// ✅ Add Crop Nutrition Product
+// ✅ Add Crop Nutrition Product without Multer
 export const addCropNutrition = async (req, res, next) => {
   try {
-    const { name, description, price, category, tag, rating, reviews } = req.body;
+    const { name, description, price, category, tag, rating, reviews, image } = req.body;
 
-    if (!req.file) {
+    if (!image) {
       return res.status(400).json({ message: "Product image is required" });
     }
-
-    const imagePath = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
 
     const newProduct = new CropNutrition({
       name,
@@ -20,7 +18,7 @@ export const addCropNutrition = async (req, res, next) => {
       tag,
       rating,
       reviews,
-      image: imagePath,
+      image, // Base64 string or URL
     });
 
     await newProduct.save();
@@ -29,6 +27,25 @@ export const addCropNutrition = async (req, res, next) => {
     next(handleError(500, error.message));
   }
 };
+
+// ✅ Update Product
+export const updateCropNutrition = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updatedProduct = await CropNutrition.findByIdAndUpdate(
+      id,
+      req.body, // contains image if updated
+      { new: true }
+    );
+
+    if (!updatedProduct) return res.status(404).json({ message: "Product not found" });
+
+    res.status(200).json({ message: "Product updated successfully", product: updatedProduct });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
 
 // ✅ Get All Crop Nutrition Products
 export const getAllCropNutrition = async (req, res, next) => {
@@ -53,32 +70,6 @@ export const getCropNutritionById = async (req, res, next) => {
   }
 };
 
-// ✅ Update Crop Nutrition Product
-export const updateCropNutrition = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    let imagePath;
-
-    if (req.file) {
-      imagePath = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
-    }
-
-    const updatedProduct = await CropNutrition.findByIdAndUpdate(
-      id,
-      {
-        ...req.body,
-        ...(imagePath && { image: imagePath }),
-      },
-      { new: true }
-    );
-
-    if (!updatedProduct) return res.status(404).json({ message: "Product not found" });
-
-    res.status(200).json({ message: "Product updated successfully", product: updatedProduct });
-  } catch (error) {
-    next(handleError(500, error.message));
-  }
-};
 
 // ✅ Delete Crop Nutrition Product
 export const deleteCropNutrition = async (req, res, next) => {

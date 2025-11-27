@@ -30,6 +30,18 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import { RouteNurseryEdit } from "@/helpers/RouteName";
 
+// ---------------------------
+// Convert File to Base64
+// ---------------------------
+const convertToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
 const AddNursery = () => {
   const [filePreview, setPreview] = useState();
   const [file, setFile] = useState();
@@ -72,43 +84,53 @@ const AddNursery = () => {
   }, []);
 
   async function onSubmit(values) {
-    try {
-      const formData = new FormData();
-      formData.append("plantName", values.plantName);
-      formData.append("plantPrice", values.plantPrice);
-      formData.append("nurseryName", values.nurseryName);
-      formData.append("address", values.address);
-      formData.append("phone", values.phone);
-
-      if (!file) return showToast("error", "Plant image is required");
-
-      formData.append("plantImage", file);
-
-      const response = await fetch(`${API_BASE_URL}/nursery/add`, {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        return showToast("error", data.message);
-      }
-
-      showToast("success", "Nursery added successfully");
-      form.reset();
-      setFile(null);
-      setPreview(null);
-      fetchNurseries();
-    } catch (error) {
-      showToast("error", error.message);
+  try {
+    if (!filePreview) {
+      return showToast("error", "Plant image is required");
     }
-  }
 
-  const handleFileSelection = (files) => {
-    const file = files[0];
-    const preview = URL.createObjectURL(file);
-    setFile(file);
-    setPreview(preview);
+    const payload = {
+      plantName: values.plantName,
+      plantPrice: values.plantPrice,
+      nurseryName: values.nurseryName,
+      address: values.address,
+      phone: values.phone,
+      plantImage: filePreview,  // send base64 directly
+    };
+
+    const response = await fetch(`${API_BASE_URL}/nursery/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return showToast("error", data.message);
+    }
+
+    showToast("success", "Nursery added successfully");
+    form.reset();
+    setFile(null);
+    setPreview(null);
+    fetchNurseries();
+
+  } catch (error) {
+    showToast("error", error.message);
+  }
+}
+
+
+  // -----------------------
+  // File Selection
+  // -----------------------
+  const handleFileSelection = async (files) => {
+    const selectedFile = files[0];
+    setFile(selectedFile);
+
+    const base64 = await convertToBase64(selectedFile); // convert to base64
+    setPreview(base64); // show preview
   };
 
   const { data: nurseyData, error } = useFetch(
@@ -177,9 +199,7 @@ const AddNursery = () => {
 
             <div className="mb-3">
               <span className="mb-2 block">Plant Image</span>
-              <Dropzone
-                onDrop={(acceptedFiles) => handleFileSelection(acceptedFiles)}
-              >
+              <Dropzone onDrop={handleFileSelection}>
                 {({ getRootProps, getInputProps }) => (
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
@@ -205,55 +225,53 @@ const AddNursery = () => {
       </Card>
 
       <div className={styles.container}>
+        <h1 className={styles.title}>All Nursery Plants</h1>
 
-          <h1 className={styles.title}>All Nursery Plants</h1>
-
-          <div className="mt-10 w-full max-w-6xl">
-            <Table className="border-separate border-spacing-x-6 border-spacing-y-3 w-full">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Plant</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead>Nursery</TableHead>
-                  <TableHead>Address</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Action</TableHead>
+        <div className="mt-10 w-full max-w-6xl">
+          <Table className="border-separate border-spacing-x-6 border-spacing-y-3 w-full">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Plant</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead>Nursery</TableHead>
+                <TableHead>Address</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {nurseryList.map((n, i) => (
+                <TableRow key={i}>
+                  <TableCell>{n.plantName}</TableCell>
+                  <TableCell>₹{n.plantPrice}</TableCell>
+                  <TableCell>{n.nurseryName}</TableCell>
+                  <TableCell>{n.address}</TableCell>
+                  <TableCell>
+                    {moment(n?.createdAt).format("DD-MM-YYYY")}
+                  </TableCell>
+                  <TableCell className="flex gap-3">
+                    <Button
+                      variant="outline"
+                      className="w-10 hover:bg-green-500 hover:text-white"
+                      asChild
+                    >
+                      <Link to={RouteNurseryEdit(n._id)}>
+                        <FaEdit />
+                      </Link>
+                    </Button>
+                    <Button
+                      onClick={() => handleDelete(n._id)}
+                      variant="outline"
+                      className="w-10 hover:bg-green-500 hover:text-white"
+                    >
+                      <FaRegTrashAlt />
+                    </Button>
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {nurseryList.map((n, i) => (
-                  <TableRow key={i}>
-                    <TableCell>{n.plantName}</TableCell>
-                    <TableCell>₹{n.plantPrice}</TableCell>
-                    <TableCell>{n.nurseryName}</TableCell>
-                    <TableCell>{n.address}</TableCell>
-                    <TableCell>
-                      {moment(n?.createdAt).format("DD-MM-YYYY")}
-                    </TableCell>
-                    <TableCell className="flex gap-3">
-                      <Button
-                        variant="outline"
-                        className="w-10 hover:bg-green-500 hover:text-white"
-                        asChild
-                      >
-                        <Link to={RouteNurseryEdit(n._id)}>
-                          <FaEdit />
-                        </Link>
-                      </Button>
-                      <Button
-                        onClick={() => handleDelete(n._id)}
-                        variant="outline"
-                        className="w-10 hover:bg-green-500 hover:text-white"
-                      >
-                        <FaRegTrashAlt />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   );

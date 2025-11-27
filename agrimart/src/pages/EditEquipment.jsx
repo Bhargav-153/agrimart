@@ -20,30 +20,23 @@ import { getEnv } from "@/helpers/getEnv";
 import styles from "./EditSeeds.module.css";
 import { RouteEquipment } from "@/helpers/RouteName";
 
-// ✅ Validation schema
+// Validation Schema
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
   description: z.string().min(3, "Description is required"),
-  price: z.preprocess(
-    (val) => Number(val),
-    z.number().positive("Price must be greater than 0")
-  ),
+  price: z.preprocess((v) => Number(v), z.number().positive()),
   tag: z.enum(["Tractor", "Harvester", "Irrigation", "Other"]).optional(),
-  rating: z
-    .preprocess((val) => (val ? Number(val) : 0), z.number().min(0).max(5))
-    .optional(),
-  reviews: z
-    .preprocess((val) => (val ? Number(val) : 0), z.number().min(0))
-    .optional(),
+  rating: z.preprocess((v) => Number(v || 0), z.number().min(0).max(5)),
+  reviews: z.preprocess((v) => Number(v || 0), z.number().min(0)),
 });
 
 const EditEquipment = () => {
   const { equipmentid } = useParams();
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
-  const [filePreview, setFilePreview] = useState(null);
-
   const baseURL = getEnv("VITE_API_BASE_URL");
+
+  const [filePreview, setFilePreview] = useState(null);
+  const [base64Image, setBase64Image] = useState(null);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -57,73 +50,76 @@ const EditEquipment = () => {
     },
   });
 
-  // ✅ Fetch equipment product for editing
+  // Convert image → Base64
+  const convertToBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+    });
+
+  // When user selects new image
+  const handleFileSelect = async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
+
+    const base64 = await convertToBase64(file);
+    setBase64Image(base64);
+    setFilePreview(base64);
+  };
+
+  // Fetch Equipment for Edit
   useEffect(() => {
     const fetchEquipment = async () => {
       try {
         const res = await fetch(`${baseURL}/equipment/${equipmentid}`);
         const result = await res.json();
 
-        if (res.ok && result) {
-          form.reset({
-            name: result.name || "",
-            description: result.description || "",
-            price: result.price || "",
-            tag: result.tag || "",
-            rating: result.rating || 0,
-            reviews: result.reviews || 0,
-          });
-
-          if (result.image) {
-            const previewURL = result.image.startsWith("http")
-              ? result.image
-              : `${baseURL.replace("/api", "")}${result.image}`;
-            setFilePreview(previewURL);
-          }
-        } else {
-          showToast("error", result.message || "Equipment not found");
+        if (!res.ok) {
+          showToast("error", "Equipment not found");
+          return;
         }
-      } catch (error) {
-        showToast("error", "Failed to fetch equipment data");
+
+        form.reset(result);
+
+        if (result.image) {
+          setFilePreview(result.image);
+          setBase64Image(result.image);
+        }
+      } catch (err) {
+        showToast("error", "Failed to load equipment");
       }
     };
 
     fetchEquipment();
-  }, [equipmentid, baseURL, form]);
+  }, [equipmentid, baseURL]);
 
-  // ✅ Submit update
+  // Submit Update (JSON only)
   const onSubmit = async (values) => {
     try {
-      const formData = new FormData();
-      Object.keys(values).forEach((key) => {
-        formData.append(key, values[key] || "");
-      });
-      if (file) {
-        formData.append("image", file);
-      }
+      const payload = {
+        ...values,
+        image: base64Image, // base64 stored
+      };
 
       const res = await fetch(`${baseURL}/equipment/update/${equipmentid}`, {
         method: "PUT",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
       const result = await res.json();
       if (!res.ok) {
-        showToast("error", result.message || "Failed to update equipment");
+        showToast("error", result.message || "Update failed");
         return;
       }
 
-      showToast("success", result.message || "Equipment updated successfully");
+      showToast("success", "Equipment updated");
       navigate(RouteEquipment);
     } catch (err) {
-      showToast("error", err.message || "Something went wrong");
+      showToast("error", err.message);
     }
-  };
-
-  const handleFileSelect = (acceptedFiles) => {
-    const selected = acceptedFiles[0];
-    setFile(selected);
-    setFilePreview(URL.createObjectURL(selected));
   };
 
   return (
@@ -131,9 +127,11 @@ const EditEquipment = () => {
       <Card className={styles.card}>
         <CardContent>
           <h2 className={styles.title}>Edit Equipment</h2>
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
-              {/* ✅ Tag */}
+
+              {/* Tag */}
               <FormField
                 control={form.control}
                 name="tag"
@@ -141,7 +139,7 @@ const EditEquipment = () => {
                   <FormItem>
                     <FormLabel>Tag</FormLabel>
                     <FormControl>
-                      <select {...field} className="w-full border rounded p-2">
+                      <select {...field} className="w-full border p-2 rounded">
                         <option value="">Select Tag</option>
                         <option value="Tractor">Tractor</option>
                         <option value="Harvester">Harvester</option>
@@ -154,7 +152,7 @@ const EditEquipment = () => {
                 )}
               />
 
-              {/* ✅ Name */}
+              {/* Name */}
               <FormField
                 control={form.control}
                 name="name"
@@ -169,7 +167,7 @@ const EditEquipment = () => {
                 )}
               />
 
-              {/* ✅ Description */}
+              {/* Description */}
               <FormField
                 control={form.control}
                 name="description"
@@ -177,14 +175,14 @@ const EditEquipment = () => {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Equipment Description" />
+                      <Input {...field} placeholder="Description" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Price */}
+              {/* Price */}
               <FormField
                 control={form.control}
                 name="price"
@@ -192,14 +190,13 @@ const EditEquipment = () => {
                   <FormItem>
                     <FormLabel>Price</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} placeholder="Enter price" />
+                      <Input type="number" {...field} placeholder="Price" />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Rating */}
+              {/* Rating */}
               <FormField
                 control={form.control}
                 name="rating"
@@ -207,14 +204,13 @@ const EditEquipment = () => {
                   <FormItem>
                     <FormLabel>Rating</FormLabel>
                     <FormControl>
-                      <Input type="number" min="1" max="5" {...field} />
+                      <Input type="number" min="0" max="5" {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Reviews */}
+              {/* Reviews */}
               <FormField
                 control={form.control}
                 name="reviews"
@@ -224,18 +220,18 @@ const EditEquipment = () => {
                     <FormControl>
                       <Input type="number" {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* ✅ Image Upload */}
+              {/* Image Upload */}
               <div className={styles.formGroup}>
                 <FormLabel>Equipment Image</FormLabel>
                 <Dropzone onDrop={handleFileSelect}>
                   {({ getRootProps, getInputProps }) => (
                     <div {...getRootProps()} className={styles.dropzoneWrapper}>
                       <input {...getInputProps()} />
+
                       {filePreview ? (
                         <img
                           src={filePreview}
@@ -253,6 +249,7 @@ const EditEquipment = () => {
               <Button type="submit" className={styles.submitButton}>
                 Update Equipment
               </Button>
+
             </form>
           </Form>
         </CardContent>

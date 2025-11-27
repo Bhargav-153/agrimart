@@ -51,15 +51,13 @@
     transform: translateY(-5px);
   }
   
-  .productImage img {
-    width: 300px;  
-    height: 200px; 
-    object-fit: cover; 
-    border-radius: 10px; 
-  }
-
-
-
+  .productImage {
+  width: 100%;       /* scale to container width */
+  height: auto;
+  max-height: 260px;    /* fixed height */
+  object-fit: cover; /* crop or scale without distortion */
+  border-radius: 5px;
+}
   
   .addSeedsWrapper {
   display: flex;

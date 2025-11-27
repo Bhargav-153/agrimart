@@ -24,13 +24,15 @@ const AddProduct = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  // Handle image input
+  // ✅ Handle image input and convert to base64
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setFormData({ ...formData, image: file }); // important: backend expects "image"
       const reader = new FileReader();
-      reader.onloadend = () => setImagePreview(reader.result);
+      reader.onloadend = () => {
+        setFormData({ ...formData, image: reader.result }); // base64
+        setImagePreview(reader.result);
+      };
       reader.readAsDataURL(file);
     }
   };
@@ -39,28 +41,30 @@ const AddProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!imagePreview) return showToast("error", t("imageRequired"));
+
     try {
-      const data = new FormData();
-      Object.keys(formData).forEach((key) => {
-        if (formData[key] !== null) {
-          data.append(key, formData[key]);
-        }
-      });
+      const payload = {
+        ...formData,
+        price: Number(formData.price),
+        quantity: Number(formData.quantity),
+      };
 
-      const API_BASE =
-        import.meta.env.VITE_API_BASE || "http://localhost:3000";
+      const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
 
-      // ✅ Fixed API endpoint (farmerProducts, not farmProducts)
       const res = await fetch(`${API_BASE}/api/farmerProducts/products`, {
         method: "POST",
-        body: data,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error("Failed to add product");
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || "Failed to add product");
 
       showToast("success", t("productAddedSuccessfully"));
 
-      // Reset form after success
+      // Reset form
       setFormData({
         productName: "",
         category: "",
@@ -200,7 +204,7 @@ const AddProduct = () => {
                   type="file"
                   id="productImage"
                   accept="image/*"
-                  onChange={handleImageUpload}
+                  onChange={handleImageUpload} // ✅ base64 handler
                   required
                 />
               </div>

@@ -1,6 +1,6 @@
 import FarmerProduct from "../models/farmerProduct.model.js";
 
-// ✅ Add product
+// ✅ Add product (base64 image)
 export const addProduct = async (req, res) => {
   try {
     const {
@@ -11,10 +11,11 @@ export const addProduct = async (req, res) => {
       description,
       quantity,
       unit,
+      image, // base64 string
     } = req.body;
 
-    if (!req.file) {
-      return res.status(400).json({ message: "Image upload failed" });
+    if (!image) {
+      return res.status(400).json({ message: "Image is required" });
     }
 
     const newProduct = new FarmerProduct({
@@ -25,7 +26,7 @@ export const addProduct = async (req, res) => {
       description,
       quantity,
       unit,
-      image: `/uploads/${req.file.filename}`, // ✅ matches schema
+      image, // store base64 directly
     });
 
     await newProduct.save();
@@ -63,11 +64,8 @@ export const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await FarmerProduct.findByIdAndDelete(id);
-    
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    
+    if (!product) return res.status(404).json({ message: "Product not found" });
+
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error);

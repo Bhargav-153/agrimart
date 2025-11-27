@@ -20,10 +20,11 @@ const CropProtection = () => {
 
   // ✅ Fetch crop protection products from backend
   const { data, loading, error } = useFetch(
-    `${API_BASE_URL}/crop-protection/all`,
-    { method: "GET", credentials: "include" },
-    []
-  );
+  `${API_BASE_URL}/crop-protection/all`,
+  { method: "GET", credentials: "include" },
+  []
+);
+
 
   // Handle Add to Cart
   const handleAddToCart = async (product) => {

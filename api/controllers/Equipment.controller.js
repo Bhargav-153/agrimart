@@ -1,16 +1,12 @@
 import Equipment from "../models/equipment.model.js";
 import { handleError } from "../helpers/handleError.js";
 
-// ✅ Add Equipment
+// ✅ Add Equipment (without image upload)
 export const addEquipment = async (req, res, next) => {
   try {
-    const { name, description, price, category, tag, rating, reviews } = req.body;
-
-    if (!req.file) {
-      return res.status(400).json({ message: "Equipment image is required" });
-    }
-
-    const imagePath = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+    const { name, description, price, category, tag, rating, reviews, image } = req.body;
+    
+    if (!image) return res.status(400).json({ message: "Product image is required" });
 
     const newEquipment = new Equipment({
       name,
@@ -20,7 +16,7 @@ export const addEquipment = async (req, res, next) => {
       tag,
       rating,
       reviews,
-      image: imagePath,
+      image,
     });
 
     await newEquipment.save();
@@ -30,13 +26,14 @@ export const addEquipment = async (req, res, next) => {
   }
 };
 
+
 // ✅ Get All Equipment
 export const getAllEquipment = async (req, res, next) => {
   try {
     const equipments = await Equipment.find().sort({ createdAt: -1 });
     res.status(200).json({ equipments });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(handleError(500, error.message));
   }
 };
 
@@ -53,22 +50,14 @@ export const getEquipmentById = async (req, res, next) => {
   }
 };
 
-// ✅ Update Equipment
+// ✅ Update Equipment (without image upload)
 export const updateEquipment = async (req, res, next) => {
   try {
     const { id } = req.params;
-    let imagePath;
-
-    if (req.file) {
-      imagePath = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
-    }
 
     const updatedEquipment = await Equipment.findByIdAndUpdate(
       id,
-      {
-        ...req.body,
-        ...(imagePath && { image: imagePath }),
-      },
+      { ...req.body },
       { new: true }
     );
 

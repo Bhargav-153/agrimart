@@ -25,38 +25,39 @@ import SchemaRoute from "./routes/Schema.route.js";
 import notificationRoutes from "./routes/notification.route.js";
 import faqRoutes from "./routes/faq.route.js";
 import supportRoutes from "./routes/support.route.js";
-
-
+import paymentRoute from "./routes/Razorpay.route.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-// ✅ Create uploads folder if missing
 const dir = "./uploads";
-if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir);
-}
+if (!fs.existsSync(dir)) fs.mkdirSync(dir);
 
-// Needed for serving static images
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));
 
-app.use(cookieParser());
-app.use(express.json());
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: "http://localhost:5173",
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
     credentials: true,
   })
 );
 
-// ✅ Routes
+
+app.use(express.json({ limit: "25mb" }));
+app.use(express.urlencoded({ extended: true, limit: "25mb" }));
+
+app.use(cookieParser());
+
+
 app.use("/api/auth", AuthRoute);
 app.use("/api/user", UserRoute);
 app.use("/api/nursery", NurseryRoute);
 app.use("/api/schemes", SchemaRoute);
-
 app.use("/api/farmers", FarmerRoute);
 app.use("/api/farmerProducts", farmerProductRoutes);
 app.use("/api/seeds", seedRoutes);
@@ -69,13 +70,9 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/faqs", faqRoutes);
 app.use("/api/support", supportRoutes);
-
-import paymentRoute from "./routes/Razorpay.route.js";
 app.use("/api/payment", paymentRoute);
 
 
-
-// ✅ DB + server
 mongoose
   .connect(process.env.MONGODB_CONN, { dbName: "agrimart" })
   .then(() => console.log("Database connected"))
@@ -85,7 +82,6 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-// ✅ Error middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";

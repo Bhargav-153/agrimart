@@ -102,7 +102,7 @@ const CropNutrition = () => {
               <img
                 src={product.image}
                 alt={translatedName}
-                className={styles.image}
+                className={styles.productImage}
               />
               <h3 className={styles.name}>{translatedName}</h3>
               <p className={styles.description}>{translatedDesc}</p>
@@ -123,8 +123,16 @@ const CropNutrition = () => {
                 ₹{product.price}
               </span>
             </p>
-            <button className={styles.button} onClick={() => handleAddToCart(product)}>{t("addToCart")}</button>
-            <button className={styles.buy} onClick={() => handleBuyNow(product)}>{t("buyNow")}</button>
+            <div className={styles.buttonGroup}>
+              <button className={styles.addToCart} onClick={() => handleAddToCart(product)}>
+                {t("addToCart")}
+              </button>
+
+              <button className={styles.buy} onClick={() => handleBuyNow(product)}>
+                {t("buyNow")}
+              </button>
+            </div>
+
           </div>
           );
         })}

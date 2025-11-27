@@ -13,6 +13,7 @@
   "contactUs": "સંપર્ક કરો",
   "selectLanguage": "ભાષા પસંદ કરો",
   "chooseLanguage": "ઇન્ટરફેસ માટે તમારી પસંદગીની ભાષા પસંદ કરો",
+  "languageMultiDesc": "દરેક પેજ પર અંગ્રેજી, હિન્દી અને ગુજરાતી સાથે બતાવો.",
   "languageEnglishDesc": "ઇંગ્લિશ લેબલ અને માર્ગદર્શન સાથે ઇન્ટરફેસ વાપરો.",
   "languageHindiDesc": "હિન્દીમાં આખું ઍપ આરામથી અનુભવો.",
   "languageGujaratiDesc": "તમારી પોતાની ગુજરાતી ભાષામાં બધું નેવિગેટ કરો.",
@@ -187,4 +188,5 @@
   "termsAndConditions": "નિયમો અને શરતો",
   "categories": "શ્રેણીઓ",
   "allRightsReserved": "બધા અધિકારો સુરક્ષિત."
+  
 }

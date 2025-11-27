@@ -1,16 +1,12 @@
 import CropProtection from "../models/cropprotection.model.js";
 import { handleError } from "../helpers/handleError.js";
 
-// ✅ Add Crop Protection Product
+// Add Crop Protection
 export const addCropProtection = async (req, res, next) => {
   try {
-    const { name, description, price, category, tag, rating, reviews } = req.body;
+    const { name, description, price, category, tag, rating, reviews, image } = req.body;
 
-    if (!req.file) {
-      return res.status(400).json({ message: "Product image is required" });
-    }
-
-    const imagePath = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+    if (!image) return res.status(400).json({ message: "Product image is required" });
 
     const newProduct = new CropProtection({
       name,
@@ -20,7 +16,7 @@ export const addCropProtection = async (req, res, next) => {
       tag,
       rating,
       reviews,
-      image: imagePath,
+      image, // store base64 string
     });
 
     await newProduct.save();
@@ -30,7 +26,7 @@ export const addCropProtection = async (req, res, next) => {
   }
 };
 
-// ✅ Get All Crop Protection Products
+// Get All
 export const getAllCropProtection = async (req, res, next) => {
   try {
     const products = await CropProtection.find().sort({ createdAt: -1 });
@@ -40,53 +36,40 @@ export const getAllCropProtection = async (req, res, next) => {
   }
 };
 
-// ✅ Get Single Product by ID
+// Get by ID
 export const getCropProtectionById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await CropProtection.findById(id);
     if (!product) return res.status(404).json({ message: "Product not found" });
-
     res.status(200).json(product);
   } catch (error) {
     next(handleError(500, error.message));
   }
 };
 
-// ✅ Update Product
+// Update
 export const updateCropProtection = async (req, res, next) => {
   try {
     const { id } = req.params;
-    let imagePath;
-
-    if (req.file) {
-      imagePath = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
-    }
-
     const updatedProduct = await CropProtection.findByIdAndUpdate(
       id,
-      {
-        ...req.body,
-        ...(imagePath && { image: imagePath }),
-      },
+      { ...req.body }, // image will come in req.body if updated
       { new: true }
     );
-
     if (!updatedProduct) return res.status(404).json({ message: "Product not found" });
-
     res.status(200).json({ message: "Product updated successfully", product: updatedProduct });
   } catch (error) {
     next(handleError(500, error.message));
   }
 };
 
-// ✅ Delete Product
+// Delete
 export const deleteCropProtection = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await CropProtection.findByIdAndDelete(id);
     if (!product) return res.status(404).json({ message: "Product not found" });
-
     res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
     next(handleError(500, error.message));

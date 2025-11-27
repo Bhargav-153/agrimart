@@ -63,40 +63,45 @@ const AddCropNutrition = () => {
     },
   });
 
-  // ✅ Submit new crop nutrition product
-  async function onSubmit(values) {
-    try {
-      const formData = new FormData();
+ // Convert file to Base64
+const getBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
 
-      formData.append("name", values.name);
-      formData.append("description", values.description);
-      formData.append("price", values.price);
-      formData.append("tag", values.tag || "");
-      formData.append("rating", values.rating);
-      formData.append("reviews", values.reviews);
+async function onSubmit(values) {
+  try {
+    if (!file) return showToast("error", "Product image is required");
+    const base64Image = await getBase64(file);
 
-      if (!file) return showToast("error", "Product image is required");
-      formData.append("image", file);
+    const payload = {
+      ...values,
+      image: base64Image, // send image as Base64 string
+    };
 
-      const response = await fetch(`${API_BASE_URL}/crop-nutrition/add`, {
-        method: "POST",
-        body: formData,
-      });
+    const response = await fetch(`${API_BASE_URL}/crop-nutrition/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-      const data = await response.json();
-      if (!response.ok) {
-        return showToast("error", data.message);
-      }
+    const data = await response.json();
+    if (!response.ok) return showToast("error", data.message);
 
-      showToast("success", "Crop Nutrition added successfully");
-      form.reset();
-      setFile(null);
-      setPreview(null);
-      setRefreshData(!refreshData);
-    } catch (error) {
-      showToast("error", error.message);
-    }
+    showToast("success", "Crop Nutrition added successfully");
+    form.reset();
+    setFile(null);
+    setPreview(null);
+    setRefreshData(!refreshData);
+  } catch (error) {
+    showToast("error", error.message);
   }
+}
+
 
   // ✅ File handling
   const handleFileSelection = (files) => {
@@ -107,11 +112,8 @@ const AddCropNutrition = () => {
   };
 
   // ✅ Fetch all crop nutrition products
-  const { data: cropData } = useFetch(
-    `${API_BASE_URL}/crop-nutrition/all`,
-    { method: "GET", credentials: "include" },
-    [refreshData]
-  );
+    const { data: cropData } = useFetch(`${API_BASE_URL}/crop-nutrition/all`, {}, [refreshData]);
+
 
   // ✅ Delete product
   const handleDelete = async (id) => {
