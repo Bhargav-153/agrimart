@@ -1,0 +1,147 @@
+.accountSettings {
+  /* margin: 0 auto; */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 32px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.heading {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #22223b;
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.fieldRow {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 10px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f9fafb;
+  transition: border 0.2s;
+  width: 100%;
+}
+
+.input:focus {
+  border: 1.5px solid #15803d;
+  outline: none;
+  background: #fff;
+}
+
+.saveBtn {
+  background: #15803d;
+  color: #fff;
+  padding: 10px 0;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.18s;
+}
+
+.saveBtn:hover {
+  background: #166534;
+}
+
+.success {
+  color: #15803d;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+/* ============================
+   📱 Mobile View (max-width: 600px)
+   ============================ */
+@media (max-width: 600px) {
+  .accountSettings {
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 10px;
+  }
+
+  .heading {
+    font-size: 1rem;
+  }
+
+  .avatarWrapper {
+    margin-bottom: 15px;
+  }
+
+  .form {
+    gap: 12px;
+  }
+
+  .fieldRow {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .saveBtn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .success {
+    text-align: center;
+  }
+}
+
+/* ============================
+   📝 Tablet View (601px – 992px)
+   ============================ */
+@media (min-width: 601px) and (max-width: 992px) {
+  .accountSettings {
+    padding: 28px;
+    max-width: 85%;
+    margin: 0 auto;
+  } 
+
+  .heading {
+    font-size: 1.1rem;
+  }
+
+  .form {
+    gap: 14px;
+  }
+
+  .fieldRow {
+    gap: 14px;
+  }
+
+  .input {
+    font-size: 1.2rem;
+  }
+
+  .saveBtn {
+    padding: 12px;
+    font-size: 1.05rem;
+  }
+}
+

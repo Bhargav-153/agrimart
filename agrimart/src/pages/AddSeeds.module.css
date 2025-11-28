@@ -1,0 +1,226 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f4f4f4;
+  margin-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+.card {
+  width: 760px;
+  padding-top: 5rem;
+  margin-top: 4rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.tableContainer {
+  max-width: 750px;
+  margin: 2rem auto 3rem auto;
+  padding: 2.2rem 2.1rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #111827;
+  font-size: 2em;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.titleAll {
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 30px;
+  text-decoration: underline;
+  color: #111827;
+  font-size: 1.9em;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+
+/* Form elements */
+.formGroup {
+  margin-bottom: 15px;
+  font-size: 1em;
+}
+
+.label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 15px;
+  color: #374151;
+  font-size: 0.95em;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 1em;
+  background: #f9fafb;
+  transition: 0.2s;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+th,td{
+  font-size: 1.2rem;
+}
+
+/* Buttons */
+.submitSection {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.submitButton {
+  width: 100%;
+  background: #4caf50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  border: none;
+}
+
+.submitButton:hover {
+  background-color: rgb(56, 123, 74);
+}
+
+
+/* Table scroll (mobile) */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tableWrapper table {
+  width: 800px;
+}
+
+/* =============================
+   📱 MOBILE (0 – 640px)
+============================= */
+@media (max-width: 640px) {
+  .container {
+   margin-top: 3rem;
+   margin-bottom: 0;
+   padding: 1rem 0.8rem;
+   width: 100%;
+  }
+
+  .card {
+    width: 100%;
+    margin-top: 2rem;
+    padding: 1.2rem;
+  }
+
+  .title,
+  .titleAll {
+    font-size: 1.4em;
+  }
+
+  /* Form spacing */
+  .formGroup {
+    margin-bottom: 12px;
+  }
+
+  .input,
+  .textarea,
+  select {
+    padding: 8px 12px;
+    font-size: 0.9em;
+  }
+
+  /* Submit button */
+  .submitButton {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  /* Table responsive scroll */
+  .tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .tableWrapper table,
+  table {
+    width: 900px; /* Forces scroll but keeps table readable */
+  }
+
+  td,
+  th {
+    padding: 6px;
+    font-size: 1.3em;
+  }
+}
+
+/* =============================
+   📱 TABLET (641px – 992px)
+============================= */
+@media (min-width: 641px) and (max-width: 992px) {
+  .container {
+    padding: 2rem 1rem;
+    width: 100%;
+  }
+
+  .card {
+    width: 85%;
+    margin-top: 3rem;
+    padding: 2rem;
+  }
+
+  .title,
+  .titleAll {
+    font-size: 1.7em;
+  }
+
+  .input,
+  .textarea,
+  select {
+    padding: 10px 14px;
+    font-size: 1em;
+  }
+
+  /* Table adjustments */
+  .tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .tableWrapper table,
+  table {
+    width: 1000px;
+  }
+
+  td,
+  th {
+    padding: 10px;
+    font-size: 1.3em;
+  }
+}

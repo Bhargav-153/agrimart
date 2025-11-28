@@ -1,0 +1,147 @@
+.farmContainer {
+  padding: 20px;
+  background: #f9f9f9;
+  margin-top: 5rem;
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+
+.productsGrid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 10px 0;
+}
+
+.productCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: .25s ease;
+}
+
+.productCard:hover {
+  transform: translateY(-4px);
+}
+
+.productImage {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: contain;
+  background: #f3f3f3;
+  border-radius: 10px;
+}
+
+.productName {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.productPrice {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.productQuantity {
+  font-size: .9rem;
+  color: #555;
+}
+
+.farmerInfo {
+  background: #eef7e1;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: .9rem;
+}
+
+.farmerInfo p {
+  margin: 4px 0;
+}
+
+.addToCart,
+.buy {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  margin-top: 6px;
+}
+
+.addToCart {
+  background: #28a745;
+  color: #fff;
+}
+
+.addToCart:hover {
+  background: #1f7b35;
+}
+
+.buy {
+  background: #ecc155;
+  color: #fff;
+}
+
+.buy:hover {
+  background: #b7943d;
+}
+.buttonRow {
+  display: flex;
+  gap: 30px;
+  margin: 8px;
+}
+
+.buttonRow button {
+  flex: 1;
+}
+
+
+/* Phones */
+@media (max-width: 600px) {
+  .productsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .productCard {
+    padding: 14px;
+  }
+
+  .productImage {
+    aspect-ratio: 4/3;
+    max-height: 220px;
+  }
+ 
+  
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 992px) {
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .productImage {
+    aspect-ratio: 4/3;
+    max-height: 240px;
+  }
+}
+
+/* Medium Desktop */
+@media (min-width: 993px) and (max-width: 1400px) {
+  .productsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

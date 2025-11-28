@@ -1,0 +1,67 @@
+.pageWrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px;
+  color: #333;
+  line-height: 1.7;
+  font-family: sans-serif;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding-top: 48px;
+margin-top: 80px;
+}
+
+/* Page Header */
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.lastUpdated {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+/* Section Headings */
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 32px 0 12px 0;
+}
+
+/* Paragraphs */
+.text {
+  margin-bottom: 14px;
+}
+
+/* List Items */
+.list {
+  margin-left: 20px;
+  margin-bottom: 12px;
+}
+
+.list li {
+  margin-bottom: 6px;
+}
+
+/* Footer / Thank You */
+.footerNote {
+  margin-top: 40px;
+  font-weight: 500;
+  color: #2e7d32;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pageWrapper {
+    padding: 20px;
+  }
+  .title {
+    font-size: 26px;
+  }
+  .sectionTitle {
+    font-size: 18px;
+  }
+}

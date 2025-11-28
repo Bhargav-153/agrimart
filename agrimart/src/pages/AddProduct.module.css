@@ -1,0 +1,204 @@
+.mainContent {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  margin-top: 5rem;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.formTitle {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.formSection {
+  margin-bottom: 1.5rem;
+}
+
+.formSection h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  border-bottom: 2px solid #27ae60;
+  padding-bottom: 0.4rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #34495e;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #27ae60;
+  outline: none;
+}
+
+.formRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.formRow .formGroup {
+  flex: 1;
+}
+
+.imageUploadContainer {
+  width: 100%;
+  border: 2px dashed #27ae60;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  cursor: pointer;
+}
+
+.imagePreview {
+  width: 100%;
+  max-height: 220px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.imagePreview img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.uploadPlaceholder {
+  display: flex;
+  flex-direction: column;
+  font-size: .9rem;
+  opacity: .8;
+}
+
+.formActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.submitBtn,
+.resetBtn {
+  flex: 1;
+  padding: 0.9rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitBtn {
+  background: #27ae60;
+  color: #fff;
+}
+
+.resetBtn {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.submitBtn:hover {
+  background: #219150;
+}
+
+.resetBtn:hover {
+  background: #c0392b;
+}
+
+
+/* =================== MOBILE =================== */
+@media (max-width: 600px) {
+
+  .mainContent {
+    padding: 1rem;
+  }
+
+  .formContainer {
+    padding: 1.2rem;
+  }
+
+  .formTitle {
+    font-size: 1.4rem;
+  }
+
+  .formRow {
+    flex-direction: column;
+    gap: .6rem;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: .95rem;
+    padding: .7rem;
+  }
+
+  .imagePreview img {
+    max-height: 180px;
+  }
+
+  .formActions {
+    flex-direction: column;
+  }
+
+  .submitBtn,
+  .resetBtn {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+
+/* =================== TABLET =================== */
+@media (min-width: 601px) and (max-width: 992px) {
+
+  .formContainer {
+    max-width: 650px;
+  }
+
+  .formRow {
+    gap: .8rem;
+  }
+
+  .formTitle {
+    font-size: 1.6rem;
+  }
+
+  .imagePreview img {
+    max-height: 210px;
+  }
+
+  input, select, textarea {
+    font-size: .98rem;
+  }
+}

@@ -1,0 +1,230 @@
+
+.mainContent {
+    padding: 20px;
+    background-color: #f9f9f9;
+    width: 100%;
+    margin-top: 5rem;
+  }
+
+  .addSeedsWrapper {
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  margin: 20px 0; /* space above & below */
+}
+
+.addToCart {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .buy {
+    background: #ecc155;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+  }
+.addToCart:hover {
+  background-color: rgb(56, 123, 74);
+}
+.buy:hover {
+  background-color: #b7943d;
+}
+  
+  .shopContainer {
+    width: 100%;  /* Make it full width */
+    max-width: 100%; /* Ensure it doesn’t shrink */
+    margin: 0; /* Remove auto margin */
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.shopContainer h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+  
+  .shopHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .shopFilters {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .categoryFilter {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .filterBtn {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .filterBtn:hover {
+    background: #218838;
+  }
+  
+  .sortSelect {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .productsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Ensures exactly 4 columns */
+    gap: 20px;
+  }
+  
+  
+  .productCard {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+  }
+  .productImage img {
+    width: 300px;  
+    height: 200px; 
+    object-fit: cover; 
+    border-radius: 10px; 
+  }
+  
+  .productImage img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  
+  .productTags {
+    margin-top: 10px;
+  }
+  
+  .tag {
+    background: #ff9800;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .productInfo h3 {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  .productDescription {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .productMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .productRating {
+    color: #fbc02d;
+  }
+  
+  .productPrice {
+    font-weight: bold;
+    color: #333;
+  }
+
+
+.addSeedsBtn {
+  display: inline-block;
+  text-align: center;
+  padding: 7px 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  background-color: #31a137ff;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  color: #fff;
+  width: 180px;
+  font-size: 20px;
+}
+
+.addSeedsBtn:hover{
+  background-color: rgb(39, 130, 43);
+}
+  
+/* ============================
+   📱 Mobile View (max-width: 600px)
+   -> Show 1 product per row
+   ============================ */
+@media (max-width: 600px) {
+  .productsGrid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+  }
+
+  .productImage img {
+    width: 100%;
+    height: 180px;
+  }
+
+  .buy {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .addToCart {
+    width: 100%;
+  }
+}
+
+/* ============================
+   📝 Tablet View (601px – 992px)
+   -> Show 2 products per row
+   ============================ */
+@media (min-width: 601px) and (max-width: 992px) {
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .productImage img {
+    width: 100%;
+    height: 200px;
+  }
+
+  .buy {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .addToCart {
+    width: 100%;
+  }
+}
